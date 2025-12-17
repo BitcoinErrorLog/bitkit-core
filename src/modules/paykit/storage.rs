@@ -347,5 +347,5 @@ impl PaykitStorage for BitkitPaykitStorage {
 // Helper function for PublicKey parsing
 fn parse_public_key(s: &str) -> Result<PublicKey, String> {
     use std::str::FromStr;
-    parse_public_key(s).map_err(|e| format!("{}", e))
+    PublicKey::from_str(s).map_err(|e| format!("{}", e))
 }
