@@ -153,19 +153,11 @@ mod tests {
     use paykit_lib::{MethodId, PublicKey};
     use serde_json::json;
 
-    fn test_pubkey(s: &str) -> PublicKey {
-        #[cfg(feature = "pubky")]
-        {
-            use std::str::FromStr;
-            let valid_key = "8".repeat(52);
-            PublicKey::from_str(&valid_key)
-                .unwrap_or_else(|_| PublicKey::from_str(s).expect("Invalid test key"))
-        }
-
-        #[cfg(not(feature = "pubky"))]
-        {
-            PublicKey(s.to_string())
-        }
+    fn test_pubkey(_s: &str) -> PublicKey {
+        use std::str::FromStr;
+        // Use a valid z-base32 pubkey for testing
+        let valid_key = "8".repeat(52);
+        PublicKey::from_str(&valid_key).expect("Invalid test key")
     }
 
     #[tokio::test]

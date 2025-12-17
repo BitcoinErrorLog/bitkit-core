@@ -117,6 +117,11 @@ fn handle_decode_result(result: Result<Scanner, DecodingError>) {
             println!("Amount: {} sats", amount);
         }
 
+        Ok(Scanner::PubkyPayment { data }) => {
+            println!("\nSuccessfully decoded Pubky Payment:");
+            println!("Pubkey: {}", data.pubkey);
+        }
+
         Err(e) => {
             println!("Error decoding invoice: {:?}", e);
         }

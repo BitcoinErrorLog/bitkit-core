@@ -75,7 +75,7 @@ mod rotation_tests {
             value: 1000,
             status: PaymentState::Succeeded, // Paid!
             fee: Some(1),
-            message: Some("Test payment".to_string()),
+            message: "Test payment".to_string(),
             preimage: Some("preimage123".to_string()),
         };
 
