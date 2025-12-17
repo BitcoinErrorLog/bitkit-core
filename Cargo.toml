@@ -1,0 +1,64 @@
+[package]
+name = "bitkitcore"
+version = "0.1.27"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "staticlib", "rlib"]
+name = "bitkitcore"
+path = "src/lib.rs"
+
+[dependencies]
+uniffi = { version = "0.29.4", features = [ "cli", "bindgen" ] }
+serde_json = "1.0.114"
+serde = { version = "^1.0.209", features = ["derive"] }
+tokio = { version = "1.40.0", features = ["rt", "rt-multi-thread", "macros"] }
+bitcoin = "0.32.4"
+chrono = "0.4"
+lightning-invoice = { version = "0.32.0", features = ["std"] }
+thiserror = "2.0.11"
+url = "2.5.2"
+regex = "1.11.1"
+async-trait = "0.1.83"
+lazy-regex = "3.3.0"
+lnurl-rs = "0.9.0"
+openssl = { version = "0.10", features = ["vendored"] }
+rand = "0.8.5"
+once_cell = "1.20.2"
+rusqlite = { version = "0.32.1", features = ["bundled", "unlock_notify"] }
+rust-blocktank-client = { version = "0.0.16", features = ["rustls-tls"] }
+reqwest = { version = "0.12.12", features = ["json", "rustls-tls", "rustls-tls-native-roots"], default-features = false }
+r2d2 = "0.8.10"
+r2d2_sqlite = "0.25.0"
+bitcoin-address-generator = "0.2.0"
+uuid = { version = "1.16.0", features = ["v4"] }
+hex = "0.4.3"
+bip39 = "2.0"
+paykit-lib = { path = "../paykit-rs-master/paykit-lib", features = ["pubky"] }
+paykit-interactive = { path = "../paykit-rs-master/paykit-interactive" }
+pubky-noise = { path = "../pubky-noise-main", features = ["pubky-sdk"] }
+pubky = { path = "../pubky-core-main/pubky-sdk", features = ["uniffi_macros"] }
+
+[dev-dependencies]
+tokio = { version = "1.40.0", features = ["full"] }
+serde_json = "1.0.114"
+hex = "0.4.3"
+test-case = "3.3.1"
+tempfile = "3.2"
+serial_test = "3.2.0"
+rust_decimal = "1.30"
+
+[target.armv7-linux-androideabi]
+rustflags = [
+    "-C", "link-arg=-Wl,--allow-multiple-definition",
+]
+
+[target.aarch64-linux-android]
+rustflags = [
+    "-C", "link-arg=-Wl,--allow-multiple-definition",
+]
+
+
+[[bin]]
+name = "example"
+path = "example/main.rs"
