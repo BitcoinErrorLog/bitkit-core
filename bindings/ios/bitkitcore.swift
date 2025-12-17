@@ -6108,10 +6108,11 @@ public struct LightningActivity {
     public var preimage: String?
     public var createdAt: UInt64?
     public var updatedAt: UInt64?
+    public var seenAt: UInt64?
 
     // Default memberwise initializers are never public by default, so we
     // declare one manually.
-    public init(id: String, txType: PaymentType, status: PaymentState, value: UInt64, fee: UInt64?, invoice: String, message: String, timestamp: UInt64, preimage: String?, createdAt: UInt64?, updatedAt: UInt64?) {
+    public init(id: String, txType: PaymentType, status: PaymentState, value: UInt64, fee: UInt64?, invoice: String, message: String, timestamp: UInt64, preimage: String?, createdAt: UInt64?, updatedAt: UInt64?, seenAt: UInt64?) {
         self.id = id
         self.txType = txType
         self.status = status
@@ -6123,6 +6124,7 @@ public struct LightningActivity {
         self.preimage = preimage
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.seenAt = seenAt
     }
 }
 
@@ -6166,6 +6168,9 @@ extension LightningActivity: Equatable, Hashable {
         if lhs.updatedAt != rhs.updatedAt {
             return false
         }
+        if lhs.seenAt != rhs.seenAt {
+            return false
+        }
         return true
     }
 
@@ -6181,6 +6186,7 @@ extension LightningActivity: Equatable, Hashable {
         hasher.combine(preimage)
         hasher.combine(createdAt)
         hasher.combine(updatedAt)
+        hasher.combine(seenAt)
     }
 }
 
@@ -6205,7 +6211,8 @@ public struct FfiConverterTypeLightningActivity: FfiConverterRustBuffer {
                 timestamp: FfiConverterUInt64.read(from: &buf), 
                 preimage: FfiConverterOptionString.read(from: &buf), 
                 createdAt: FfiConverterOptionUInt64.read(from: &buf), 
-                updatedAt: FfiConverterOptionUInt64.read(from: &buf)
+                updatedAt: FfiConverterOptionUInt64.read(from: &buf), 
+                seenAt: FfiConverterOptionUInt64.read(from: &buf)
         )
     }
 
@@ -6221,6 +6228,7 @@ public struct FfiConverterTypeLightningActivity: FfiConverterRustBuffer {
         FfiConverterOptionString.write(value.preimage, into: &buf)
         FfiConverterOptionUInt64.write(value.createdAt, into: &buf)
         FfiConverterOptionUInt64.write(value.updatedAt, into: &buf)
+        FfiConverterOptionUInt64.write(value.seenAt, into: &buf)
     }
 }
 
@@ -7187,10 +7195,11 @@ public struct OnchainActivity {
     public var transferTxId: String?
     public var createdAt: UInt64?
     public var updatedAt: UInt64?
+    public var seenAt: UInt64?
 
     // Default memberwise initializers are never public by default, so we
     // declare one manually.
-    public init(id: String, txType: PaymentType, txId: String, value: UInt64, fee: UInt64, feeRate: UInt64, address: String, confirmed: Bool, timestamp: UInt64, isBoosted: Bool, boostTxIds: [String], isTransfer: Bool, doesExist: Bool, confirmTimestamp: UInt64?, channelId: String?, transferTxId: String?, createdAt: UInt64?, updatedAt: UInt64?) {
+    public init(id: String, txType: PaymentType, txId: String, value: UInt64, fee: UInt64, feeRate: UInt64, address: String, confirmed: Bool, timestamp: UInt64, isBoosted: Bool, boostTxIds: [String], isTransfer: Bool, doesExist: Bool, confirmTimestamp: UInt64?, channelId: String?, transferTxId: String?, createdAt: UInt64?, updatedAt: UInt64?, seenAt: UInt64?) {
         self.id = id
         self.txType = txType
         self.txId = txId
@@ -7209,6 +7218,7 @@ public struct OnchainActivity {
         self.transferTxId = transferTxId
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.seenAt = seenAt
     }
 }
 
@@ -7273,6 +7283,9 @@ extension OnchainActivity: Equatable, Hashable {
         if lhs.updatedAt != rhs.updatedAt {
             return false
         }
+        if lhs.seenAt != rhs.seenAt {
+            return false
+        }
         return true
     }
 
@@ -7295,6 +7308,7 @@ extension OnchainActivity: Equatable, Hashable {
         hasher.combine(transferTxId)
         hasher.combine(createdAt)
         hasher.combine(updatedAt)
+        hasher.combine(seenAt)
     }
 }
 
@@ -7326,7 +7340,8 @@ public struct FfiConverterTypeOnchainActivity: FfiConverterRustBuffer {
                 channelId: FfiConverterOptionString.read(from: &buf), 
                 transferTxId: FfiConverterOptionString.read(from: &buf), 
                 createdAt: FfiConverterOptionUInt64.read(from: &buf), 
-                updatedAt: FfiConverterOptionUInt64.read(from: &buf)
+                updatedAt: FfiConverterOptionUInt64.read(from: &buf), 
+                seenAt: FfiConverterOptionUInt64.read(from: &buf)
         )
     }
 
@@ -7349,6 +7364,7 @@ public struct FfiConverterTypeOnchainActivity: FfiConverterRustBuffer {
         FfiConverterOptionString.write(value.transferTxId, into: &buf)
         FfiConverterOptionUInt64.write(value.createdAt, into: &buf)
         FfiConverterOptionUInt64.write(value.updatedAt, into: &buf)
+        FfiConverterOptionUInt64.write(value.seenAt, into: &buf)
     }
 }
 
@@ -9845,10 +9861,6 @@ public struct TransactionDetails {
      * Outputs
      */
     public var outputs: [TxOutput]
-    /**
-     * Timestamp of when this was stored
-     */
-    public var storedAt: UInt64
 
     // Default memberwise initializers are never public by default, so we
     // declare one manually.
@@ -9864,15 +9876,11 @@ public struct TransactionDetails {
          */inputs: [TxInput], 
         /**
          * Outputs
-         */outputs: [TxOutput], 
-        /**
-         * Timestamp of when this was stored
-         */storedAt: UInt64) {
+         */outputs: [TxOutput]) {
         self.txId = txId
         self.amountSats = amountSats
         self.inputs = inputs
         self.outputs = outputs
-        self.storedAt = storedAt
     }
 }
 
@@ -9895,9 +9903,6 @@ extension TransactionDetails: Equatable, Hashable {
         if lhs.outputs != rhs.outputs {
             return false
         }
-        if lhs.storedAt != rhs.storedAt {
-            return false
-        }
         return true
     }
 
@@ -9906,7 +9911,6 @@ extension TransactionDetails: Equatable, Hashable {
         hasher.combine(amountSats)
         hasher.combine(inputs)
         hasher.combine(outputs)
-        hasher.combine(storedAt)
     }
 }
 
@@ -9924,8 +9928,7 @@ public struct FfiConverterTypeTransactionDetails: FfiConverterRustBuffer {
                 txId: FfiConverterString.read(from: &buf), 
                 amountSats: FfiConverterInt64.read(from: &buf), 
                 inputs: FfiConverterSequenceTypeTxInput.read(from: &buf), 
-                outputs: FfiConverterSequenceTypeTxOutput.read(from: &buf), 
-                storedAt: FfiConverterUInt64.read(from: &buf)
+                outputs: FfiConverterSequenceTypeTxOutput.read(from: &buf)
         )
     }
 
@@ -9934,7 +9937,6 @@ public struct FfiConverterTypeTransactionDetails: FfiConverterRustBuffer {
         FfiConverterInt64.write(value.amountSats, into: &buf)
         FfiConverterSequenceTypeTxInput.write(value.inputs, into: &buf)
         FfiConverterSequenceTypeTxOutput.write(value.outputs, into: &buf)
-        FfiConverterUInt64.write(value.storedAt, into: &buf)
     }
 }
 
@@ -10096,13 +10098,17 @@ public struct TxInput {
      */
     public var vout: UInt32
     /**
-     * Address that was spent (if known)
+     * Script signature
      */
-    public var address: String?
+    public var scriptsig: String
     /**
-     * Value in satoshis (if known)
+     * Witness data
      */
-    public var value: UInt64?
+    public var witness: [String]
+    /**
+     * Sequence number
+     */
+    public var sequence: UInt32
 
     // Default memberwise initializers are never public by default, so we
     // declare one manually.
@@ -10114,15 +10120,19 @@ public struct TxInput {
          * Output index in the previous transaction
          */vout: UInt32, 
         /**
-         * Address that was spent (if known)
-         */address: String?, 
+         * Script signature
+         */scriptsig: String, 
         /**
-         * Value in satoshis (if known)
-         */value: UInt64?) {
+         * Witness data
+         */witness: [String], 
+        /**
+         * Sequence number
+         */sequence: UInt32) {
         self.txid = txid
         self.vout = vout
-        self.address = address
-        self.value = value
+        self.scriptsig = scriptsig
+        self.witness = witness
+        self.sequence = sequence
     }
 }
 
@@ -10139,10 +10149,13 @@ extension TxInput: Equatable, Hashable {
         if lhs.vout != rhs.vout {
             return false
         }
-        if lhs.address != rhs.address {
+        if lhs.scriptsig != rhs.scriptsig {
             return false
         }
-        if lhs.value != rhs.value {
+        if lhs.witness != rhs.witness {
+            return false
+        }
+        if lhs.sequence != rhs.sequence {
             return false
         }
         return true
@@ -10151,8 +10164,9 @@ extension TxInput: Equatable, Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(txid)
         hasher.combine(vout)
-        hasher.combine(address)
-        hasher.combine(value)
+        hasher.combine(scriptsig)
+        hasher.combine(witness)
+        hasher.combine(sequence)
     }
 }
 
@@ -10169,16 +10183,18 @@ public struct FfiConverterTypeTxInput: FfiConverterRustBuffer {
             try TxInput(
                 txid: FfiConverterString.read(from: &buf), 
                 vout: FfiConverterUInt32.read(from: &buf), 
-                address: FfiConverterOptionString.read(from: &buf), 
-                value: FfiConverterOptionUInt64.read(from: &buf)
+                scriptsig: FfiConverterString.read(from: &buf), 
+                witness: FfiConverterSequenceString.read(from: &buf), 
+                sequence: FfiConverterUInt32.read(from: &buf)
         )
     }
 
     public static func write(_ value: TxInput, into buf: inout [UInt8]) {
         FfiConverterString.write(value.txid, into: &buf)
         FfiConverterUInt32.write(value.vout, into: &buf)
-        FfiConverterOptionString.write(value.address, into: &buf)
-        FfiConverterOptionUInt64.write(value.value, into: &buf)
+        FfiConverterString.write(value.scriptsig, into: &buf)
+        FfiConverterSequenceString.write(value.witness, into: &buf)
+        FfiConverterUInt32.write(value.sequence, into: &buf)
     }
 }
 
@@ -10472,13 +10488,13 @@ public func FfiConverterTypeTxInputType_lower(_ value: TxInputType) -> RustBuffe
  */
 public struct TxOutput {
     /**
-     * Output index in this transaction
-     */
-    public var vout: UInt32
-    /**
      * Scriptpubkey as hex
      */
     public var scriptpubkey: String
+    /**
+     * Scriptpubkey type (e.g., "p2wpkh", "p2tr")
+     */
+    public var scriptpubkeyType: String
     /**
      * Address derived from scriptpubkey (if applicable)
      */
@@ -10487,26 +10503,34 @@ public struct TxOutput {
      * Value in satoshis
      */
     public var value: UInt64
+    /**
+     * Output index in this transaction
+     */
+    public var n: UInt32
 
     // Default memberwise initializers are never public by default, so we
     // declare one manually.
     public init(
         /**
-         * Output index in this transaction
-         */vout: UInt32, 
-        /**
          * Scriptpubkey as hex
          */scriptpubkey: String, 
+        /**
+         * Scriptpubkey type (e.g., "p2wpkh", "p2tr")
+         */scriptpubkeyType: String, 
         /**
          * Address derived from scriptpubkey (if applicable)
          */scriptpubkeyAddress: String?, 
         /**
          * Value in satoshis
-         */value: UInt64) {
-        self.vout = vout
+         */value: UInt64, 
+        /**
+         * Output index in this transaction
+         */n: UInt32) {
         self.scriptpubkey = scriptpubkey
+        self.scriptpubkeyType = scriptpubkeyType
         self.scriptpubkeyAddress = scriptpubkeyAddress
         self.value = value
+        self.n = n
     }
 }
 
@@ -10517,10 +10541,10 @@ extension TxOutput: Sendable {}
 
 extension TxOutput: Equatable, Hashable {
     public static func ==(lhs: TxOutput, rhs: TxOutput) -> Bool {
-        if lhs.vout != rhs.vout {
+        if lhs.scriptpubkey != rhs.scriptpubkey {
             return false
         }
-        if lhs.scriptpubkey != rhs.scriptpubkey {
+        if lhs.scriptpubkeyType != rhs.scriptpubkeyType {
             return false
         }
         if lhs.scriptpubkeyAddress != rhs.scriptpubkeyAddress {
@@ -10529,14 +10553,18 @@ extension TxOutput: Equatable, Hashable {
         if lhs.value != rhs.value {
             return false
         }
+        if lhs.n != rhs.n {
+            return false
+        }
         return true
     }
 
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(vout)
         hasher.combine(scriptpubkey)
+        hasher.combine(scriptpubkeyType)
         hasher.combine(scriptpubkeyAddress)
         hasher.combine(value)
+        hasher.combine(n)
     }
 }
 
@@ -10551,18 +10579,20 @@ public struct FfiConverterTypeTxOutput: FfiConverterRustBuffer {
     public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> TxOutput {
         return
             try TxOutput(
-                vout: FfiConverterUInt32.read(from: &buf), 
                 scriptpubkey: FfiConverterString.read(from: &buf), 
+                scriptpubkeyType: FfiConverterString.read(from: &buf), 
                 scriptpubkeyAddress: FfiConverterOptionString.read(from: &buf), 
-                value: FfiConverterUInt64.read(from: &buf)
+                value: FfiConverterUInt64.read(from: &buf), 
+                n: FfiConverterUInt32.read(from: &buf)
         )
     }
 
     public static func write(_ value: TxOutput, into buf: inout [UInt8]) {
-        FfiConverterUInt32.write(value.vout, into: &buf)
         FfiConverterString.write(value.scriptpubkey, into: &buf)
+        FfiConverterString.write(value.scriptpubkeyType, into: &buf)
         FfiConverterOptionString.write(value.scriptpubkeyAddress, into: &buf)
         FfiConverterUInt64.write(value.value, into: &buf)
+        FfiConverterUInt32.write(value.n, into: &buf)
     }
 }
 
@@ -17958,6 +17988,13 @@ public func getActivityById(activityId: String)throws  -> Activity?  {
     )
 })
 }
+public func getActivityByTxId(txId: String)throws  -> Activity?  {
+    return try  FfiConverterOptionTypeActivity.lift(try rustCallWithError(FfiConverterTypeActivityError_lift) {
+    uniffi_bitkitcore_fn_func_get_activity_by_tx_id(
+        FfiConverterString.lower(txId),$0
+    )
+})
+}
 public func getAllActivitiesTags()throws  -> [ActivityTags]  {
     return try  FfiConverterSequenceTypeActivityTags.lift(try rustCallWithError(FfiConverterTypeActivityError_lift) {
     uniffi_bitkitcore_fn_func_get_all_activities_tags($0
@@ -18168,6 +18205,13 @@ public func insertActivity(activity: Activity)throws   {try rustCallWithError(Ff
     )
 }
 }
+public func isAddressUsed(address: String)throws  -> Bool  {
+    return try  FfiConverterBool.lift(try rustCallWithError(FfiConverterTypeActivityError_lift) {
+    uniffi_bitkitcore_fn_func_is_address_used(
+        FfiConverterString.lower(address),$0
+    )
+})
+}
 public func isValidBip39Word(word: String) -> Bool  {
     return try!  FfiConverterBool.lift(try! rustCall() {
     uniffi_bitkitcore_fn_func_is_valid_bip39_word(
@@ -18188,6 +18232,13 @@ public func lnurlAuth(domain: String, k1: String, callback: String, bip32Mnemoni
             liftFunc: FfiConverterString.lift,
             errorHandler: FfiConverterTypeLnurlError_lift
         )
+}
+public func markActivityAsSeen(activityId: String, seenAt: UInt64)throws   {try rustCallWithError(FfiConverterTypeActivityError_lift) {
+    uniffi_bitkitcore_fn_func_mark_activity_as_seen(
+        FfiConverterString.lower(activityId),
+        FfiConverterUInt64.lower(seenAt),$0
+    )
+}
 }
 public func mnemonicToEntropy(mnemonicPhrase: String)throws  -> Data  {
     return try  FfiConverterData.lift(try rustCallWithError(FfiConverterTypeAddressError_lift) {
@@ -19146,6 +19197,9 @@ private let initializationResult: InitializationResult = {
     if (uniffi_bitkitcore_checksum_func_get_activity_by_id() != 44227) {
         return InitializationResult.apiChecksumMismatch
     }
+    if (uniffi_bitkitcore_checksum_func_get_activity_by_tx_id() != 59516) {
+        return InitializationResult.apiChecksumMismatch
+    }
     if (uniffi_bitkitcore_checksum_func_get_all_activities_tags() != 29245) {
         return InitializationResult.apiChecksumMismatch
     }
@@ -19209,10 +19263,16 @@ private let initializationResult: InitializationResult = {
     if (uniffi_bitkitcore_checksum_func_insert_activity() != 1510) {
         return InitializationResult.apiChecksumMismatch
     }
+    if (uniffi_bitkitcore_checksum_func_is_address_used() != 64038) {
+        return InitializationResult.apiChecksumMismatch
+    }
     if (uniffi_bitkitcore_checksum_func_is_valid_bip39_word() != 31846) {
         return InitializationResult.apiChecksumMismatch
     }
     if (uniffi_bitkitcore_checksum_func_lnurl_auth() != 58593) {
+        return InitializationResult.apiChecksumMismatch
+    }
+    if (uniffi_bitkitcore_checksum_func_mark_activity_as_seen() != 65086) {
         return InitializationResult.apiChecksumMismatch
     }
     if (uniffi_bitkitcore_checksum_func_mnemonic_to_entropy() != 36669) {

@@ -96,6 +96,8 @@ pub struct OnchainActivity {
     pub created_at: Option<u64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub updated_at: Option<u64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub seen_at: Option<u64>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, uniffi::Record)]
@@ -113,6 +115,8 @@ pub struct LightningActivity {
     pub created_at: Option<u64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub updated_at: Option<u64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub seen_at: Option<u64>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, uniffi::Record)]
@@ -205,23 +209,27 @@ pub struct TxInput {
     pub txid: String,
     /// Output index in the previous transaction
     pub vout: u32,
-    /// Address that was spent (if known)
-    pub address: Option<String>,
-    /// Value in satoshis (if known)
-    pub value: Option<u64>,
+    /// Script signature
+    pub scriptsig: String,
+    /// Witness data
+    pub witness: Vec<String>,
+    /// Sequence number
+    pub sequence: u32,
 }
 
 /// Transaction output for onchain transactions
 #[derive(Debug, Clone, uniffi::Record, Serialize, Deserialize)]
 pub struct TxOutput {
-    /// Output index in this transaction
-    pub vout: u32,
     /// Scriptpubkey as hex
     pub scriptpubkey: String,
+    /// Scriptpubkey type (e.g., "p2wpkh", "p2tr")
+    pub scriptpubkey_type: String,
     /// Address derived from scriptpubkey (if applicable)
     pub scriptpubkey_address: Option<String>,
     /// Value in satoshis
     pub value: u64,
+    /// Output index in this transaction
+    pub n: u32,
 }
 
 /// Full transaction details for onchain transactions
@@ -235,6 +243,4 @@ pub struct TransactionDetails {
     pub inputs: Vec<TxInput>,
     /// Outputs
     pub outputs: Vec<TxOutput>,
-    /// Timestamp of when this was stored
-    pub stored_at: u64,
 }

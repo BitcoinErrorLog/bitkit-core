@@ -37,7 +37,7 @@ bip39 = "2.0"
 paykit-lib = { path = "../paykit-rs-master/paykit-lib", features = ["pubky"] }
 paykit-interactive = { path = "../paykit-rs-master/paykit-interactive" }
 pubky-noise = { path = "../pubky-noise-main", features = ["pubky-sdk"] }
-pubky = { path = "../pubky-core-main/pubky-sdk", features = ["uniffi_macros"] }
+pubky = { git = "https://github.com/BitcoinErrorLog/pubky-core" }
 
 [dev-dependencies]
 tokio = { version = "1.40.0", features = ["full"] }

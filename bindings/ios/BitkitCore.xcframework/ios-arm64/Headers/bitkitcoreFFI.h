@@ -395,6 +395,11 @@ RustBuffer uniffi_bitkitcore_fn_func_get_activities_by_tag(RustBuffer tag, RustB
 RustBuffer uniffi_bitkitcore_fn_func_get_activity_by_id(RustBuffer activity_id, RustCallStatus *_Nonnull out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_GET_ACTIVITY_BY_TX_ID
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_GET_ACTIVITY_BY_TX_ID
+RustBuffer uniffi_bitkitcore_fn_func_get_activity_by_tx_id(RustBuffer tx_id, RustCallStatus *_Nonnull out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_GET_ALL_ACTIVITIES_TAGS
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_GET_ALL_ACTIVITIES_TAGS
 RustBuffer uniffi_bitkitcore_fn_func_get_all_activities_tags(RustCallStatus *_Nonnull out_status
@@ -504,6 +509,11 @@ RustBuffer uniffi_bitkitcore_fn_func_init_db(RustBuffer base_path, RustCallStatu
 void uniffi_bitkitcore_fn_func_insert_activity(RustBuffer activity, RustCallStatus *_Nonnull out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_IS_ADDRESS_USED
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_IS_ADDRESS_USED
+int8_t uniffi_bitkitcore_fn_func_is_address_used(RustBuffer address, RustCallStatus *_Nonnull out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_IS_VALID_BIP39_WORD
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_IS_VALID_BIP39_WORD
 int8_t uniffi_bitkitcore_fn_func_is_valid_bip39_word(RustBuffer word, RustCallStatus *_Nonnull out_status
@@ -512,6 +522,11 @@ int8_t uniffi_bitkitcore_fn_func_is_valid_bip39_word(RustBuffer word, RustCallSt
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_LNURL_AUTH
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_LNURL_AUTH
 uint64_t uniffi_bitkitcore_fn_func_lnurl_auth(RustBuffer domain, RustBuffer k1, RustBuffer callback, RustBuffer bip32_mnemonic, RustBuffer network, RustBuffer bip39_passphrase
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_MARK_ACTIVITY_AS_SEEN
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_MARK_ACTIVITY_AS_SEEN
+void uniffi_bitkitcore_fn_func_mark_activity_as_seen(RustBuffer activity_id, uint64_t seen_at, RustCallStatus *_Nonnull out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_MNEMONIC_TO_ENTROPY
@@ -1286,6 +1301,12 @@ uint16_t uniffi_bitkitcore_checksum_func_get_activity_by_id(void
     
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_GET_ACTIVITY_BY_TX_ID
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_GET_ACTIVITY_BY_TX_ID
+uint16_t uniffi_bitkitcore_checksum_func_get_activity_by_tx_id(void
+    
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_GET_ALL_ACTIVITIES_TAGS
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_GET_ALL_ACTIVITIES_TAGS
 uint16_t uniffi_bitkitcore_checksum_func_get_all_activities_tags(void
@@ -1412,6 +1433,12 @@ uint16_t uniffi_bitkitcore_checksum_func_insert_activity(void
     
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_IS_ADDRESS_USED
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_IS_ADDRESS_USED
+uint16_t uniffi_bitkitcore_checksum_func_is_address_used(void
+    
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_IS_VALID_BIP39_WORD
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_IS_VALID_BIP39_WORD
 uint16_t uniffi_bitkitcore_checksum_func_is_valid_bip39_word(void
@@ -1421,6 +1448,12 @@ uint16_t uniffi_bitkitcore_checksum_func_is_valid_bip39_word(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_LNURL_AUTH
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_LNURL_AUTH
 uint16_t uniffi_bitkitcore_checksum_func_lnurl_auth(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_MARK_ACTIVITY_AS_SEEN
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_MARK_ACTIVITY_AS_SEEN
+uint16_t uniffi_bitkitcore_checksum_func_mark_activity_as_seen(void
     
 );
 #endif

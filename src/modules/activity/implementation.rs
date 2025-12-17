@@ -41,6 +41,9 @@ const CREATE_ONCHAIN_TABLE: &str = "
         transfer_tx_id TEXT CHECK (
             transfer_tx_id IS NULL OR length(transfer_tx_id) > 0
         ),
+        seen_at INTEGER CHECK (
+            seen_at IS NULL OR seen_at >= 0
+        ),
         FOREIGN KEY (id) REFERENCES activities(id) ON DELETE CASCADE
     )";
 
@@ -54,6 +57,9 @@ const CREATE_LIGHTNING_TABLE: &str = "
         message TEXT NOT NULL,
         preimage TEXT CHECK (
             preimage IS NULL OR length(preimage) > 0
+        ),
+        seen_at INTEGER CHECK (
+            seen_at IS NULL OR seen_at >= 0
         ),
         FOREIGN KEY (id) REFERENCES activities(id) ON DELETE CASCADE
     )";
@@ -800,6 +806,7 @@ impl ActivityDB {
                             confirm_timestamp: confirm_timestamp.map(|t| t as u64),
                             channel_id: row.get(17)?,
                             transfer_tx_id: row.get(18)?,
+                            seen_at: None,
                         }))
                     }
                     "lightning" => {
@@ -821,6 +828,7 @@ impl ActivityDB {
                             fee: fee.map(|f| f as u64),
                             message: row.get(23)?,
                             preimage: row.get(24)?,
+                            seen_at: None,
                         }))
                     }
                     _ => Err(rusqlite::Error::InvalidColumnType(
@@ -914,6 +922,7 @@ impl ActivityDB {
                         transfer_tx_id: row.get(15)?,
                         created_at: created_at.map(|t| t as u64),
                         updated_at: updated_at.map(|t| t as u64),
+                        seen_at: None,
                     }))
                 }) {
                     Ok(activity) => Ok(Some(activity)),
@@ -961,6 +970,7 @@ impl ActivityDB {
                             preimage: row.get(8)?,
                             created_at: created_at.map(|t| t as u64),
                             updated_at: updated_at.map(|t| t as u64),
+                            seen_at: None,
                         }))
                     })
                     .map_err(|e| ActivityError::RetrievalError {
@@ -2374,7 +2384,7 @@ impl ActivityDB {
         &self,
         tx_id: &str,
     ) -> Result<Option<TransactionDetails>, ActivityError> {
-        let sql = "SELECT tx_id, amount_sats, inputs, outputs, stored_at FROM transaction_details WHERE tx_id = ?1";
+        let sql = "SELECT tx_id, amount_sats, inputs, outputs FROM transaction_details WHERE tx_id = ?1";
 
         self.conn
             .query_row(sql, [tx_id], |row| {
@@ -2382,7 +2392,6 @@ impl ActivityDB {
                 let amount_sats: i64 = row.get(1)?;
                 let inputs_json: String = row.get(2)?;
                 let outputs_json: String = row.get(3)?;
-                let stored_at: u64 = row.get(4)?;
 
                 let inputs: Vec<TxInput> = serde_json::from_str(&inputs_json).unwrap_or_default();
                 let outputs: Vec<TxOutput> = serde_json::from_str(&outputs_json).unwrap_or_default();
@@ -2392,12 +2401,96 @@ impl ActivityDB {
                     amount_sats,
                     inputs,
                     outputs,
-                    stored_at,
                 })
             })
             .optional()
             .map_err(|e| ActivityError::RetrievalError {
                 error_details: format!("Failed to get transaction details: {}", e),
             })
+    }
+
+    /// Mark activity as seen
+    pub fn mark_activity_as_seen(&mut self, activity_id: &str, seen_at: u64) -> Result<(), ActivityError> {
+        // Try updating onchain activity first
+        let rows_onchain = self.conn.execute(
+            "UPDATE onchain_activity SET seen_at = ?1 WHERE id = ?2",
+            rusqlite::params![seen_at, activity_id],
+        ).map_err(|e| ActivityError::DataError {
+            error_details: format!("Failed to mark onchain activity as seen: {}", e),
+        })?;
+
+        // If no onchain activity was updated, try lightning
+        if rows_onchain == 0 {
+            self.conn.execute(
+                "UPDATE lightning_activity SET seen_at = ?1 WHERE id = ?2",
+                rusqlite::params![seen_at, activity_id],
+            ).map_err(|e| ActivityError::DataError {
+                error_details: format!("Failed to mark lightning activity as seen: {}", e),
+            })?;
+        }
+
+        Ok(())
+    }
+
+    /// Get activity by transaction ID
+    pub fn get_activity_by_tx_id(&self, tx_id: &str) -> Result<Option<Activity>, ActivityError> {
+        // Try to find onchain activity with matching tx_id
+        let onchain_sql = "
+            SELECT o.*, a.tx_type, a.timestamp, a.created_at, a.updated_at
+            FROM onchain_activity o
+            JOIN activities a ON o.id = a.id
+            WHERE o.tx_id = ?1
+        ";
+
+        let result = self.conn.query_row(onchain_sql, [tx_id], |row| {
+            let tx_type_str: String = row.get(1)?; // tx_type from activities table
+            let tx_type = match tx_type_str.as_str() {
+                "sent" => PaymentType::Sent,
+                "received" => PaymentType::Received,
+                _ => return Err(rusqlite::Error::InvalidColumnType(1, "tx_type".to_string(), rusqlite::types::Type::Text)),
+            };
+
+            let boost_tx_ids_str: String = row.get(8)?;
+            let boost_tx_ids = if boost_tx_ids_str.is_empty() {
+                Vec::new()
+            } else {
+                boost_tx_ids_str.split(',').map(|s| s.to_string()).collect()
+            };
+
+            Ok(OnchainActivity {
+                id: row.get(0)?,
+                tx_type,
+                tx_id: row.get(2)?,
+                address: row.get(3)?,
+                confirmed: row.get(4)?,
+                value: row.get(5)?,
+                fee: row.get(6)?,
+                fee_rate: row.get(7)?,
+                is_boosted: row.get(9)?,
+                boost_tx_ids,
+                is_transfer: row.get(10)?,
+                does_exist: row.get(11)?,
+                confirm_timestamp: row.get(12)?,
+                channel_id: row.get(13)?,
+                transfer_tx_id: row.get(14)?,
+                created_at: None,
+                updated_at: None,
+                timestamp: 0,
+                seen_at: None,
+            })
+        }).optional().map_err(|e| ActivityError::RetrievalError {
+            error_details: format!("Failed to query onchain activity: {}", e),
+        })?;
+
+        if let Some(onchain) = result {
+            return Ok(Some(Activity::Onchain(onchain)));
+        }
+
+        Ok(None)
+    }
+
+    /// Check if an address has been used (has received funds)
+    pub fn is_address_used(&self, address: &str) -> Result<bool, ActivityError> {
+        self.has_onchain_received(address)
     }
 }

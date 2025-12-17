@@ -395,6 +395,42 @@ pub fn get_activity_by_id(activity_id: String) -> Result<Option<Activity>, Activ
 }
 
 #[uniffi::export]
+pub fn get_activity_by_tx_id(tx_id: String) -> Result<Option<Activity>, ActivityError> {
+    let guard = get_activity_db()?;
+    let db = guard
+        .activity_db
+        .as_ref()
+        .ok_or(ActivityError::ConnectionError {
+            error_details: "Database not initialized. Call init_db first.".to_string(),
+        })?;
+    db.get_activity_by_tx_id(&tx_id)
+}
+
+#[uniffi::export]
+pub fn mark_activity_as_seen(activity_id: String, seen_at: u64) -> Result<(), ActivityError> {
+    let mut guard = get_activity_db()?;
+    let db = guard
+        .activity_db
+        .as_mut()
+        .ok_or(ActivityError::ConnectionError {
+            error_details: "Database not initialized. Call init_db first.".to_string(),
+        })?;
+    db.mark_activity_as_seen(&activity_id, seen_at)
+}
+
+#[uniffi::export]
+pub fn is_address_used(address: String) -> Result<bool, ActivityError> {
+    let guard = get_activity_db()?;
+    let db = guard
+        .activity_db
+        .as_ref()
+        .ok_or(ActivityError::ConnectionError {
+            error_details: "Database not initialized. Call init_db first.".to_string(),
+        })?;
+    db.is_address_used(&address)
+}
+
+#[uniffi::export]
 pub fn delete_activity_by_id(activity_id: String) -> Result<bool, ActivityError> {
     let mut guard = get_activity_db()?;
     let db = guard
