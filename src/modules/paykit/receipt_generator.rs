@@ -28,7 +28,7 @@ impl BitkitReceiptGenerator {
     async fn generate_lightning_invoice(
         &self,
         amount_sats: u64,
-        description: &str,
+        _description: &str,
     ) -> Result<String, PaykitError> {
         // TODO: Replace with actual Blocktank call
         // let invoice = self.blocktank_client.create_invoice(amount_sats, description).await?;
@@ -150,14 +150,12 @@ impl ReceiptGenerator for BitkitReceiptGenerator {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use paykit_lib::{MethodId, PublicKey};
+    use paykit_lib::MethodId;
+    use pubky::Keypair;
     use serde_json::json;
 
-    fn test_pubkey(_s: &str) -> PublicKey {
-        use std::str::FromStr;
-        // Use a valid z-base32 pubkey for testing
-        let valid_key = "8".repeat(52);
-        PublicKey::from_str(&valid_key).expect("Invalid test key")
+    fn test_pubkey(_s: &str) -> pubky::PublicKey {
+        Keypair::random().public_key()
     }
 
     #[tokio::test]

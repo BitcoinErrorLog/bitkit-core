@@ -9,14 +9,14 @@ This document tracks all external dependencies across the Paykit/Bitkit ecosyste
 ## Repository Dependency Graph
 
 ```
-bitkit-core (v0.2.5-pubky)
+bitkit-core (v0.1.27)
 ├── paykit-rs/paykit-lib (path: ../paykit-rs-master/paykit-lib)
-│   ├── pubky (git: BitcoinErrorLog/pubky-core @ main)
-│   └── pubky-testnet (git: BitcoinErrorLog/pubky-core @ main)
+│   ├── pubky (git: BitcoinErrorLog/pubky-core @ rev 290d801)
+│   └── pubky-testnet (git: BitcoinErrorLog/pubky-core @ rev 290d801)
 ├── paykit-rs/paykit-interactive (path: ../paykit-rs-master/paykit-interactive)
 ├── pubky-noise (path: ../pubky-noise-main)
-│   └── pubky (git: BitcoinErrorLog/pubky-core @ main)
-└── pubky (git: BitcoinErrorLog/pubky-core @ main)
+│   └── pubky (git: BitcoinErrorLog/pubky-core @ rev 290d801)
+└── pubky (git: BitcoinErrorLog/pubky-core @ rev 290d801)
 
 bitkit-ios (paykit-integration-complete branch)
 └── BitkitCore (SPM: BitcoinErrorLog/bitkit-core @ v0.2.5-pubky)
@@ -37,17 +37,17 @@ pubky-ring (main branch)
 
 | Library | Version | Repository | Status |
 |---------|---------|------------|--------|
-| **bitkit-core** | v0.2.5-pubky | [BitcoinErrorLog/bitkit-core](https://github.com/BitcoinErrorLog/bitkit-core) | ✅ Latest |
-| **paykit-rs** | (workspace) | [synonymdev/paykit](https://github.com/synonymdev/paykit) | ✅ Working |
-| **pubky-core** | main branch | [BitcoinErrorLog/pubky-core](https://github.com/BitcoinErrorLog/pubky-core) | ⚠️ Untagged |
-| **pubky-noise** | v1.0.0 | [BitcoinErrorLog/pubky-noise](https://github.com/BitcoinErrorLog/pubky-noise) | ✅ Tagged |
+| **bitkit-core** | v0.1.27 | [BitcoinErrorLog/bitkit-core](https://github.com/BitcoinErrorLog/bitkit-core) | ✅ Latest |
+| **paykit-rs** | (workspace) | [BitcoinErrorLog/paykit-rs](https://github.com/BitcoinErrorLog/paykit-rs) | ✅ Working |
+| **pubky-core** | rev 290d801 | [BitcoinErrorLog/pubky-core](https://github.com/BitcoinErrorLog/pubky-core) | ✅ Pinned |
+| **pubky-noise** | v1.0.0 | [BitcoinErrorLog/pubky-noise](https://github.com/BitcoinErrorLog/pubky-noise) | ✅ Working |
 
 ### Mobile Apps
 
 | App | Branch | Core Version | Status |
 |-----|--------|--------------|--------|
-| **bitkit-ios** | paykit-integration-complete | v0.2.5-pubky | ✅ Current |
-| **bitkit-android** | paykit-integration-complete | v0.2.5-pubky | ✅ Current |
+| **bitkit-ios** | paykit-integration-complete | v0.1.27 | ✅ Current |
+| **bitkit-android** | paykit-integration-complete | v0.1.27 | ✅ Current |
 | **pubky-ring** | main | (local build) | ✅ Working |
 
 ---
@@ -63,14 +63,14 @@ uniffi = { version = "0.29.4", features = [ "cli", "bindgen" ] }
 paykit-lib = { path = "../paykit-rs-master/paykit-lib", features = ["pubky"] }
 paykit-interactive = { path = "../paykit-rs-master/paykit-interactive" }
 pubky-noise = { path = "../pubky-noise-main", features = ["pubky-sdk"] }
-pubky = { git = "https://github.com/BitcoinErrorLog/pubky-core" }
+pubky = { git = "https://github.com/BitcoinErrorLog/pubky-core", rev = "290d801" }
 
 # ... other dependencies (bitcoin, lightning-invoice, etc.)
 ```
 
 **Git Dependencies:**
-- `pubky`: Uses `main` branch from BitcoinErrorLog/pubky-core
-- Status: ⚠️ Should pin to version tag
+- `pubky`: Pinned to commit `290d801` from BitcoinErrorLog/pubky-core
+- Status: ✅ Pinned to stable commit
 
 ---
 
@@ -80,13 +80,14 @@ pubky = { git = "https://github.com/BitcoinErrorLog/pubky-core" }
 ```toml
 [dependencies.pubky]
 git = "https://github.com/BitcoinErrorLog/pubky-core"
+rev = "290d801"
 optional = true
 
 [dev-dependencies]
-pubky-testnet = { git = "https://github.com/BitcoinErrorLog/pubky-core", branch = "main" }
+pubky-testnet = { git = "https://github.com/BitcoinErrorLog/pubky-core", rev = "290d801" }
 ```
 
-**Status**: ⚠️ Should pin to version tag
+**Status**: ✅ Pinned to stable commit
 
 ---
 
@@ -95,30 +96,28 @@ pubky-testnet = { git = "https://github.com/BitcoinErrorLog/pubky-core", branch 
 **From `Cargo.toml`:**
 ```toml
 [dependencies]
-pubky = { git = "https://github.com/BitcoinErrorLog/pubky-core", optional = true }
+pubky = { git = "https://github.com/BitcoinErrorLog/pubky-core", rev = "290d801", optional = true }
 ```
 
-**Status**: ⚠️ Should pin to version tag
+**Status**: ✅ Pinned to stable commit
 
 ---
 
 ## Known Issues
 
-### 1. Untagged pubky-core Dependency 🔴
+### 1. pubky-core Dependency ✅ RESOLVED
 
-**Problem**: All repos depend on `main` branch of pubky-core, making it hard to track what version is deployed.
+**Status**: All repos now pinned to commit `290d801` (December 17, 2024).
 
-**Impact**: 
-- Version drift across repos
-- Hard to reproduce builds
-- Breaking changes can propagate unexpectedly
+**Previous Problem**: All repos depended on `main` branch of pubky-core, making it hard to track what version is deployed.
 
-**Solution**:
-1. Tag pubky-core with v0.6.0
-2. Update all repos to use:
-   ```toml
-   pubky = { git = "https://github.com/BitcoinErrorLog/pubky-core", tag = "v0.6.0" }
-   ```
+**Solution Applied**:
+All repos now use:
+```toml
+pubky = { git = "https://github.com/BitcoinErrorLog/pubky-core", rev = "290d801" }
+```
+
+**Future**: When pubky-core creates version tags, update to use `tag = "vX.Y.Z"` instead.
 
 ---
 
@@ -231,6 +230,11 @@ cargo test --test '*'
 
 ## Version History
 
+### v0.1.27 (December 17, 2024) - Production Readiness Phase 1
+- Pinned all pubky-core dependencies to commit 290d801
+- Updated DEPENDENCIES.md with accurate version matrix
+- Prepared for code cleanup (Phase 1.2)
+
 ### v0.2.5-pubky (December 17, 2024)
 - Fixed parse_public_key recursion
 - Completed Android ViewModels
@@ -254,12 +258,12 @@ cargo test --test '*'
 
 ## Future Improvements
 
-### Phase 1: Version Pinning (This Week)
-- [ ] Tag pubky-core v0.6.0
-- [ ] Update all repos to use version tags
-- [ ] Document update process
+### Phase 1: Version Pinning ✅ COMPLETE
+- [x] Pin pubky-core to specific commit (290d801)
+- [x] Update all repos to use pinned revision
+- [x] Document update process
 
-### Phase 2: Automation (Next Week)
+### Phase 2: Automation (Future)
 - [ ] Script to check for dependency updates
 - [ ] Automated testing of dependency updates
 - [ ] Dependabot configuration
@@ -268,6 +272,7 @@ cargo test --test '*'
 - [ ] Consider publishing bitkit-core to crates.io
 - [ ] Semantic versioning strategy
 - [ ] Changelog automation
+- [ ] Tag pubky-core with version tags when ready
 
 ---
 

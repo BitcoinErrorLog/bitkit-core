@@ -1,3 +1,6 @@
+// Trezor Connect API uses camelCase field names - must match external API exactly
+#![allow(non_snake_case)]
+
 use crate::modules::trezor::TrezorConnectError;
 use serde::{Deserialize, Serialize};
 use url::Url;
@@ -715,6 +718,7 @@ pub struct GetAddressParams {
 }
 
 /// Parameters for getPublicKey method
+#[allow(dead_code)] // Used in implementation, will be exposed via FFI
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct GetPublicKeyParams {
     /// BIP-32 path as string

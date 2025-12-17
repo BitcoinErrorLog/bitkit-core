@@ -1,5 +1,30 @@
 # Bitkit Core FFI
 
+Core Rust library providing FFI bindings for iOS (Swift) and Android (Kotlin) apps.
+
+## Quick Start
+
+```bash
+# Check builds
+cargo check --lib
+
+# Run tests
+cargo test --lib
+
+# Build iOS bindings
+./build_ios.sh
+
+# Build Android bindings
+./build_android.sh
+```
+
+## Documentation
+
+- [Architecture Review](ARCHITECTURE_REVIEW.md) - System design and component overview
+- [Dependencies](DEPENDENCIES.md) - Dependency versions and update process
+- [FFI Patterns Guide](docs/FFI_PATTERNS.md) - How to add and use FFI functions
+- [Paykit Integration Guide](docs/PAYKIT_INTEGRATION.md) - Paykit payment features for mobile apps
+
 ## Features
 - Scanner Module
   - Decode and parse Lightning/Bitcoin payment formats
@@ -30,6 +55,17 @@
   - Derive addresses for specified paths
   - Retrieve account information
   - Handle responses from Trezor devices
+- Paykit Module
+  - Payment discovery via Pubky network
+  - Smart checkout (private offers + public directory fallback)
+  - Endpoint publishing and rotation
+  - Interactive payments via Noise protocol
+  - Cross-device authentication with Pubky-ring
+- Pubky SDK Module
+  - Pubky identity management
+  - Profile fetching and publishing
+  - Follows/contacts discovery
+  - Session management
 
 ## Available Modules: Methods
 - Scanner

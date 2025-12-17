@@ -2,7 +2,6 @@ use super::errors::DecodingError;
 use super::types::*;
 use super::utils::*;
 use crate::lnurl::is_lnurl_address;
-use async_trait::async_trait;
 use bitcoin::Network;
 use chrono::{DateTime, Utc};
 use lazy_regex::{lazy_regex, Lazy};
@@ -110,12 +109,9 @@ impl Scanner {
             let addr = invoice_str.strip_prefix("bitcoin:").unwrap_or(invoice_str);
             // Strip any query parameters for address validation
             let clean_addr = addr.split('?').next().unwrap_or(addr);
-            let res = match BitcoinAddressValidator::validate_address(clean_addr) {
-                Ok(res) => res,
-                Err(_) => {
-                    return Err(DecodingError::InvalidAddress);
-                }
-            };
+            if BitcoinAddressValidator::validate_address(clean_addr).is_err() {
+                return Err(DecodingError::InvalidAddress);
+            }
 
             if BitcoinAddressValidator::validate_address(clean_addr).is_ok() {
                 Self::decode_onchain(invoice_str)
@@ -194,6 +190,8 @@ impl Scanner {
                         tag: channel.tag.to_string(),
                     },
                 }),
+                // Exhaustive match for all LnUrlResponse variants - may become reachable with future lnurl crate versions
+                #[allow(unreachable_patterns)]
                 _ => Err(DecodingError::InvalidFormat),
             }
         }
@@ -295,13 +293,6 @@ impl Scanner {
         })
     }
 
-    fn handle_node_id(invoice_str: &str) -> Result<Self, DecodingError> {
-        Ok(Scanner::NodeId {
-            url: invoice_str.to_string(),
-            network: NetworkType::Bitcoin,
-        })
-    }
-
     fn decode_onchain(invoice_str: &str) -> Result<Self, DecodingError> {
         let parts: Vec<&str> = invoice_str
             .strip_prefix("bitcoin:")
@@ -345,17 +336,3 @@ impl Scanner {
     }
 }
 
-#[async_trait]
-pub trait AsyncFromStr: Sized {
-    type Err;
-    async fn from_str(s: &str) -> Result<Self, Self::Err>;
-}
-
-#[async_trait]
-impl AsyncFromStr for Scanner {
-    type Err = DecodingError;
-
-    async fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Scanner::decode(s.to_string()).await
-    }
-}

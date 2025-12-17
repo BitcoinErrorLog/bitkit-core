@@ -2824,7 +2824,7 @@ dependencies = [
 [[package]]
 name = "pubky"
 version = "0.6.0-rc.6"
-source = "git+https://github.com/BitcoinErrorLog/pubky-core#290d8016678c58d77fe9c0fab293bdac22e76933"
+source = "git+https://github.com/BitcoinErrorLog/pubky-core?rev=290d801#290d8016678c58d77fe9c0fab293bdac22e76933"
 dependencies = [
  "base64 0.22.1",
  "cookie",
@@ -2847,7 +2847,7 @@ dependencies = [
 [[package]]
 name = "pubky-common"
 version = "0.6.0-rc.6"
-source = "git+https://github.com/BitcoinErrorLog/pubky-core#290d8016678c58d77fe9c0fab293bdac22e76933"
+source = "git+https://github.com/BitcoinErrorLog/pubky-core?rev=290d801#290d8016678c58d77fe9c0fab293bdac22e76933"
 dependencies = [
  "argon2",
  "base32",

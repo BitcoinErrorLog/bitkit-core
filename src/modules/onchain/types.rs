@@ -107,7 +107,9 @@ impl From<BitcoinNetwork> for Network {
             BitcoinNetwork::Testnet4 => Network::Testnet4,
             BitcoinNetwork::Signet => Network::Signet,
             BitcoinNetwork::Regtest => Network::Regtest,
-            _ => Network::Bitcoin, // Default to Bitcoin mainnet
+            // Future-proof: handle potential new bitcoin network types
+            #[allow(unreachable_patterns)]
+            _ => Network::Bitcoin,
         }
     }
 }

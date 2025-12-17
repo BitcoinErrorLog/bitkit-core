@@ -1,3 +1,6 @@
+// Allow non-snake_case for Trezor Connect API compatibility (external API uses camelCase)
+#![allow(non_snake_case)]
+
 uniffi::setup_scaffolding!();
 
 mod modules;
@@ -5,7 +8,7 @@ mod modules;
 use crate::activity::{
     Activity, ActivityDB, ActivityError, ActivityFilter, ActivityTags, ClosedChannelDetails,
     DbError, LightningActivity, OnchainActivity, PaymentType, PreActivityMetadata, SortDirection,
-    TransactionDetails, TxInput, TxOutput,
+    TransactionDetails,
 };
 use crate::modules::blocktank::{
     BlocktankDB, BlocktankError, BtOrderState2, CJitStateEnum, CreateCjitOptions,
@@ -1513,6 +1516,7 @@ pub fn trezor_get_features(
 }
 
 #[uniffi::export]
+#[allow(non_snake_case)] // Trezor Connect API uses camelCase parameter names
 pub fn trezor_get_address(
     path: String,
     callback_url: String,
@@ -1563,6 +1567,7 @@ pub fn trezor_get_address(
 }
 
 #[uniffi::export]
+#[allow(non_snake_case)] // Trezor Connect API uses camelCase parameter names
 pub fn trezor_get_account_info(
     coin: String,
     callback_url: String,

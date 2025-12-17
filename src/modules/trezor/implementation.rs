@@ -102,6 +102,7 @@ impl TrezorConnectClient {
     }
 
     /// Get public key for the specified path
+    #[allow(dead_code)] // Exposed for future FFI use
     pub fn get_public_key(
         &self,
         params: GetPublicKeyParams,
@@ -204,7 +205,7 @@ pub fn handle_deep_link<S: AsRef<str>>(
         })?;
 
     // Extract the request ID from the query parameters
-    let id = parsed_url
+    let _id = parsed_url
         .query_pairs()
         .find(|(key, _)| key == "id")
         .map(|(_, value)| value.to_string())
