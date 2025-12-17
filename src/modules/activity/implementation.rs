@@ -1,6 +1,7 @@
 use crate::activity::{
     Activity, ActivityError, ActivityFilter, ActivityTags, ClosedChannelDetails, LightningActivity,
     OnchainActivity, PaymentState, PaymentType, PreActivityMetadata, SortDirection,
+    TransactionDetails, TxInput, TxOutput,
 };
 use rusqlite::{Connection, OptionalExtension};
 use serde_json;
@@ -96,6 +97,15 @@ const CREATE_CLOSED_CHANNELS_TABLE: &str = "
         forwarding_fee_base_msat INTEGER NOT NULL CHECK (forwarding_fee_base_msat >= 0),
         channel_name TEXT NOT NULL,
         channel_closure_reason TEXT NOT NULL
+    )";
+
+const CREATE_TRANSACTION_DETAILS_TABLE: &str = "
+    CREATE TABLE IF NOT EXISTS transaction_details (
+        tx_id TEXT PRIMARY KEY,
+        amount_sats INTEGER NOT NULL,
+        inputs TEXT NOT NULL,
+        outputs TEXT NOT NULL,
+        stored_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
     )";
 
 const UPSERT_CLOSED_CHANNEL_SQL: &str = "
@@ -247,6 +257,13 @@ impl ActivityDB {
         if let Err(e) = self.conn.execute(CREATE_CLOSED_CHANNELS_TABLE, []) {
             return Err(ActivityError::InitializationError {
                 error_details: format!("Error creating closed_channels table: {}", e),
+            });
+        }
+
+        // Create transaction details table
+        if let Err(e) = self.conn.execute(CREATE_TRANSACTION_DETAILS_TABLE, []) {
+            return Err(ActivityError::InitializationError {
+                error_details: format!("Error creating transaction_details table: {}", e),
             });
         }
 
@@ -2309,5 +2326,78 @@ impl ActivityDB {
         })?;
 
         Ok(())
+    }
+
+    /// Upsert transaction details
+    pub fn upsert_transaction_details(
+        &mut self,
+        details_list: Vec<TransactionDetails>,
+    ) -> Result<(), ActivityError> {
+        let tx = self
+            .conn
+            .transaction()
+            .map_err(|e| ActivityError::DataError {
+                error_details: format!("Failed to start transaction: {}", e),
+            })?;
+
+        for details in details_list {
+            let inputs_json = serde_json::to_string(&details.inputs).map_err(|e| {
+                ActivityError::DataError {
+                    error_details: format!("Failed to serialize inputs: {}", e),
+                }
+            })?;
+            let outputs_json = serde_json::to_string(&details.outputs).map_err(|e| {
+                ActivityError::DataError {
+                    error_details: format!("Failed to serialize outputs: {}", e),
+                }
+            })?;
+
+            tx.execute(
+                "INSERT OR REPLACE INTO transaction_details (tx_id, amount_sats, inputs, outputs, stored_at)
+                 VALUES (?1, ?2, ?3, ?4, strftime('%s', 'now'))",
+                rusqlite::params![details.tx_id, details.amount_sats, inputs_json, outputs_json],
+            )
+            .map_err(|e| ActivityError::DataError {
+                error_details: format!("Failed to upsert transaction details: {}", e),
+            })?;
+        }
+
+        tx.commit().map_err(|e| ActivityError::DataError {
+            error_details: format!("Failed to commit transaction: {}", e),
+        })?;
+
+        Ok(())
+    }
+
+    /// Get transaction details by txid
+    pub fn get_transaction_details(
+        &self,
+        tx_id: &str,
+    ) -> Result<Option<TransactionDetails>, ActivityError> {
+        let sql = "SELECT tx_id, amount_sats, inputs, outputs, stored_at FROM transaction_details WHERE tx_id = ?1";
+
+        self.conn
+            .query_row(sql, [tx_id], |row| {
+                let tx_id: String = row.get(0)?;
+                let amount_sats: i64 = row.get(1)?;
+                let inputs_json: String = row.get(2)?;
+                let outputs_json: String = row.get(3)?;
+                let stored_at: u64 = row.get(4)?;
+
+                let inputs: Vec<TxInput> = serde_json::from_str(&inputs_json).unwrap_or_default();
+                let outputs: Vec<TxOutput> = serde_json::from_str(&outputs_json).unwrap_or_default();
+
+                Ok(TransactionDetails {
+                    tx_id,
+                    amount_sats,
+                    inputs,
+                    outputs,
+                    stored_at,
+                })
+            })
+            .optional()
+            .map_err(|e| ActivityError::RetrievalError {
+                error_details: format!("Failed to get transaction details: {}", e),
+            })
     }
 }

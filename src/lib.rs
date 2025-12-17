@@ -5,6 +5,7 @@ mod modules;
 use crate::activity::{
     Activity, ActivityDB, ActivityError, ActivityFilter, ActivityTags, ClosedChannelDetails,
     DbError, LightningActivity, OnchainActivity, PaymentType, PreActivityMetadata, SortDirection,
+    TransactionDetails, TxInput, TxOutput,
 };
 use crate::modules::blocktank::{
     BlocktankDB, BlocktankError, BtOrderState2, CJitStateEnum, CreateCjitOptions,
@@ -2051,4 +2052,34 @@ pub async fn paykit_smart_checkout(
     })
     .await
     .unwrap()
+}
+
+// MARK: - Transaction Details
+
+/// Upsert transaction details for onchain transactions
+#[uniffi::export]
+pub fn upsert_transaction_details(
+    details_list: Vec<TransactionDetails>,
+) -> Result<(), ActivityError> {
+    let mut guard = get_activity_db()?;
+    let db = guard
+        .activity_db
+        .as_mut()
+        .ok_or(ActivityError::ConnectionError {
+            error_details: "Database not initialized. Call init_db first.".to_string(),
+        })?;
+    db.upsert_transaction_details(details_list)
+}
+
+/// Get transaction details by txid
+#[uniffi::export]
+pub fn get_transaction_details(tx_id: String) -> Result<Option<TransactionDetails>, ActivityError> {
+    let guard = get_activity_db()?;
+    let db = guard
+        .activity_db
+        .as_ref()
+        .ok_or(ActivityError::ConnectionError {
+            error_details: "Database not initialized. Call init_db first.".to_string(),
+        })?;
+    db.get_transaction_details(&tx_id)
 }

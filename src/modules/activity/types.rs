@@ -197,3 +197,44 @@ impl From<BlocktankError> for DbError {
         }
     }
 }
+
+/// Transaction input for onchain transactions
+#[derive(Debug, Clone, uniffi::Record, Serialize, Deserialize)]
+pub struct TxInput {
+    /// Transaction ID of the previous output
+    pub txid: String,
+    /// Output index in the previous transaction
+    pub vout: u32,
+    /// Address that was spent (if known)
+    pub address: Option<String>,
+    /// Value in satoshis (if known)
+    pub value: Option<u64>,
+}
+
+/// Transaction output for onchain transactions
+#[derive(Debug, Clone, uniffi::Record, Serialize, Deserialize)]
+pub struct TxOutput {
+    /// Output index in this transaction
+    pub vout: u32,
+    /// Scriptpubkey as hex
+    pub scriptpubkey: String,
+    /// Address derived from scriptpubkey (if applicable)
+    pub scriptpubkey_address: Option<String>,
+    /// Value in satoshis
+    pub value: u64,
+}
+
+/// Full transaction details for onchain transactions
+#[derive(Debug, Clone, uniffi::Record, Serialize, Deserialize)]
+pub struct TransactionDetails {
+    /// Transaction ID
+    pub tx_id: String,
+    /// Net amount change (positive for received, negative for sent)
+    pub amount_sats: i64,
+    /// Inputs
+    pub inputs: Vec<TxInput>,
+    /// Outputs
+    pub outputs: Vec<TxOutput>,
+    /// Timestamp of when this was stored
+    pub stored_at: u64,
+}

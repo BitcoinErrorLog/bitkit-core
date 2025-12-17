@@ -479,6 +479,11 @@ RustBuffer uniffi_bitkitcore_fn_func_get_pre_activity_metadata(RustBuffer search
 RustBuffer uniffi_bitkitcore_fn_func_get_tags(RustBuffer activity_id, RustCallStatus *_Nonnull out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_GET_TRANSACTION_DETAILS
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_GET_TRANSACTION_DETAILS
+RustBuffer uniffi_bitkitcore_fn_func_get_transaction_details(RustBuffer tx_id, RustCallStatus *_Nonnull out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_GIFT_ORDER
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_GIFT_ORDER
 uint64_t uniffi_bitkitcore_fn_func_gift_order(RustBuffer client_node_id, RustBuffer code
@@ -828,6 +833,11 @@ void uniffi_bitkitcore_fn_func_upsert_pre_activity_metadata(RustBuffer pre_activ
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_UPSERT_TAGS
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_UPSERT_TAGS
 void uniffi_bitkitcore_fn_func_upsert_tags(RustBuffer activity_tags, RustCallStatus *_Nonnull out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_UPSERT_TRANSACTION_DETAILS
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_UPSERT_TRANSACTION_DETAILS
+void uniffi_bitkitcore_fn_func_upsert_transaction_details(RustBuffer details_list, RustCallStatus *_Nonnull out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_VALIDATE_BITCOIN_ADDRESS
@@ -1372,6 +1382,12 @@ uint16_t uniffi_bitkitcore_checksum_func_get_tags(void
     
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_GET_TRANSACTION_DETAILS
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_GET_TRANSACTION_DETAILS
+uint16_t uniffi_bitkitcore_checksum_func_get_transaction_details(void
+    
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_GIFT_ORDER
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_GIFT_ORDER
 uint16_t uniffi_bitkitcore_checksum_func_gift_order(void
@@ -1783,6 +1799,12 @@ uint16_t uniffi_bitkitcore_checksum_func_upsert_pre_activity_metadata(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_UPSERT_TAGS
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_UPSERT_TAGS
 uint16_t uniffi_bitkitcore_checksum_func_upsert_tags(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_UPSERT_TRANSACTION_DETAILS
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_UPSERT_TRANSACTION_DETAILS
+uint16_t uniffi_bitkitcore_checksum_func_upsert_transaction_details(void
     
 );
 #endif
