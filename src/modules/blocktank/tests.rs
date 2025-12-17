@@ -527,7 +527,9 @@ mod tests {
         println!("Bulk insert of 50 orders took: {:?}", bulk_duration);
     }
 
+    /// Requires network access to Blocktank staging API - run with `cargo test -- --ignored` to include
     #[tokio::test]
+    #[ignore]
     async fn test_create_and_store_order() {
         let db = BlocktankDB::new(":memory:", Some(STAGING_SERVER))
             .await
@@ -553,7 +555,9 @@ mod tests {
         assert_eq!(order.client_balance_sat, 0);
     }
 
+    /// Requires network access to Blocktank staging API - run with `cargo test -- --ignored` to include
     #[tokio::test]
+    #[ignore]
     async fn test_refresh_orders() {
         // Initialize in-memory database
         let db = BlocktankDB::new(":memory:", Some(STAGING_SERVER))
@@ -950,7 +954,9 @@ mod tests {
         }
     }
 
+    /// Requires network access to Blocktank staging API - run with `cargo test -- --ignored` to include
     #[tokio::test]
+    #[ignore]
     async fn test_refresh_active_orders() {
         // Initialize in-memory database
         let db = BlocktankDB::new(":memory:", Some(STAGING_SERVER))
@@ -1074,7 +1080,9 @@ mod tests {
         );
     }
 
+    /// Requires network access to Blocktank staging API - run with `cargo test -- --ignored` to include
     #[tokio::test]
+    #[ignore]
     async fn test_get_min_zero_conf_tx_fee() {
         let db = BlocktankDB::new(":memory:", Some(STAGING_SERVER))
             .await
@@ -1128,7 +1136,9 @@ mod tests {
         }
     }
 
+    /// Requires network access to Blocktank staging API - run with `cargo test -- --ignored` to include
     #[tokio::test]
+    #[ignore]
     async fn test_estimate_order_fee() {
         let db = BlocktankDB::new(":memory:", Some(STAGING_SERVER))
             .await
@@ -1176,7 +1186,9 @@ mod tests {
         }
     }
 
+    /// Requires network access to Blocktank staging API - run with `cargo test -- --ignored` to include
     #[tokio::test]
+    #[ignore]
     async fn test_estimate_order_fee_full() {
         let db = BlocktankDB::new(":memory:", Some(STAGING_SERVER))
             .await

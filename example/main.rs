@@ -130,20 +130,20 @@ fn handle_decode_result(result: Result<Scanner, DecodingError>) {
 
 #[tokio::main]
 async fn main() {
-    let lightning_invoice = "lightning:lnbc543210n1pnjdrvfpp5s720f4z6wzvjwpdnrlpffgct375l46yu9c6cpe7gdvvdfay47cnsdqqcqzzsxqrrsssp53uty4kfw8k3wmw4ga802udavz7e64tc7dmaz2cmtkj9srfxaq3ps9p4gqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqysgqwl2tdhzm9e6mtedt7a4263yw7dqxehdwjnjk23r4g8tuppk6rs994f6scunwsev3w207tjldwkpdt32rcegzphgk05c0lctv8he7smgqyfn5xq";
+    let _lightning_invoice = "lightning:lnbc543210n1pnjdrvfpp5s720f4z6wzvjwpdnrlpffgct375l46yu9c6cpe7gdvvdfay47cnsdqqcqzzsxqrrsssp53uty4kfw8k3wmw4ga802udavz7e64tc7dmaz2cmtkj9srfxaq3ps9p4gqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqysgqwl2tdhzm9e6mtedt7a4263yw7dqxehdwjnjk23r4g8tuppk6rs994f6scunwsev3w207tjldwkpdt32rcegzphgk05c0lctv8he7smgqyfn5xq";
     let lnurl_address = "ben@zaps.benthecarman.com";
     let lnurl_auth = "lightning:LNURL1DP68GURN8GHJ7MRWW4EXCTNXD9SHG6NPVCHXXMMD9AKXUATJDSKKCMM8D9HR7ARPVU7KCMM8D9HZV6E385URYWP3XQEXZDPKX4JNJCEHXSMN2WRRXQCK2VRZX3SKYV3CVGMNGE35VGEKXDRXXPSNJVEKXDJNSVFN8Y6XGCNRXP3NSVRRXUUNQVNYS9JR2C";
-    let lnurl_pay = "lightning:LNURL1DP68GURN8GHJ7MRWW4EXCTNXD9SHG6NPVCHXXMMD9AKXUATJDSKHQCTE8AEK2UMND9HKU0FCXGURZVPJVY6RVDT9893NWDPHX5UXXVP3V5CXYDRPVGERSC3HX3NRGC3NVV6XVVRP8YENVVM98QCNXWF5V33XXVRR8QCXXDEEXQEXGWEM4XD";
-    let lnurl_withdraw = "lightning:LNURL1DP68GURN8GHJ7MRWW4EXCTNXD9SHG6NPVCHXXMMD9AKXUATJDSKHW6T5DPJ8YCTH8AEK2UMND9HKU0FCXGURZVPJVY6RVDT9893NWDPHX5UXXVP3V5CXYDRPVGERSC3HX3NRGC3NVV6XVVRP8YENVVM98QCNXWF5V33XXVRR8QCXXDEEXQEXGHSD4GA";
-    let lnurl_channel = "lightning:LNURL1DP68GURN8GHJ7MRWW4EXCTNXD9SHG6NPVCHXXMMD9AKXUATJDSKKX6RPDEHX2MPLWDJHXUMFDAHR6WPJ8QCNQVNPXSMR2EFEVVMNGDE48P3NQVT9XP3RGCTZXGUXYDE5VC6XYVMRX3NRQCFEXVMRXEFCXYENJDRYVF3NQCECXP3NWWFSXFJQA98HUU";
-    let bitcoin_address_invoice = "bitcoin:bc1qxj2ecu0uv7mk767cwnf8kdu22rv63suqvgxxhd?amount=50&label=My Example&message=Donation";
-    let invalid_bitcoin_address = "bitcoin:bc1qxj2ecu07mk767cwnf8kdu22rv63suqvgxxhd?amount=50&label=My Example&message=Donation&extra=invalid";
-    let native_segwit_address = "bc1qxj2ecu0uv7mk767cwnf8kdu22rv63suqvgxxhd";
-    let wrapped_segwit_address = "3ExqhLGnbTChwCLZLC7V3T6yuUydcHMbdk";
-    let legacy_address = "199Grz1BcL5KffikSAtbgngAPgYZZRa3cs";
-    let random_string = "random_string";
-    let tor_node_id = "72413cc3e96168cb4320f992bfa483865133dc28d@3phi2gcmu3nsbvux53hixrxjgyg3u6vd6kqy3yq6rlrvudqrjsxir6id.onion:9735";
-    let node_id =
+    let _lnurl_pay = "lightning:LNURL1DP68GURN8GHJ7MRWW4EXCTNXD9SHG6NPVCHXXMMD9AKXUATJDSKHQCTE8AEK2UMND9HKU0FCXGURZVPJVY6RVDT9893NWDPHX5UXXVP3V5CXYDRPVGERSC3HX3NRGC3NVV6XVVRP8YENVVM98QCNXWF5V33XXVRR8QCXXDEEXQEXGWEM4XD";
+    let _lnurl_withdraw = "lightning:LNURL1DP68GURN8GHJ7MRWW4EXCTNXD9SHG6NPVCHXXMMD9AKXUATJDSKHW6T5DPJ8YCTH8AEK2UMND9HKU0FCXGURZVPJVY6RVDT9893NWDPHX5UXXVP3V5CXYDRPVGERSC3HX3NRGC3NVV6XVVRP8YENVVM98QCNXWF5V33XXVRR8QCXXDEEXQEXGHSD4GA";
+    let _lnurl_channel = "lightning:LNURL1DP68GURN8GHJ7MRWW4EXCTNXD9SHG6NPVCHXXMMD9AKXUATJDSKKX6RPDEHX2MPLWDJHXUMFDAHR6WPJ8QCNQVNPXSMR2EFEVVMNGDE48P3NQVT9XP3RGCTZXGUXYDE5VC6XYVMRX3NRQCFEXVMRXEFCXYENJDRYVF3NQCECXP3NWWFSXFJQA98HUU";
+    let _bitcoin_address_invoice = "bitcoin:bc1qxj2ecu0uv7mk767cwnf8kdu22rv63suqvgxxhd?amount=50&label=My Example&message=Donation";
+    let _invalid_bitcoin_address = "bitcoin:bc1qxj2ecu07mk767cwnf8kdu22rv63suqvgxxhd?amount=50&label=My Example&message=Donation&extra=invalid";
+    let _native_segwit_address = "bc1qxj2ecu0uv7mk767cwnf8kdu22rv63suqvgxxhd";
+    let _wrapped_segwit_address = "3ExqhLGnbTChwCLZLC7V3T6yuUydcHMbdk";
+    let _legacy_address = "199Grz1BcL5KffikSAtbgngAPgYZZRa3cs";
+    let _random_string = "random_string";
+    let _tor_node_id = "72413cc3e96168cb4320f992bfa483865133dc28d@3phi2gcmu3nsbvux53hixrxjgyg3u6vd6kqy3yq6rlrvudqrjsxir6id.onion:9735";
+    let _node_id =
         "039b8b4dd1d88c2c5db374290cda397a8f5d79f312d6ea5d5bfdfc7c6ff363eae3@34.65.111.104:9735";
     let gift_code = "bitkit://gift-ABC123XYZ-50000";
     let invalid_gift_code = "bitkit://gift-TEST-notanumber";

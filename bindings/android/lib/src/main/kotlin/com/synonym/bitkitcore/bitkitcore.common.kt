@@ -109,6 +109,29 @@ public object NoPointer
 
 
 
+
+
+
+
+public interface PaykitInteractiveInterface {
+    
+    /**
+     * Initiate an interactive payment flow with a peer over TCP/Noise.
+     *
+     * * `host`: IP address or hostname of the peer.
+     * * `port`: Port number.
+     * * `peer_pubkey`: Pubky ID (public key) of the peer.
+     * * `receipt`: Provisional receipt details (amount, method, metadata).
+     */
+    @Throws(PaykitException::class, kotlin.coroutines.cancellation.CancellationException::class)
+    public suspend fun `initiatePayment`(`host`: kotlin.String, `port`: kotlin.UShort, `peerPubkey`: kotlin.String, `receipt`: PaykitReceiptFfi): PaykitReceiptFfi
+    
+    public companion object
+}
+
+
+
+
 /**
  * Account addresses
  */
@@ -975,7 +998,8 @@ public data class LightningActivity (
     val `timestamp`: kotlin.ULong, 
     val `preimage`: kotlin.String?, 
     val `createdAt`: kotlin.ULong?, 
-    val `updatedAt`: kotlin.ULong?
+    val `updatedAt`: kotlin.ULong?, 
+    val `seenAt`: kotlin.ULong?
 ) {
     public companion object
 }
@@ -1209,7 +1233,70 @@ public data class OnchainActivity (
     val `channelId`: kotlin.String?, 
     val `transferTxId`: kotlin.String?, 
     val `createdAt`: kotlin.ULong?, 
-    val `updatedAt`: kotlin.ULong?
+    val `updatedAt`: kotlin.ULong?, 
+    val `seenAt`: kotlin.ULong?
+) {
+    public companion object
+}
+
+
+
+/**
+ * Result of the smart checkout flow
+ */
+@kotlinx.serialization.Serializable
+public data class PaykitCheckoutResult (
+    /**
+     * The payment method ID (e.g., "onchain", "lightning")
+     */
+    val `methodId`: kotlin.String, 
+    /**
+     * The endpoint data (e.g., Bitcoin address or Lightning invoice)
+     */
+    val `endpoint`: kotlin.String, 
+    /**
+     * Whether this is a private channel (true) or public directory (false)
+     */
+    val `isPrivate`: kotlin.Boolean, 
+    /**
+     * Whether this requires interactive protocol (receipt negotiation)
+     */
+    val `requiresInteractive`: kotlin.Boolean
+) {
+    public companion object
+}
+
+
+
+@kotlinx.serialization.Serializable
+public data class PaykitReceiptFfi (
+    val `receiptId`: kotlin.String, 
+    val `payer`: kotlin.String, 
+    val `payee`: kotlin.String, 
+    val `methodId`: kotlin.String, 
+    val `amount`: kotlin.String?, 
+    val `currency`: kotlin.String?, 
+    val `createdAt`: kotlin.Long, 
+    val `metadataJson`: kotlin.String
+) {
+    public companion object
+}
+
+
+
+@kotlinx.serialization.Serializable
+public data class PaykitSupportedMethod (
+    val `methodId`: kotlin.String, 
+    val `endpoint`: kotlin.String
+) {
+    public companion object
+}
+
+
+
+@kotlinx.serialization.Serializable
+public data class PaykitSupportedMethods (
+    val `methods`: List<PaykitSupportedMethod>
 ) {
     public companion object
 }
@@ -1361,6 +1448,126 @@ public data class PrecomposedTransaction (
 @kotlinx.serialization.Serializable
 public data class PubkyAuth (
     val `data`: kotlin.String
+) {
+    public companion object
+}
+
+
+
+/**
+ * Result of generating a keypair
+ */
+@kotlinx.serialization.Serializable
+public data class PubkyKeypair (
+    /**
+     * Hex-encoded secret key (32 bytes)
+     */
+    val `secretKeyHex`: kotlin.String, 
+    /**
+     * Public key (z-base-32 encoded)
+     */
+    val `publicKey`: kotlin.String
+) {
+    public companion object
+}
+
+
+
+/**
+ * A file or directory in storage
+ */
+@kotlinx.serialization.Serializable
+public data class PubkyListItem (
+    /**
+     * Name of the file or directory
+     */
+    val `name`: kotlin.String, 
+    /**
+     * Full path
+     */
+    val `path`: kotlin.String, 
+    /**
+     * Whether this is a directory
+     */
+    val `isDirectory`: kotlin.Boolean
+) {
+    public companion object
+}
+
+
+
+@kotlinx.serialization.Serializable
+public data class PubkyPayment (
+    val `pubkey`: kotlin.String
+) {
+    public companion object
+}
+
+
+
+/**
+ * Profile information from pubky.app
+ */
+@kotlinx.serialization.Serializable
+public data class PubkyProfile (
+    /**
+     * Display name
+     */
+    val `name`: kotlin.String?, 
+    /**
+     * Bio/description
+     */
+    val `bio`: kotlin.String?, 
+    /**
+     * Profile image URL
+     */
+    val `image`: kotlin.String?, 
+    /**
+     * Links
+     */
+    val `links`: List<kotlin.String>, 
+    /**
+     * Status message
+     */
+    val `status`: kotlin.String?
+) {
+    public companion object
+}
+
+
+
+/**
+ * Session information returned from sign-in/sign-up
+ */
+@kotlinx.serialization.Serializable
+public data class PubkySessionInfo (
+    /**
+     * The public key of the authenticated user
+     */
+    val `pubkey`: kotlin.String, 
+    /**
+     * List of granted capabilities
+     */
+    val `capabilities`: List<kotlin.String>, 
+    /**
+     * When the session was created (Unix timestamp in seconds)
+     */
+    val `createdAt`: kotlin.ULong
+) {
+    public companion object
+}
+
+
+
+/**
+ * Options for signing up
+ */
+@kotlinx.serialization.Serializable
+public data class PubkySignupOptions (
+    /**
+     * Signup token if required by homeserver
+     */
+    val `signupToken`: kotlin.String?
 ) {
     public companion object
 }
@@ -1547,6 +1754,33 @@ public data class TextMemo (
 
 
 /**
+ * Full transaction details for onchain transactions
+ */
+@kotlinx.serialization.Serializable
+public data class TransactionDetails (
+    /**
+     * Transaction ID
+     */
+    val `txId`: kotlin.String, 
+    /**
+     * Net amount change (positive for received, negative for sent)
+     */
+    val `amountSats`: kotlin.Long, 
+    /**
+     * Inputs
+     */
+    val `inputs`: List<TxInput>, 
+    /**
+     * Outputs
+     */
+    val `outputs`: List<TxOutput>
+) {
+    public companion object
+}
+
+
+
+/**
  * Payment request
  */
 @kotlinx.serialization.Serializable
@@ -1571,6 +1805,37 @@ public data class TxAckPaymentRequest (
      * Signature
      */
     val `signature`: kotlin.String
+) {
+    public companion object
+}
+
+
+
+/**
+ * Transaction input for onchain transactions
+ */
+@kotlinx.serialization.Serializable
+public data class TxInput (
+    /**
+     * Transaction ID of the previous output
+     */
+    val `txid`: kotlin.String, 
+    /**
+     * Output index in the previous transaction
+     */
+    val `vout`: kotlin.UInt, 
+    /**
+     * Script signature
+     */
+    val `scriptsig`: kotlin.String, 
+    /**
+     * Witness data
+     */
+    val `witness`: List<kotlin.String>, 
+    /**
+     * Sequence number
+     */
+    val `sequence`: kotlin.UInt
 ) {
     public companion object
 }
@@ -1642,6 +1907,37 @@ public data class TxInputType (
      * Coinjoin flags
      */
     val `coinjoinFlags`: kotlin.UInt?
+) {
+    public companion object
+}
+
+
+
+/**
+ * Transaction output for onchain transactions
+ */
+@kotlinx.serialization.Serializable
+public data class TxOutput (
+    /**
+     * Scriptpubkey as hex
+     */
+    val `scriptpubkey`: kotlin.String, 
+    /**
+     * Scriptpubkey type (e.g., "p2wpkh", "p2tr")
+     */
+    val `scriptpubkeyType`: kotlin.String, 
+    /**
+     * Address derived from scriptpubkey (if applicable)
+     */
+    val `scriptpubkeyAddress`: kotlin.String?, 
+    /**
+     * Value in satoshis
+     */
+    val `value`: kotlin.ULong, 
+    /**
+     * Output index in this transaction
+     */
+    val `n`: kotlin.UInt
 ) {
     public companion object
 }
@@ -2609,6 +2905,42 @@ public enum class NetworkType {
 
 
 
+public sealed class PaykitException: kotlin.Exception() {
+    
+    public class Transport(
+        public val v1: kotlin.String,
+    ) : PaykitException() {
+        override val message: String
+            get() = "v1=${ v1 }"
+    }
+    
+    public class InvalidPublicKey(
+        public val v1: kotlin.String,
+    ) : PaykitException() {
+        override val message: String
+            get() = "v1=${ v1 }"
+    }
+    
+    public class Unsupported(
+        public val v1: kotlin.String,
+    ) : PaykitException() {
+        override val message: String
+            get() = "v1=${ v1 }"
+    }
+    
+    public class Generic(
+        public val v1: kotlin.String,
+    ) : PaykitException() {
+        override val message: String
+            get() = "v1=${ v1 }"
+    }
+    
+}
+
+
+
+
+
 @kotlinx.serialization.Serializable
 public enum class PaymentState {
     
@@ -2637,6 +2969,63 @@ public enum class PaymentType {
 
 
 
+
+public sealed class PubkyException: kotlin.Exception() {
+    
+    public class Auth(
+        public val `message`: kotlin.String,
+    ) : PubkyException() {
+        override val message: String
+            get() = "message=${ `message` }"
+    }
+    
+    public class Network(
+        public val `message`: kotlin.String,
+    ) : PubkyException() {
+        override val message: String
+            get() = "message=${ `message` }"
+    }
+    
+    public class InvalidInput(
+        public val `message`: kotlin.String,
+    ) : PubkyException() {
+        override val message: String
+            get() = "message=${ `message` }"
+    }
+    
+    public class Session(
+        public val `message`: kotlin.String,
+    ) : PubkyException() {
+        override val message: String
+            get() = "message=${ `message` }"
+    }
+    
+    public class Build(
+        public val `message`: kotlin.String,
+    ) : PubkyException() {
+        override val message: String
+            get() = "message=${ `message` }"
+    }
+    
+    public class Storage(
+        public val `message`: kotlin.String,
+    ) : PubkyException() {
+        override val message: String
+            get() = "message=${ `message` }"
+    }
+    
+    public class NotFound(
+        public val `message`: kotlin.String,
+    ) : PubkyException() {
+        override val message: String
+            get() = "message=${ `message` }"
+    }
+    
+}
+
+
+
+
 @kotlinx.serialization.Serializable
 public sealed class Scanner {
     @kotlinx.serialization.Serializable
@@ -2652,6 +3041,11 @@ public sealed class Scanner {
     @kotlinx.serialization.Serializable
     public data class PubkyAuth(
         val `data`: kotlin.String,
+    ) : Scanner() {
+    }
+    @kotlinx.serialization.Serializable
+    public data class PubkyPayment(
+        val `data`: PubkyPayment,
     ) : Scanner() {
     }
     @kotlinx.serialization.Serializable
@@ -2956,6 +3350,22 @@ public enum class WordCount {
     WORDS24;
     public companion object
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

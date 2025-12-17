@@ -19,6 +19,8 @@ package com.synonym.bitkitcore
 import com.sun.jna.Library
 import com.sun.jna.Native
 import com.sun.jna.Structure
+import android.os.Build
+import androidx.annotation.RequiresApi
 import kotlin.coroutines.resume
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -1128,6 +1130,74 @@ internal interface UniffiForeignFutureCompleteVoid: com.sun.jna.Callback {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @Synchronized
 private fun findLibraryName(componentName: String): String {
     val libOverride = System.getProperty("uniffi.component.$componentName.libraryOverride")
@@ -1239,6 +1309,9 @@ internal object IntegrityCheckingUniffiLib : Library {
         if (uniffi_bitkitcore_checksum_func_get_activity_by_id() != 44227.toShort()) {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
+        if (uniffi_bitkitcore_checksum_func_get_activity_by_tx_id() != 59516.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
         if (uniffi_bitkitcore_checksum_func_get_all_activities_tags() != 29245.toShort()) {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
@@ -1287,6 +1360,9 @@ internal object IntegrityCheckingUniffiLib : Library {
         if (uniffi_bitkitcore_checksum_func_get_tags() != 11308.toShort()) {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
+        if (uniffi_bitkitcore_checksum_func_get_transaction_details() != 31931.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
         if (uniffi_bitkitcore_checksum_func_gift_order() != 22040.toShort()) {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
@@ -1299,10 +1375,16 @@ internal object IntegrityCheckingUniffiLib : Library {
         if (uniffi_bitkitcore_checksum_func_insert_activity() != 1510.toShort()) {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
+        if (uniffi_bitkitcore_checksum_func_is_address_used() != 64038.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
         if (uniffi_bitkitcore_checksum_func_is_valid_bip39_word() != 31846.toShort()) {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
         if (uniffi_bitkitcore_checksum_func_lnurl_auth() != 58593.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_mark_activity_as_seen() != 65086.toShort()) {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
         if (uniffi_bitkitcore_checksum_func_mnemonic_to_entropy() != 36669.toShort()) {
@@ -1312,6 +1394,84 @@ internal object IntegrityCheckingUniffiLib : Library {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
         if (uniffi_bitkitcore_checksum_func_open_channel() != 21402.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_paykit_check_rotation_needed() != 24196.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_paykit_get_endpoint_for_key_and_method() != 17546.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_paykit_get_supported_methods_for_key() != 58550.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_paykit_initialize() != 15534.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_paykit_remove_endpoint() != 37688.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_paykit_set_endpoint() != 9186.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_paykit_smart_checkout() != 37897.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_fetch_follows() != 60996.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_fetch_profile() != 52215.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_generate_keypair() != 35288.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_get_session() != 50800.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_has_session() != 23967.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_initialize() != 9364.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_initialize_testnet() != 55257.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_list_sessions() != 23015.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_public_get() != 5585.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_public_key_from_secret() != 37096.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_public_list() != 33139.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_resolve_homeserver() != 11606.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_session_delete() != 54181.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_session_get() != 59572.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_session_list() != 32015.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_session_put() != 60792.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_signin() != 59461.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_signout() != 49453.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_func_pubky_signup() != 61494.toShort()) {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
         if (uniffi_bitkitcore_checksum_func_refresh_active_cjit_entries() != 5324.toShort()) {
@@ -1416,6 +1576,9 @@ internal object IntegrityCheckingUniffiLib : Library {
         if (uniffi_bitkitcore_checksum_func_upsert_tags() != 47513.toShort()) {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
+        if (uniffi_bitkitcore_checksum_func_upsert_transaction_details() != 52343.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
         if (uniffi_bitkitcore_checksum_func_validate_bitcoin_address() != 56003.toShort()) {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
@@ -1426,6 +1589,12 @@ internal object IntegrityCheckingUniffiLib : Library {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
         if (uniffi_bitkitcore_checksum_func_wipe_all_databases() != 54605.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_method_paykitinteractive_initiate_payment() != 20298.toShort()) {
+            throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
+        }
+        if (uniffi_bitkitcore_checksum_constructor_paykitinteractive_new() != 33183.toShort()) {
             throw RuntimeException("UniFFI API checksum mismatch: try cleaning and rebuilding your project")
         }
     }
@@ -1504,6 +1673,9 @@ internal object IntegrityCheckingUniffiLib : Library {
     external fun uniffi_bitkitcore_checksum_func_get_activity_by_id(
     ): Short
     @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_get_activity_by_tx_id(
+    ): Short
+    @JvmStatic
     external fun uniffi_bitkitcore_checksum_func_get_all_activities_tags(
     ): Short
     @JvmStatic
@@ -1552,6 +1724,9 @@ internal object IntegrityCheckingUniffiLib : Library {
     external fun uniffi_bitkitcore_checksum_func_get_tags(
     ): Short
     @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_get_transaction_details(
+    ): Short
+    @JvmStatic
     external fun uniffi_bitkitcore_checksum_func_gift_order(
     ): Short
     @JvmStatic
@@ -1564,10 +1739,16 @@ internal object IntegrityCheckingUniffiLib : Library {
     external fun uniffi_bitkitcore_checksum_func_insert_activity(
     ): Short
     @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_is_address_used(
+    ): Short
+    @JvmStatic
     external fun uniffi_bitkitcore_checksum_func_is_valid_bip39_word(
     ): Short
     @JvmStatic
     external fun uniffi_bitkitcore_checksum_func_lnurl_auth(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_mark_activity_as_seen(
     ): Short
     @JvmStatic
     external fun uniffi_bitkitcore_checksum_func_mnemonic_to_entropy(
@@ -1577,6 +1758,84 @@ internal object IntegrityCheckingUniffiLib : Library {
     ): Short
     @JvmStatic
     external fun uniffi_bitkitcore_checksum_func_open_channel(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_paykit_check_rotation_needed(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_paykit_get_endpoint_for_key_and_method(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_paykit_get_supported_methods_for_key(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_paykit_initialize(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_paykit_remove_endpoint(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_paykit_set_endpoint(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_paykit_smart_checkout(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_fetch_follows(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_fetch_profile(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_generate_keypair(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_get_session(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_has_session(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_initialize(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_initialize_testnet(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_list_sessions(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_public_get(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_public_key_from_secret(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_public_list(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_resolve_homeserver(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_session_delete(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_session_get(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_session_list(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_session_put(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_signin(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_signout(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_pubky_signup(
     ): Short
     @JvmStatic
     external fun uniffi_bitkitcore_checksum_func_refresh_active_cjit_entries(
@@ -1681,6 +1940,9 @@ internal object IntegrityCheckingUniffiLib : Library {
     external fun uniffi_bitkitcore_checksum_func_upsert_tags(
     ): Short
     @JvmStatic
+    external fun uniffi_bitkitcore_checksum_func_upsert_transaction_details(
+    ): Short
+    @JvmStatic
     external fun uniffi_bitkitcore_checksum_func_validate_bitcoin_address(
     ): Short
     @JvmStatic
@@ -1691,6 +1953,12 @@ internal object IntegrityCheckingUniffiLib : Library {
     ): Short
     @JvmStatic
     external fun uniffi_bitkitcore_checksum_func_wipe_all_databases(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_method_paykitinteractive_initiate_payment(
+    ): Short
+    @JvmStatic
+    external fun uniffi_bitkitcore_checksum_constructor_paykitinteractive_new(
     ): Short
     @JvmStatic
     external fun ffi_bitkitcore_uniffi_contract_version(
@@ -1707,6 +1975,34 @@ internal object UniffiLib : Library {
         // No need to check the contract version and checksums, since
         // we already did that with `IntegrityCheckingUniffiLib` above.
     }
+    // The Cleaner for the whole library
+    internal val CLEANER: UniffiCleaner by lazy {
+        UniffiCleaner.create()
+    }
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_clone_paykitinteractive(
+        `ptr`: Pointer?,
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): Pointer?
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_free_paykitinteractive(
+        `ptr`: Pointer?,
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): Unit
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_constructor_paykitinteractive_new(
+        `dbPath`: RustBufferByValue,
+        `secretKeyHex`: RustBufferByValue,
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): Pointer?
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_method_paykitinteractive_initiate_payment(
+        `ptr`: Pointer?,
+        `host`: RustBufferByValue,
+        `port`: Short,
+        `peerPubkey`: RustBufferByValue,
+        `receipt`: RustBufferByValue,
+    ): Long
     @JvmStatic
     external fun uniffi_bitkitcore_fn_func_activity_wipe_all(
         uniffiCallStatus: UniffiRustCallStatus,
@@ -1856,6 +2152,11 @@ internal object UniffiLib : Library {
         uniffiCallStatus: UniffiRustCallStatus,
     ): RustBufferByValue
     @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_get_activity_by_tx_id(
+        `txId`: RustBufferByValue,
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): RustBufferByValue
+    @JvmStatic
     external fun uniffi_bitkitcore_fn_func_get_all_activities_tags(
         uniffiCallStatus: UniffiRustCallStatus,
     ): RustBufferByValue
@@ -1932,6 +2233,11 @@ internal object UniffiLib : Library {
         uniffiCallStatus: UniffiRustCallStatus,
     ): RustBufferByValue
     @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_get_transaction_details(
+        `txId`: RustBufferByValue,
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): RustBufferByValue
+    @JvmStatic
     external fun uniffi_bitkitcore_fn_func_gift_order(
         `clientNodeId`: RustBufferByValue,
         `code`: RustBufferByValue,
@@ -1951,6 +2257,11 @@ internal object UniffiLib : Library {
         uniffiCallStatus: UniffiRustCallStatus,
     ): Unit
     @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_is_address_used(
+        `address`: RustBufferByValue,
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): Byte
+    @JvmStatic
     external fun uniffi_bitkitcore_fn_func_is_valid_bip39_word(
         `word`: RustBufferByValue,
         uniffiCallStatus: UniffiRustCallStatus,
@@ -1964,6 +2275,12 @@ internal object UniffiLib : Library {
         `network`: RustBufferByValue,
         `bip39Passphrase`: RustBufferByValue,
     ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_mark_activity_as_seen(
+        `activityId`: RustBufferByValue,
+        `seenAt`: Long,
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): Unit
     @JvmStatic
     external fun uniffi_bitkitcore_fn_func_mnemonic_to_entropy(
         `mnemonicPhrase`: RustBufferByValue,
@@ -1979,6 +2296,121 @@ internal object UniffiLib : Library {
     external fun uniffi_bitkitcore_fn_func_open_channel(
         `orderId`: RustBufferByValue,
         `connectionString`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_paykit_check_rotation_needed(
+        `pubkey`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_paykit_get_endpoint_for_key_and_method(
+        `pubkey`: RustBufferByValue,
+        `methodId`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_paykit_get_supported_methods_for_key(
+        `pubkey`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_paykit_initialize(
+        `secretKeyHex`: RustBufferByValue,
+        `homeserverPubkey`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_paykit_remove_endpoint(
+        `methodId`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_paykit_set_endpoint(
+        `methodId`: RustBufferByValue,
+        `endpoint`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_paykit_smart_checkout(
+        `pubkey`: RustBufferByValue,
+        `preferredMethod`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_fetch_follows(
+        `pubkey`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_fetch_profile(
+        `pubkey`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_generate_keypair(
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): RustBufferByValue
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_get_session(
+        `pubkey`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_has_session(
+        `pubkey`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_initialize(
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): Unit
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_initialize_testnet(
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): Unit
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_list_sessions(
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_public_get(
+        `uri`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_public_key_from_secret(
+        `secretKeyHex`: RustBufferByValue,
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): RustBufferByValue
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_public_list(
+        `uri`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_resolve_homeserver(
+        `pubkey`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_session_delete(
+        `pubkey`: RustBufferByValue,
+        `path`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_session_get(
+        `pubkey`: RustBufferByValue,
+        `path`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_session_list(
+        `pubkey`: RustBufferByValue,
+        `path`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_session_put(
+        `pubkey`: RustBufferByValue,
+        `path`: RustBufferByValue,
+        `content`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_signin(
+        `secretKeyHex`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_signout(
+        `pubkey`: RustBufferByValue,
+    ): Long
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_pubky_signup(
+        `secretKeyHex`: RustBufferByValue,
+        `homeserverPubkey`: RustBufferByValue,
+        `options`: RustBufferByValue,
     ): Long
     @JvmStatic
     external fun uniffi_bitkitcore_fn_func_refresh_active_cjit_entries(
@@ -2228,6 +2660,11 @@ internal object UniffiLib : Library {
     @JvmStatic
     external fun uniffi_bitkitcore_fn_func_upsert_tags(
         `activityTags`: RustBufferByValue,
+        uniffiCallStatus: UniffiRustCallStatus,
+    ): Unit
+    @JvmStatic
+    external fun uniffi_bitkitcore_fn_func_upsert_transaction_details(
+        `detailsList`: RustBufferByValue,
         uniffiCallStatus: UniffiRustCallStatus,
     ): Unit
     @JvmStatic
@@ -2523,6 +2960,69 @@ public fun uniffiEnsureInitialized() {
 
 // Public interface members begin here.
 
+// The cleaner interface for Object finalization code to run.
+// This is the entry point to any implementation that we're using.
+//
+// The cleaner registers disposables and returns cleanables, so now we are
+// defining a `UniffiCleaner` with a `UniffiClenaer.Cleanable` to abstract the
+// different implementations available at compile time.
+public interface UniffiCleaner {
+    public interface Cleanable {
+        public fun clean()
+    }
+
+    public fun register(resource: Any, disposable: Disposable): UniffiCleaner.Cleanable
+
+    public companion object
+}
+// The fallback Jna cleaner, which is available for both Android, and the JVM.
+private class UniffiJnaCleaner : UniffiCleaner {
+    private val cleaner = com.sun.jna.internal.Cleaner.getCleaner()
+
+    override fun register(resource: Any, disposable: Disposable): UniffiCleaner.Cleanable =
+        UniffiJnaCleanable(cleaner.register(resource, UniffiCleanerAction(disposable)))
+}
+
+private class UniffiJnaCleanable(
+    private val cleanable: com.sun.jna.internal.Cleaner.Cleanable,
+) : UniffiCleaner.Cleanable {
+    override fun clean() = cleanable.clean()
+}
+
+private class UniffiCleanerAction(private val disposable: Disposable): Runnable {
+    override fun run() {
+        disposable.destroy()
+    }
+}
+
+// The SystemCleaner, available from API Level 33.
+// Some API Level 33 OSes do not support using it, so we require API Level 34.
+@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+private class AndroidSystemCleaner : UniffiCleaner {
+    private val cleaner = android.system.SystemCleaner.cleaner()
+
+    override fun register(resource: Any, disposable: Disposable): UniffiCleaner.Cleanable =
+        AndroidSystemCleanable(cleaner.register(resource, UniffiCleanerAction(disposable)))
+}
+
+@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+private class AndroidSystemCleanable(
+    private val cleanable: java.lang.ref.Cleaner.Cleanable,
+) : UniffiCleaner.Cleanable {
+    override fun clean() = cleanable.clean()
+}
+
+private fun UniffiCleaner.Companion.create(): UniffiCleaner {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        try {
+            return AndroidSystemCleaner()
+        } catch (_: IllegalAccessError) {
+            // (For Compose preview) Fallback to UniffiJnaCleaner if AndroidSystemCleaner is
+            // unavailable, even for API level 34 or higher.
+        }
+    }
+    return UniffiJnaCleaner()
+}
 
 
 public object FfiConverterUByte: FfiConverter<UByte, Byte> {
@@ -2542,6 +3042,27 @@ public object FfiConverterUByte: FfiConverter<UByte, Byte> {
 
     override fun write(value: UByte, buf: ByteBuffer) {
         buf.put(value.toByte())
+    }
+}
+
+
+public object FfiConverterUShort: FfiConverter<UShort, Short> {
+    override fun lift(value: Short): UShort {
+        return value.toUShort()
+    }
+
+    override fun read(buf: ByteBuffer): UShort {
+        return lift(buf.getShort())
+    }
+
+    override fun lower(value: UShort): Short {
+        return value.toShort()
+    }
+
+    override fun allocationSize(value: UShort): ULong = 2UL
+
+    override fun write(value: UShort, buf: ByteBuffer) {
+        buf.putShort(value.toShort())
     }
 }
 
@@ -2584,6 +3105,27 @@ public object FfiConverterULong: FfiConverter<ULong, Long> {
 
     override fun write(value: ULong, buf: ByteBuffer) {
         buf.putLong(value.toLong())
+    }
+}
+
+
+public object FfiConverterLong: FfiConverter<Long, Long> {
+    override fun lift(value: Long): Long {
+        return value
+    }
+
+    override fun read(buf: ByteBuffer): Long {
+        return buf.getLong()
+    }
+
+    override fun lower(value: Long): Long {
+        return value
+    }
+
+    override fun allocationSize(value: Long): ULong = 8UL
+
+    override fun write(value: Long, buf: ByteBuffer) {
+        buf.putLong(value)
     }
 }
 
@@ -2691,6 +3233,178 @@ public object FfiConverterByteArray: FfiConverterRustBuffer<ByteArray> {
     override fun write(value: ByteArray, buf: ByteBuffer) {
         buf.putInt(value.size)
         buf.put(value)
+    }
+}
+
+
+
+public open class PaykitInteractive: Disposable, PaykitInteractiveInterface {
+
+    public constructor(pointer: Pointer) {
+        this.pointer = pointer
+        this.cleanable = UniffiLib.CLEANER.register(this, UniffiPointerDestroyer(pointer))
+    }
+
+    /**
+     * This constructor can be used to instantiate a fake object. Only used for tests. Any
+     * attempt to actually use an object constructed this way will fail as there is no
+     * connected Rust object.
+     */
+    public constructor(noPointer: NoPointer) {
+        this.pointer = null
+        this.cleanable = UniffiLib.CLEANER.register(this, UniffiPointerDestroyer(null))
+    }
+    public constructor(`dbPath`: kotlin.String, `secretKeyHex`: kotlin.String) : this(
+        uniffiRustCallWithError(PaykitExceptionErrorHandler) { uniffiRustCallStatus ->
+            UniffiLib.uniffi_bitkitcore_fn_constructor_paykitinteractive_new(
+                FfiConverterString.lower(`dbPath`),
+                FfiConverterString.lower(`secretKeyHex`),
+                uniffiRustCallStatus,
+            )
+        }!!
+    )
+
+    protected val pointer: Pointer?
+    protected val cleanable: UniffiCleaner.Cleanable
+
+    private val wasDestroyed: kotlinx.atomicfu.AtomicBoolean = kotlinx.atomicfu.atomic(false)
+    private val callCounter: kotlinx.atomicfu.AtomicLong = kotlinx.atomicfu.atomic(1L)
+
+    private val lock = kotlinx.atomicfu.locks.ReentrantLock()
+
+    private fun <T> synchronized(block: () -> T): T {
+        lock.lock()
+        try {
+            return block()
+        } finally {
+            lock.unlock()
+        }
+    }
+
+    override fun destroy() {
+        // Only allow a single call to this method.
+        // TODO: maybe we should log a warning if called more than once?
+        if (this.wasDestroyed.compareAndSet(false, true)) {
+            // This decrement always matches the initial count of 1 given at creation time.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable.clean()
+            }
+        }
+    }
+
+    override fun close() {
+        synchronized { this.destroy() }
+    }
+
+    internal inline fun <R> callWithPointer(block: (ptr: Pointer) -> R): R {
+        // Check and increment the call counter, to keep the object alive.
+        // This needs a compare-and-set retry loop in case of concurrent updates.
+        do {
+            val c = this.callCounter.value
+            if (c == 0L) {
+                throw IllegalStateException("${this::class::simpleName} object has already been destroyed")
+            }
+            if (c == Long.MAX_VALUE) {
+                throw IllegalStateException("${this::class::simpleName} call counter would overflow")
+            }
+        } while (! this.callCounter.compareAndSet(c, c + 1L))
+        // Now we can safely do the method call without the pointer being freed concurrently.
+        try {
+            return block(this.uniffiClonePointer())
+        } finally {
+            // This decrement always matches the increment we performed above.
+            if (this.callCounter.decrementAndGet() == 0L) {
+                cleanable.clean()
+            }
+        }
+    }
+
+    // Use a static inner class instead of a closure so as not to accidentally
+    // capture `this` as part of the cleanable's action.
+    private class UniffiPointerDestroyer(private val pointer: Pointer?) : Disposable {
+        override fun destroy() {
+            pointer?.let { ptr ->
+                uniffiRustCall { status ->
+                    UniffiLib.uniffi_bitkitcore_fn_free_paykitinteractive(ptr, status)
+                }
+            }
+        }
+    }
+
+    public fun uniffiClonePointer(): Pointer {
+        return uniffiRustCall { status ->
+            UniffiLib.uniffi_bitkitcore_fn_clone_paykitinteractive(pointer!!, status)
+        }!!
+    }
+
+    
+    /**
+     * Initiate an interactive payment flow with a peer over TCP/Noise.
+     *
+     * * `host`: IP address or hostname of the peer.
+     * * `port`: Port number.
+     * * `peer_pubkey`: Pubky ID (public key) of the peer.
+     * * `receipt`: Provisional receipt details (amount, method, metadata).
+     */
+    @Throws(PaykitException::class, kotlin.coroutines.cancellation.CancellationException::class)
+    public override suspend fun `initiatePayment`(`host`: kotlin.String, `port`: kotlin.UShort, `peerPubkey`: kotlin.String, `receipt`: PaykitReceiptFfi): PaykitReceiptFfi {
+        return uniffiRustCallAsync(
+            callWithPointer { thisPtr ->
+                UniffiLib.uniffi_bitkitcore_fn_method_paykitinteractive_initiate_payment(
+                    thisPtr,
+                    FfiConverterString.lower(`host`),
+                    FfiConverterUShort.lower(`port`),
+                    FfiConverterString.lower(`peerPubkey`),
+                    FfiConverterTypePaykitReceiptFfi.lower(`receipt`),
+                )
+            },
+            { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+            { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+            { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+            { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+            // lift function
+            { FfiConverterTypePaykitReceiptFfi.lift(it) },
+            // Error FFI converter
+            PaykitExceptionErrorHandler,
+        )
+    }
+
+
+    
+    
+
+    
+    
+    public companion object
+    
+}
+
+
+
+
+
+public object FfiConverterTypePaykitInteractive: FfiConverter<PaykitInteractive, Pointer> {
+
+    override fun lower(value: PaykitInteractive): Pointer {
+        return value.uniffiClonePointer()
+    }
+
+    override fun lift(value: Pointer): PaykitInteractive {
+        return PaykitInteractive(value)
+    }
+
+    override fun read(buf: ByteBuffer): PaykitInteractive {
+        // The Rust code always writes pointers as 8 bytes, and will
+        // fail to compile if they don't fit.
+        return lift(buf.getLong().toPointer())
+    }
+
+    override fun allocationSize(value: PaykitInteractive): ULong = 8UL
+
+    override fun write(value: PaykitInteractive, buf: ByteBuffer) {
+        // The Rust code always expects pointers written as 8 bytes,
+        // and will fail to compile if they don't fit.
+        buf.putLong(lower(value).toLong())
     }
 }
 
@@ -4367,6 +5081,7 @@ public object FfiConverterTypeLightningActivity: FfiConverterRustBuffer<Lightnin
             FfiConverterOptionalString.read(buf),
             FfiConverterOptionalULong.read(buf),
             FfiConverterOptionalULong.read(buf),
+            FfiConverterOptionalULong.read(buf),
         )
     }
 
@@ -4381,7 +5096,8 @@ public object FfiConverterTypeLightningActivity: FfiConverterRustBuffer<Lightnin
             FfiConverterULong.allocationSize(value.`timestamp`) +
             FfiConverterOptionalString.allocationSize(value.`preimage`) +
             FfiConverterOptionalULong.allocationSize(value.`createdAt`) +
-            FfiConverterOptionalULong.allocationSize(value.`updatedAt`)
+            FfiConverterOptionalULong.allocationSize(value.`updatedAt`) +
+            FfiConverterOptionalULong.allocationSize(value.`seenAt`)
     )
 
     override fun write(value: LightningActivity, buf: ByteBuffer) {
@@ -4396,6 +5112,7 @@ public object FfiConverterTypeLightningActivity: FfiConverterRustBuffer<Lightnin
         FfiConverterOptionalString.write(value.`preimage`, buf)
         FfiConverterOptionalULong.write(value.`createdAt`, buf)
         FfiConverterOptionalULong.write(value.`updatedAt`, buf)
+        FfiConverterOptionalULong.write(value.`seenAt`, buf)
     }
 }
 
@@ -4708,6 +5425,7 @@ public object FfiConverterTypeOnchainActivity: FfiConverterRustBuffer<OnchainAct
             FfiConverterOptionalString.read(buf),
             FfiConverterOptionalULong.read(buf),
             FfiConverterOptionalULong.read(buf),
+            FfiConverterOptionalULong.read(buf),
         )
     }
 
@@ -4729,7 +5447,8 @@ public object FfiConverterTypeOnchainActivity: FfiConverterRustBuffer<OnchainAct
             FfiConverterOptionalString.allocationSize(value.`channelId`) +
             FfiConverterOptionalString.allocationSize(value.`transferTxId`) +
             FfiConverterOptionalULong.allocationSize(value.`createdAt`) +
-            FfiConverterOptionalULong.allocationSize(value.`updatedAt`)
+            FfiConverterOptionalULong.allocationSize(value.`updatedAt`) +
+            FfiConverterOptionalULong.allocationSize(value.`seenAt`)
     )
 
     override fun write(value: OnchainActivity, buf: ByteBuffer) {
@@ -4751,6 +5470,116 @@ public object FfiConverterTypeOnchainActivity: FfiConverterRustBuffer<OnchainAct
         FfiConverterOptionalString.write(value.`transferTxId`, buf)
         FfiConverterOptionalULong.write(value.`createdAt`, buf)
         FfiConverterOptionalULong.write(value.`updatedAt`, buf)
+        FfiConverterOptionalULong.write(value.`seenAt`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypePaykitCheckoutResult: FfiConverterRustBuffer<PaykitCheckoutResult> {
+    override fun read(buf: ByteBuffer): PaykitCheckoutResult {
+        return PaykitCheckoutResult(
+            FfiConverterString.read(buf),
+            FfiConverterString.read(buf),
+            FfiConverterBoolean.read(buf),
+            FfiConverterBoolean.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: PaykitCheckoutResult): ULong = (
+            FfiConverterString.allocationSize(value.`methodId`) +
+            FfiConverterString.allocationSize(value.`endpoint`) +
+            FfiConverterBoolean.allocationSize(value.`isPrivate`) +
+            FfiConverterBoolean.allocationSize(value.`requiresInteractive`)
+    )
+
+    override fun write(value: PaykitCheckoutResult, buf: ByteBuffer) {
+        FfiConverterString.write(value.`methodId`, buf)
+        FfiConverterString.write(value.`endpoint`, buf)
+        FfiConverterBoolean.write(value.`isPrivate`, buf)
+        FfiConverterBoolean.write(value.`requiresInteractive`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypePaykitReceiptFfi: FfiConverterRustBuffer<PaykitReceiptFfi> {
+    override fun read(buf: ByteBuffer): PaykitReceiptFfi {
+        return PaykitReceiptFfi(
+            FfiConverterString.read(buf),
+            FfiConverterString.read(buf),
+            FfiConverterString.read(buf),
+            FfiConverterString.read(buf),
+            FfiConverterOptionalString.read(buf),
+            FfiConverterOptionalString.read(buf),
+            FfiConverterLong.read(buf),
+            FfiConverterString.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: PaykitReceiptFfi): ULong = (
+            FfiConverterString.allocationSize(value.`receiptId`) +
+            FfiConverterString.allocationSize(value.`payer`) +
+            FfiConverterString.allocationSize(value.`payee`) +
+            FfiConverterString.allocationSize(value.`methodId`) +
+            FfiConverterOptionalString.allocationSize(value.`amount`) +
+            FfiConverterOptionalString.allocationSize(value.`currency`) +
+            FfiConverterLong.allocationSize(value.`createdAt`) +
+            FfiConverterString.allocationSize(value.`metadataJson`)
+    )
+
+    override fun write(value: PaykitReceiptFfi, buf: ByteBuffer) {
+        FfiConverterString.write(value.`receiptId`, buf)
+        FfiConverterString.write(value.`payer`, buf)
+        FfiConverterString.write(value.`payee`, buf)
+        FfiConverterString.write(value.`methodId`, buf)
+        FfiConverterOptionalString.write(value.`amount`, buf)
+        FfiConverterOptionalString.write(value.`currency`, buf)
+        FfiConverterLong.write(value.`createdAt`, buf)
+        FfiConverterString.write(value.`metadataJson`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypePaykitSupportedMethod: FfiConverterRustBuffer<PaykitSupportedMethod> {
+    override fun read(buf: ByteBuffer): PaykitSupportedMethod {
+        return PaykitSupportedMethod(
+            FfiConverterString.read(buf),
+            FfiConverterString.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: PaykitSupportedMethod): ULong = (
+            FfiConverterString.allocationSize(value.`methodId`) +
+            FfiConverterString.allocationSize(value.`endpoint`)
+    )
+
+    override fun write(value: PaykitSupportedMethod, buf: ByteBuffer) {
+        FfiConverterString.write(value.`methodId`, buf)
+        FfiConverterString.write(value.`endpoint`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypePaykitSupportedMethods: FfiConverterRustBuffer<PaykitSupportedMethods> {
+    override fun read(buf: ByteBuffer): PaykitSupportedMethods {
+        return PaykitSupportedMethods(
+            FfiConverterSequenceTypePaykitSupportedMethod.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: PaykitSupportedMethods): ULong = (
+            FfiConverterSequenceTypePaykitSupportedMethod.allocationSize(value.`methods`)
+    )
+
+    override fun write(value: PaykitSupportedMethods, buf: ByteBuffer) {
+        FfiConverterSequenceTypePaykitSupportedMethod.write(value.`methods`, buf)
     }
 }
 
@@ -4940,6 +5769,147 @@ public object FfiConverterTypePubkyAuth: FfiConverterRustBuffer<PubkyAuth> {
 
     override fun write(value: PubkyAuth, buf: ByteBuffer) {
         FfiConverterString.write(value.`data`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypePubkyKeypair: FfiConverterRustBuffer<PubkyKeypair> {
+    override fun read(buf: ByteBuffer): PubkyKeypair {
+        return PubkyKeypair(
+            FfiConverterString.read(buf),
+            FfiConverterString.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: PubkyKeypair): ULong = (
+            FfiConverterString.allocationSize(value.`secretKeyHex`) +
+            FfiConverterString.allocationSize(value.`publicKey`)
+    )
+
+    override fun write(value: PubkyKeypair, buf: ByteBuffer) {
+        FfiConverterString.write(value.`secretKeyHex`, buf)
+        FfiConverterString.write(value.`publicKey`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypePubkyListItem: FfiConverterRustBuffer<PubkyListItem> {
+    override fun read(buf: ByteBuffer): PubkyListItem {
+        return PubkyListItem(
+            FfiConverterString.read(buf),
+            FfiConverterString.read(buf),
+            FfiConverterBoolean.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: PubkyListItem): ULong = (
+            FfiConverterString.allocationSize(value.`name`) +
+            FfiConverterString.allocationSize(value.`path`) +
+            FfiConverterBoolean.allocationSize(value.`isDirectory`)
+    )
+
+    override fun write(value: PubkyListItem, buf: ByteBuffer) {
+        FfiConverterString.write(value.`name`, buf)
+        FfiConverterString.write(value.`path`, buf)
+        FfiConverterBoolean.write(value.`isDirectory`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypePubkyPayment: FfiConverterRustBuffer<PubkyPayment> {
+    override fun read(buf: ByteBuffer): PubkyPayment {
+        return PubkyPayment(
+            FfiConverterString.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: PubkyPayment): ULong = (
+            FfiConverterString.allocationSize(value.`pubkey`)
+    )
+
+    override fun write(value: PubkyPayment, buf: ByteBuffer) {
+        FfiConverterString.write(value.`pubkey`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypePubkyProfile: FfiConverterRustBuffer<PubkyProfile> {
+    override fun read(buf: ByteBuffer): PubkyProfile {
+        return PubkyProfile(
+            FfiConverterOptionalString.read(buf),
+            FfiConverterOptionalString.read(buf),
+            FfiConverterOptionalString.read(buf),
+            FfiConverterSequenceString.read(buf),
+            FfiConverterOptionalString.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: PubkyProfile): ULong = (
+            FfiConverterOptionalString.allocationSize(value.`name`) +
+            FfiConverterOptionalString.allocationSize(value.`bio`) +
+            FfiConverterOptionalString.allocationSize(value.`image`) +
+            FfiConverterSequenceString.allocationSize(value.`links`) +
+            FfiConverterOptionalString.allocationSize(value.`status`)
+    )
+
+    override fun write(value: PubkyProfile, buf: ByteBuffer) {
+        FfiConverterOptionalString.write(value.`name`, buf)
+        FfiConverterOptionalString.write(value.`bio`, buf)
+        FfiConverterOptionalString.write(value.`image`, buf)
+        FfiConverterSequenceString.write(value.`links`, buf)
+        FfiConverterOptionalString.write(value.`status`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypePubkySessionInfo: FfiConverterRustBuffer<PubkySessionInfo> {
+    override fun read(buf: ByteBuffer): PubkySessionInfo {
+        return PubkySessionInfo(
+            FfiConverterString.read(buf),
+            FfiConverterSequenceString.read(buf),
+            FfiConverterULong.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: PubkySessionInfo): ULong = (
+            FfiConverterString.allocationSize(value.`pubkey`) +
+            FfiConverterSequenceString.allocationSize(value.`capabilities`) +
+            FfiConverterULong.allocationSize(value.`createdAt`)
+    )
+
+    override fun write(value: PubkySessionInfo, buf: ByteBuffer) {
+        FfiConverterString.write(value.`pubkey`, buf)
+        FfiConverterSequenceString.write(value.`capabilities`, buf)
+        FfiConverterULong.write(value.`createdAt`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypePubkySignupOptions: FfiConverterRustBuffer<PubkySignupOptions> {
+    override fun read(buf: ByteBuffer): PubkySignupOptions {
+        return PubkySignupOptions(
+            FfiConverterOptionalString.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: PubkySignupOptions): ULong = (
+            FfiConverterOptionalString.allocationSize(value.`signupToken`)
+    )
+
+    override fun write(value: PubkySignupOptions, buf: ByteBuffer) {
+        FfiConverterOptionalString.write(value.`signupToken`, buf)
     }
 }
 
@@ -5157,6 +6127,34 @@ public object FfiConverterTypeTextMemo: FfiConverterRustBuffer<TextMemo> {
 
 
 
+public object FfiConverterTypeTransactionDetails: FfiConverterRustBuffer<TransactionDetails> {
+    override fun read(buf: ByteBuffer): TransactionDetails {
+        return TransactionDetails(
+            FfiConverterString.read(buf),
+            FfiConverterLong.read(buf),
+            FfiConverterSequenceTypeTxInput.read(buf),
+            FfiConverterSequenceTypeTxOutput.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: TransactionDetails): ULong = (
+            FfiConverterString.allocationSize(value.`txId`) +
+            FfiConverterLong.allocationSize(value.`amountSats`) +
+            FfiConverterSequenceTypeTxInput.allocationSize(value.`inputs`) +
+            FfiConverterSequenceTypeTxOutput.allocationSize(value.`outputs`)
+    )
+
+    override fun write(value: TransactionDetails, buf: ByteBuffer) {
+        FfiConverterString.write(value.`txId`, buf)
+        FfiConverterLong.write(value.`amountSats`, buf)
+        FfiConverterSequenceTypeTxInput.write(value.`inputs`, buf)
+        FfiConverterSequenceTypeTxOutput.write(value.`outputs`, buf)
+    }
+}
+
+
+
+
 public object FfiConverterTypeTxAckPaymentRequest: FfiConverterRustBuffer<TxAckPaymentRequest> {
     override fun read(buf: ByteBuffer): TxAckPaymentRequest {
         return TxAckPaymentRequest(
@@ -5182,6 +6180,37 @@ public object FfiConverterTypeTxAckPaymentRequest: FfiConverterRustBuffer<TxAckP
         FfiConverterOptionalSequenceTypePaymentRequestMemo.write(value.`memos`, buf)
         FfiConverterOptionalULong.write(value.`amount`, buf)
         FfiConverterString.write(value.`signature`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypeTxInput: FfiConverterRustBuffer<TxInput> {
+    override fun read(buf: ByteBuffer): TxInput {
+        return TxInput(
+            FfiConverterString.read(buf),
+            FfiConverterUInt.read(buf),
+            FfiConverterString.read(buf),
+            FfiConverterSequenceString.read(buf),
+            FfiConverterUInt.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: TxInput): ULong = (
+            FfiConverterString.allocationSize(value.`txid`) +
+            FfiConverterUInt.allocationSize(value.`vout`) +
+            FfiConverterString.allocationSize(value.`scriptsig`) +
+            FfiConverterSequenceString.allocationSize(value.`witness`) +
+            FfiConverterUInt.allocationSize(value.`sequence`)
+    )
+
+    override fun write(value: TxInput, buf: ByteBuffer) {
+        FfiConverterString.write(value.`txid`, buf)
+        FfiConverterUInt.write(value.`vout`, buf)
+        FfiConverterString.write(value.`scriptsig`, buf)
+        FfiConverterSequenceString.write(value.`witness`, buf)
+        FfiConverterUInt.write(value.`sequence`, buf)
     }
 }
 
@@ -5243,6 +6272,37 @@ public object FfiConverterTypeTxInputType: FfiConverterRustBuffer<TxInputType> {
         FfiConverterOptionalString.write(value.`origHash`, buf)
         FfiConverterOptionalUInt.write(value.`origIndex`, buf)
         FfiConverterOptionalUInt.write(value.`coinjoinFlags`, buf)
+    }
+}
+
+
+
+
+public object FfiConverterTypeTxOutput: FfiConverterRustBuffer<TxOutput> {
+    override fun read(buf: ByteBuffer): TxOutput {
+        return TxOutput(
+            FfiConverterString.read(buf),
+            FfiConverterString.read(buf),
+            FfiConverterOptionalString.read(buf),
+            FfiConverterULong.read(buf),
+            FfiConverterUInt.read(buf),
+        )
+    }
+
+    override fun allocationSize(value: TxOutput): ULong = (
+            FfiConverterString.allocationSize(value.`scriptpubkey`) +
+            FfiConverterString.allocationSize(value.`scriptpubkeyType`) +
+            FfiConverterOptionalString.allocationSize(value.`scriptpubkeyAddress`) +
+            FfiConverterULong.allocationSize(value.`value`) +
+            FfiConverterUInt.allocationSize(value.`n`)
+    )
+
+    override fun write(value: TxOutput, buf: ByteBuffer) {
+        FfiConverterString.write(value.`scriptpubkey`, buf)
+        FfiConverterString.write(value.`scriptpubkeyType`, buf)
+        FfiConverterOptionalString.write(value.`scriptpubkeyAddress`, buf)
+        FfiConverterULong.write(value.`value`, buf)
+        FfiConverterUInt.write(value.`n`, buf)
     }
 }
 
@@ -6653,6 +7713,83 @@ public object FfiConverterTypeNetworkType: FfiConverterRustBuffer<NetworkType> {
 
 
 
+public object PaykitExceptionErrorHandler : UniffiRustCallStatusErrorHandler<PaykitException> {
+    override fun lift(errorBuf: RustBufferByValue): PaykitException = FfiConverterTypePaykitError.lift(errorBuf)
+}
+
+public object FfiConverterTypePaykitError : FfiConverterRustBuffer<PaykitException> {
+    override fun read(buf: ByteBuffer): PaykitException {
+        return when (buf.getInt()) {
+            1 -> PaykitException.Transport(
+                FfiConverterString.read(buf),
+                )
+            2 -> PaykitException.InvalidPublicKey(
+                FfiConverterString.read(buf),
+                )
+            3 -> PaykitException.Unsupported(
+                FfiConverterString.read(buf),
+                )
+            4 -> PaykitException.Generic(
+                FfiConverterString.read(buf),
+                )
+            else -> throw RuntimeException("invalid error enum value, something is very wrong!!")
+        }
+    }
+
+    override fun allocationSize(value: PaykitException): ULong {
+        return when (value) {
+            is PaykitException.Transport -> (
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                4UL
+                + FfiConverterString.allocationSize(value.v1)
+            )
+            is PaykitException.InvalidPublicKey -> (
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                4UL
+                + FfiConverterString.allocationSize(value.v1)
+            )
+            is PaykitException.Unsupported -> (
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                4UL
+                + FfiConverterString.allocationSize(value.v1)
+            )
+            is PaykitException.Generic -> (
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                4UL
+                + FfiConverterString.allocationSize(value.v1)
+            )
+        }
+    }
+
+    override fun write(value: PaykitException, buf: ByteBuffer) {
+        when (value) {
+            is PaykitException.Transport -> {
+                buf.putInt(1)
+                FfiConverterString.write(value.v1, buf)
+                Unit
+            }
+            is PaykitException.InvalidPublicKey -> {
+                buf.putInt(2)
+                FfiConverterString.write(value.v1, buf)
+                Unit
+            }
+            is PaykitException.Unsupported -> {
+                buf.putInt(3)
+                FfiConverterString.write(value.v1, buf)
+                Unit
+            }
+            is PaykitException.Generic -> {
+                buf.putInt(4)
+                FfiConverterString.write(value.v1, buf)
+                Unit
+            }
+        }.let { /* this makes the `when` an expression, which ensures it is exhaustive */ }
+    }
+}
+
+
+
+
 
 public object FfiConverterTypePaymentState: FfiConverterRustBuffer<PaymentState> {
     override fun read(buf: ByteBuffer): PaymentState = try {
@@ -6689,6 +7826,122 @@ public object FfiConverterTypePaymentType: FfiConverterRustBuffer<PaymentType> {
 
 
 
+public object PubkyExceptionErrorHandler : UniffiRustCallStatusErrorHandler<PubkyException> {
+    override fun lift(errorBuf: RustBufferByValue): PubkyException = FfiConverterTypePubkyError.lift(errorBuf)
+}
+
+public object FfiConverterTypePubkyError : FfiConverterRustBuffer<PubkyException> {
+    override fun read(buf: ByteBuffer): PubkyException {
+        return when (buf.getInt()) {
+            1 -> PubkyException.Auth(
+                FfiConverterString.read(buf),
+                )
+            2 -> PubkyException.Network(
+                FfiConverterString.read(buf),
+                )
+            3 -> PubkyException.InvalidInput(
+                FfiConverterString.read(buf),
+                )
+            4 -> PubkyException.Session(
+                FfiConverterString.read(buf),
+                )
+            5 -> PubkyException.Build(
+                FfiConverterString.read(buf),
+                )
+            6 -> PubkyException.Storage(
+                FfiConverterString.read(buf),
+                )
+            7 -> PubkyException.NotFound(
+                FfiConverterString.read(buf),
+                )
+            else -> throw RuntimeException("invalid error enum value, something is very wrong!!")
+        }
+    }
+
+    override fun allocationSize(value: PubkyException): ULong {
+        return when (value) {
+            is PubkyException.Auth -> (
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                4UL
+                + FfiConverterString.allocationSize(value.`message`)
+            )
+            is PubkyException.Network -> (
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                4UL
+                + FfiConverterString.allocationSize(value.`message`)
+            )
+            is PubkyException.InvalidInput -> (
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                4UL
+                + FfiConverterString.allocationSize(value.`message`)
+            )
+            is PubkyException.Session -> (
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                4UL
+                + FfiConverterString.allocationSize(value.`message`)
+            )
+            is PubkyException.Build -> (
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                4UL
+                + FfiConverterString.allocationSize(value.`message`)
+            )
+            is PubkyException.Storage -> (
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                4UL
+                + FfiConverterString.allocationSize(value.`message`)
+            )
+            is PubkyException.NotFound -> (
+                // Add the size for the Int that specifies the variant plus the size needed for all fields
+                4UL
+                + FfiConverterString.allocationSize(value.`message`)
+            )
+        }
+    }
+
+    override fun write(value: PubkyException, buf: ByteBuffer) {
+        when (value) {
+            is PubkyException.Auth -> {
+                buf.putInt(1)
+                FfiConverterString.write(value.`message`, buf)
+                Unit
+            }
+            is PubkyException.Network -> {
+                buf.putInt(2)
+                FfiConverterString.write(value.`message`, buf)
+                Unit
+            }
+            is PubkyException.InvalidInput -> {
+                buf.putInt(3)
+                FfiConverterString.write(value.`message`, buf)
+                Unit
+            }
+            is PubkyException.Session -> {
+                buf.putInt(4)
+                FfiConverterString.write(value.`message`, buf)
+                Unit
+            }
+            is PubkyException.Build -> {
+                buf.putInt(5)
+                FfiConverterString.write(value.`message`, buf)
+                Unit
+            }
+            is PubkyException.Storage -> {
+                buf.putInt(6)
+                FfiConverterString.write(value.`message`, buf)
+                Unit
+            }
+            is PubkyException.NotFound -> {
+                buf.putInt(7)
+                FfiConverterString.write(value.`message`, buf)
+                Unit
+            }
+        }.let { /* this makes the `when` an expression, which ensures it is exhaustive */ }
+    }
+}
+
+
+
+
 
 public object FfiConverterTypeScanner : FfiConverterRustBuffer<Scanner>{
     override fun read(buf: ByteBuffer): Scanner {
@@ -6702,26 +7955,29 @@ public object FfiConverterTypeScanner : FfiConverterRustBuffer<Scanner>{
             3 -> Scanner.PubkyAuth(
                 FfiConverterString.read(buf),
                 )
-            4 -> Scanner.LnurlChannel(
+            4 -> Scanner.PubkyPayment(
+                FfiConverterTypePubkyPayment.read(buf),
+                )
+            5 -> Scanner.LnurlChannel(
                 FfiConverterTypeLnurlChannelData.read(buf),
                 )
-            5 -> Scanner.LnurlAuth(
+            6 -> Scanner.LnurlAuth(
                 FfiConverterTypeLnurlAuthData.read(buf),
                 )
-            6 -> Scanner.LnurlWithdraw(
+            7 -> Scanner.LnurlWithdraw(
                 FfiConverterTypeLnurlWithdrawData.read(buf),
                 )
-            7 -> Scanner.LnurlAddress(
+            8 -> Scanner.LnurlAddress(
                 FfiConverterTypeLnurlAddressData.read(buf),
                 )
-            8 -> Scanner.LnurlPay(
+            9 -> Scanner.LnurlPay(
                 FfiConverterTypeLnurlPayData.read(buf),
                 )
-            9 -> Scanner.NodeId(
+            10 -> Scanner.NodeId(
                 FfiConverterString.read(buf),
                 FfiConverterTypeNetworkType.read(buf),
                 )
-            10 -> Scanner.Gift(
+            11 -> Scanner.Gift(
                 FfiConverterString.read(buf),
                 FfiConverterULong.read(buf),
                 )
@@ -6749,6 +8005,13 @@ public object FfiConverterTypeScanner : FfiConverterRustBuffer<Scanner>{
             (
                 4UL
                 + FfiConverterString.allocationSize(value.`data`)
+            )
+        }
+        is Scanner.PubkyPayment -> {
+            // Add the size for the Int that specifies the variant plus the size needed for all fields
+            (
+                4UL
+                + FfiConverterTypePubkyPayment.allocationSize(value.`data`)
             )
         }
         is Scanner.LnurlChannel -> {
@@ -6821,39 +8084,44 @@ public object FfiConverterTypeScanner : FfiConverterRustBuffer<Scanner>{
                 FfiConverterString.write(value.`data`, buf)
                 Unit
             }
-            is Scanner.LnurlChannel -> {
+            is Scanner.PubkyPayment -> {
                 buf.putInt(4)
+                FfiConverterTypePubkyPayment.write(value.`data`, buf)
+                Unit
+            }
+            is Scanner.LnurlChannel -> {
+                buf.putInt(5)
                 FfiConverterTypeLnurlChannelData.write(value.`data`, buf)
                 Unit
             }
             is Scanner.LnurlAuth -> {
-                buf.putInt(5)
+                buf.putInt(6)
                 FfiConverterTypeLnurlAuthData.write(value.`data`, buf)
                 Unit
             }
             is Scanner.LnurlWithdraw -> {
-                buf.putInt(6)
+                buf.putInt(7)
                 FfiConverterTypeLnurlWithdrawData.write(value.`data`, buf)
                 Unit
             }
             is Scanner.LnurlAddress -> {
-                buf.putInt(7)
+                buf.putInt(8)
                 FfiConverterTypeLnurlAddressData.write(value.`data`, buf)
                 Unit
             }
             is Scanner.LnurlPay -> {
-                buf.putInt(8)
+                buf.putInt(9)
                 FfiConverterTypeLnurlPayData.write(value.`data`, buf)
                 Unit
             }
             is Scanner.NodeId -> {
-                buf.putInt(9)
+                buf.putInt(10)
                 FfiConverterString.write(value.`url`, buf)
                 FfiConverterTypeNetworkType.write(value.`network`, buf)
                 Unit
             }
             is Scanner.Gift -> {
-                buf.putInt(10)
+                buf.putInt(11)
                 FfiConverterString.write(value.`code`, buf)
                 FfiConverterULong.write(value.`amount`, buf)
                 Unit
@@ -8026,6 +9294,64 @@ public object FfiConverterOptionalTypePreActivityMetadata: FfiConverterRustBuffe
 
 
 
+public object FfiConverterOptionalTypePubkySessionInfo: FfiConverterRustBuffer<PubkySessionInfo?> {
+    override fun read(buf: ByteBuffer): PubkySessionInfo? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypePubkySessionInfo.read(buf)
+    }
+
+    override fun allocationSize(value: PubkySessionInfo?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypePubkySessionInfo.allocationSize(value)
+        }
+    }
+
+    override fun write(value: PubkySessionInfo?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypePubkySessionInfo.write(value, buf)
+        }
+    }
+}
+
+
+
+
+public object FfiConverterOptionalTypePubkySignupOptions: FfiConverterRustBuffer<PubkySignupOptions?> {
+    override fun read(buf: ByteBuffer): PubkySignupOptions? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypePubkySignupOptions.read(buf)
+    }
+
+    override fun allocationSize(value: PubkySignupOptions?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypePubkySignupOptions.allocationSize(value)
+        }
+    }
+
+    override fun write(value: PubkySignupOptions?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypePubkySignupOptions.write(value, buf)
+        }
+    }
+}
+
+
+
+
 public object FfiConverterOptionalTypeRefundMemo: FfiConverterRustBuffer<RefundMemo?> {
     override fun read(buf: ByteBuffer): RefundMemo? {
         if (buf.get().toInt() == 0) {
@@ -8077,6 +9403,35 @@ public object FfiConverterOptionalTypeTextMemo: FfiConverterRustBuffer<TextMemo?
         } else {
             buf.put(1)
             FfiConverterTypeTextMemo.write(value, buf)
+        }
+    }
+}
+
+
+
+
+public object FfiConverterOptionalTypeTransactionDetails: FfiConverterRustBuffer<TransactionDetails?> {
+    override fun read(buf: ByteBuffer): TransactionDetails? {
+        if (buf.get().toInt() == 0) {
+            return null
+        }
+        return FfiConverterTypeTransactionDetails.read(buf)
+    }
+
+    override fun allocationSize(value: TransactionDetails?): ULong {
+        if (value == null) {
+            return 1UL
+        } else {
+            return 1UL + FfiConverterTypeTransactionDetails.allocationSize(value)
+        }
+    }
+
+    override fun write(value: TransactionDetails?, buf: ByteBuffer) {
+        if (value == null) {
+            buf.put(0)
+        } else {
+            buf.put(1)
+            FfiConverterTypeTransactionDetails.write(value, buf)
         }
     }
 }
@@ -9321,6 +10676,31 @@ public object FfiConverterSequenceTypeOnchainActivity: FfiConverterRustBuffer<Li
 
 
 
+public object FfiConverterSequenceTypePaykitSupportedMethod: FfiConverterRustBuffer<List<PaykitSupportedMethod>> {
+    override fun read(buf: ByteBuffer): List<PaykitSupportedMethod> {
+        val len = buf.getInt()
+        return List<PaykitSupportedMethod>(len) {
+            FfiConverterTypePaykitSupportedMethod.read(buf)
+        }
+    }
+
+    override fun allocationSize(value: List<PaykitSupportedMethod>): ULong {
+        val sizeForLength = 4UL
+        val sizeForItems = value.sumOf { FfiConverterTypePaykitSupportedMethod.allocationSize(it) }
+        return sizeForLength + sizeForItems
+    }
+
+    override fun write(value: List<PaykitSupportedMethod>, buf: ByteBuffer) {
+        buf.putInt(value.size)
+        value.iterator().forEach {
+            FfiConverterTypePaykitSupportedMethod.write(it, buf)
+        }
+    }
+}
+
+
+
+
 public object FfiConverterSequenceTypePaymentRequestMemo: FfiConverterRustBuffer<List<PaymentRequestMemo>> {
     override fun read(buf: ByteBuffer): List<PaymentRequestMemo> {
         val len = buf.getInt()
@@ -9446,6 +10826,31 @@ public object FfiConverterSequenceTypePrecomposedTransaction: FfiConverterRustBu
 
 
 
+public object FfiConverterSequenceTypePubkyListItem: FfiConverterRustBuffer<List<PubkyListItem>> {
+    override fun read(buf: ByteBuffer): List<PubkyListItem> {
+        val len = buf.getInt()
+        return List<PubkyListItem>(len) {
+            FfiConverterTypePubkyListItem.read(buf)
+        }
+    }
+
+    override fun allocationSize(value: List<PubkyListItem>): ULong {
+        val sizeForLength = 4UL
+        val sizeForItems = value.sumOf { FfiConverterTypePubkyListItem.allocationSize(it) }
+        return sizeForLength + sizeForItems
+    }
+
+    override fun write(value: List<PubkyListItem>, buf: ByteBuffer) {
+        buf.putInt(value.size)
+        value.iterator().forEach {
+            FfiConverterTypePubkyListItem.write(it, buf)
+        }
+    }
+}
+
+
+
+
 public object FfiConverterSequenceTypeRefTransaction: FfiConverterRustBuffer<List<RefTransaction>> {
     override fun read(buf: ByteBuffer): List<RefTransaction> {
         val len = buf.getInt()
@@ -9521,6 +10926,31 @@ public object FfiConverterSequenceTypeRefTxOutput: FfiConverterRustBuffer<List<R
 
 
 
+public object FfiConverterSequenceTypeTransactionDetails: FfiConverterRustBuffer<List<TransactionDetails>> {
+    override fun read(buf: ByteBuffer): List<TransactionDetails> {
+        val len = buf.getInt()
+        return List<TransactionDetails>(len) {
+            FfiConverterTypeTransactionDetails.read(buf)
+        }
+    }
+
+    override fun allocationSize(value: List<TransactionDetails>): ULong {
+        val sizeForLength = 4UL
+        val sizeForItems = value.sumOf { FfiConverterTypeTransactionDetails.allocationSize(it) }
+        return sizeForLength + sizeForItems
+    }
+
+    override fun write(value: List<TransactionDetails>, buf: ByteBuffer) {
+        buf.putInt(value.size)
+        value.iterator().forEach {
+            FfiConverterTypeTransactionDetails.write(it, buf)
+        }
+    }
+}
+
+
+
+
 public object FfiConverterSequenceTypeTxAckPaymentRequest: FfiConverterRustBuffer<List<TxAckPaymentRequest>> {
     override fun read(buf: ByteBuffer): List<TxAckPaymentRequest> {
         val len = buf.getInt()
@@ -9546,6 +10976,31 @@ public object FfiConverterSequenceTypeTxAckPaymentRequest: FfiConverterRustBuffe
 
 
 
+public object FfiConverterSequenceTypeTxInput: FfiConverterRustBuffer<List<TxInput>> {
+    override fun read(buf: ByteBuffer): List<TxInput> {
+        val len = buf.getInt()
+        return List<TxInput>(len) {
+            FfiConverterTypeTxInput.read(buf)
+        }
+    }
+
+    override fun allocationSize(value: List<TxInput>): ULong {
+        val sizeForLength = 4UL
+        val sizeForItems = value.sumOf { FfiConverterTypeTxInput.allocationSize(it) }
+        return sizeForLength + sizeForItems
+    }
+
+    override fun write(value: List<TxInput>, buf: ByteBuffer) {
+        buf.putInt(value.size)
+        value.iterator().forEach {
+            FfiConverterTypeTxInput.write(it, buf)
+        }
+    }
+}
+
+
+
+
 public object FfiConverterSequenceTypeTxInputType: FfiConverterRustBuffer<List<TxInputType>> {
     override fun read(buf: ByteBuffer): List<TxInputType> {
         val len = buf.getInt()
@@ -9564,6 +11019,31 @@ public object FfiConverterSequenceTypeTxInputType: FfiConverterRustBuffer<List<T
         buf.putInt(value.size)
         value.iterator().forEach {
             FfiConverterTypeTxInputType.write(it, buf)
+        }
+    }
+}
+
+
+
+
+public object FfiConverterSequenceTypeTxOutput: FfiConverterRustBuffer<List<TxOutput>> {
+    override fun read(buf: ByteBuffer): List<TxOutput> {
+        val len = buf.getInt()
+        return List<TxOutput>(len) {
+            FfiConverterTypeTxOutput.read(buf)
+        }
+    }
+
+    override fun allocationSize(value: List<TxOutput>): ULong {
+        val sizeForLength = 4UL
+        val sizeForItems = value.sumOf { FfiConverterTypeTxOutput.allocationSize(it) }
+        return sizeForLength + sizeForItems
+    }
+
+    override fun write(value: List<TxOutput>, buf: ByteBuffer) {
+        buf.putInt(value.size)
+        value.iterator().forEach {
+            FfiConverterTypeTxOutput.write(it, buf)
         }
     }
 }
@@ -10025,6 +11505,16 @@ public fun `getActivityById`(`activityId`: kotlin.String): Activity? {
 }
 
 @Throws(ActivityException::class)
+public fun `getActivityByTxId`(`txId`: kotlin.String): Activity? {
+    return FfiConverterOptionalTypeActivity.lift(uniffiRustCallWithError(ActivityExceptionErrorHandler) { uniffiRustCallStatus ->
+        UniffiLib.uniffi_bitkitcore_fn_func_get_activity_by_tx_id(
+            FfiConverterString.lower(`txId`),
+            uniffiRustCallStatus,
+        )
+    })
+}
+
+@Throws(ActivityException::class)
 public fun `getAllActivitiesTags`(): List<ActivityTags> {
     return FfiConverterSequenceTypeActivityTags.lift(uniffiRustCallWithError(ActivityExceptionErrorHandler) { uniffiRustCallStatus ->
         UniffiLib.uniffi_bitkitcore_fn_func_get_all_activities_tags(
@@ -10234,6 +11724,19 @@ public fun `getTags`(`activityId`: kotlin.String): List<kotlin.String> {
     })
 }
 
+/**
+ * Get transaction details by txid
+ */
+@Throws(ActivityException::class)
+public fun `getTransactionDetails`(`txId`: kotlin.String): TransactionDetails? {
+    return FfiConverterOptionalTypeTransactionDetails.lift(uniffiRustCallWithError(ActivityExceptionErrorHandler) { uniffiRustCallStatus ->
+        UniffiLib.uniffi_bitkitcore_fn_func_get_transaction_details(
+            FfiConverterString.lower(`txId`),
+            uniffiRustCallStatus,
+        )
+    })
+}
+
 @Throws(BlocktankException::class, kotlin.coroutines.cancellation.CancellationException::class)
 public suspend fun `giftOrder`(`clientNodeId`: kotlin.String, `code`: kotlin.String): IGift {
     return uniffiRustCallAsync(
@@ -10289,6 +11792,16 @@ public fun `insertActivity`(`activity`: Activity) {
     }
 }
 
+@Throws(ActivityException::class)
+public fun `isAddressUsed`(`address`: kotlin.String): kotlin.Boolean {
+    return FfiConverterBoolean.lift(uniffiRustCallWithError(ActivityExceptionErrorHandler) { uniffiRustCallStatus ->
+        UniffiLib.uniffi_bitkitcore_fn_func_is_address_used(
+            FfiConverterString.lower(`address`),
+            uniffiRustCallStatus,
+        )
+    })
+}
+
 public fun `isValidBip39Word`(`word`: kotlin.String): kotlin.Boolean {
     return FfiConverterBoolean.lift(uniffiRustCall { uniffiRustCallStatus ->
         UniffiLib.uniffi_bitkitcore_fn_func_is_valid_bip39_word(
@@ -10318,6 +11831,17 @@ public suspend fun `lnurlAuth`(`domain`: kotlin.String, `k1`: kotlin.String, `ca
         // Error FFI converter
         LnurlExceptionErrorHandler,
     )
+}
+
+@Throws(ActivityException::class)
+public fun `markActivityAsSeen`(`activityId`: kotlin.String, `seenAt`: kotlin.ULong) {
+    uniffiRustCallWithError(ActivityExceptionErrorHandler) { uniffiRustCallStatus ->
+        UniffiLib.uniffi_bitkitcore_fn_func_mark_activity_as_seen(
+            FfiConverterString.lower(`activityId`),
+            FfiConverterULong.lower(`seenAt`),
+            uniffiRustCallStatus,
+        )
+    }
 }
 
 @Throws(AddressException::class)
@@ -10356,6 +11880,492 @@ public suspend fun `openChannel`(`orderId`: kotlin.String, `connectionString`: k
         { FfiConverterTypeIBtOrder.lift(it) },
         // Error FFI converter
         BlocktankExceptionErrorHandler,
+    )
+}
+
+@Throws(PaykitException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `paykitCheckRotationNeeded`(`pubkey`: kotlin.String): List<kotlin.String> {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_paykit_check_rotation_needed(
+            FfiConverterString.lower(`pubkey`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterSequenceString.lift(it) },
+        // Error FFI converter
+        PaykitExceptionErrorHandler,
+    )
+}
+
+@Throws(PaykitException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `paykitGetEndpointForKeyAndMethod`(`pubkey`: kotlin.String, `methodId`: kotlin.String): kotlin.String? {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_paykit_get_endpoint_for_key_and_method(
+            FfiConverterString.lower(`pubkey`),
+            FfiConverterString.lower(`methodId`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterOptionalString.lift(it) },
+        // Error FFI converter
+        PaykitExceptionErrorHandler,
+    )
+}
+
+@Throws(PaykitException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `paykitGetSupportedMethodsForKey`(`pubkey`: kotlin.String): PaykitSupportedMethods {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_paykit_get_supported_methods_for_key(
+            FfiConverterString.lower(`pubkey`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterTypePaykitSupportedMethods.lift(it) },
+        // Error FFI converter
+        PaykitExceptionErrorHandler,
+    )
+}
+
+@Throws(PaykitException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `paykitInitialize`(`secretKeyHex`: kotlin.String, `homeserverPubkey`: kotlin.String) {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_paykit_initialize(
+            FfiConverterString.lower(`secretKeyHex`),
+            FfiConverterString.lower(`homeserverPubkey`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_void(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_void(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_void(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_void(future) },
+        // lift function
+        { Unit },
+        
+        // Error FFI converter
+        PaykitExceptionErrorHandler,
+    )
+}
+
+@Throws(PaykitException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `paykitRemoveEndpoint`(`methodId`: kotlin.String) {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_paykit_remove_endpoint(
+            FfiConverterString.lower(`methodId`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_void(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_void(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_void(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_void(future) },
+        // lift function
+        { Unit },
+        
+        // Error FFI converter
+        PaykitExceptionErrorHandler,
+    )
+}
+
+@Throws(PaykitException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `paykitSetEndpoint`(`methodId`: kotlin.String, `endpoint`: kotlin.String) {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_paykit_set_endpoint(
+            FfiConverterString.lower(`methodId`),
+            FfiConverterString.lower(`endpoint`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_void(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_void(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_void(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_void(future) },
+        // lift function
+        { Unit },
+        
+        // Error FFI converter
+        PaykitExceptionErrorHandler,
+    )
+}
+
+/**
+ * Smart checkout: tries private offer first, then falls back to public directory.
+ *
+ * Returns the best available payment method for the given peer.
+ */
+@Throws(PaykitException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `paykitSmartCheckout`(`pubkey`: kotlin.String, `preferredMethod`: kotlin.String?): PaykitCheckoutResult {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_paykit_smart_checkout(
+            FfiConverterString.lower(`pubkey`),
+            FfiConverterOptionalString.lower(`preferredMethod`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterTypePaykitCheckoutResult.lift(it) },
+        // Error FFI converter
+        PaykitExceptionErrorHandler,
+    )
+}
+
+/**
+ * Fetch follows list from pubky.app
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkyFetchFollows`(`pubkey`: kotlin.String): List<kotlin.String> {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_fetch_follows(
+            FfiConverterString.lower(`pubkey`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterSequenceString.lift(it) },
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * Fetch a profile from pubky.app profile.json
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkyFetchProfile`(`pubkey`: kotlin.String): PubkyProfile {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_fetch_profile(
+            FfiConverterString.lower(`pubkey`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterTypePubkyProfile.lift(it) },
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * Generate a new random keypair
+ */
+public fun `pubkyGenerateKeypair`(): PubkyKeypair {
+    return FfiConverterTypePubkyKeypair.lift(uniffiRustCall { uniffiRustCallStatus ->
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_generate_keypair(
+            uniffiRustCallStatus,
+        )
+    })
+}
+
+/**
+ * Get session info for an active session
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkyGetSession`(`pubkey`: kotlin.String): PubkySessionInfo? {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_get_session(
+            FfiConverterString.lower(`pubkey`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterOptionalTypePubkySessionInfo.lift(it) },
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * Check if a session exists for a pubkey
+ */
+public suspend fun `pubkyHasSession`(`pubkey`: kotlin.String): kotlin.Boolean {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_has_session(
+            FfiConverterString.lower(`pubkey`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_i8(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_i8(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_i8(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_i8(future) },
+        // lift function
+        { FfiConverterBoolean.lift(it) },
+        // Error FFI converter
+        UniffiNullRustCallStatusErrorHandler,
+    )
+}
+
+/**
+ * Initialize the Pubky SDK
+ */
+@Throws(PubkyException::class)
+public fun `pubkyInitialize`() {
+    uniffiRustCallWithError(PubkyExceptionErrorHandler) { uniffiRustCallStatus ->
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_initialize(
+            uniffiRustCallStatus,
+        )
+    }
+}
+
+/**
+ * Initialize the Pubky SDK for testnet
+ */
+@Throws(PubkyException::class)
+public fun `pubkyInitializeTestnet`() {
+    uniffiRustCallWithError(PubkyExceptionErrorHandler) { uniffiRustCallStatus ->
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_initialize_testnet(
+            uniffiRustCallStatus,
+        )
+    }
+}
+
+/**
+ * List all active session pubkeys
+ */
+public suspend fun `pubkyListSessions`(): List<kotlin.String> {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_list_sessions(
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterSequenceString.lift(it) },
+        // Error FFI converter
+        UniffiNullRustCallStatusErrorHandler,
+    )
+}
+
+/**
+ * Get data from public storage (no authentication needed)
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkyPublicGet`(`uri`: kotlin.String): kotlin.ByteArray {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_public_get(
+            FfiConverterString.lower(`uri`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterByteArray.lift(it) },
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * Get public key from secret key
+ */
+@Throws(PubkyException::class)
+public fun `pubkyPublicKeyFromSecret`(`secretKeyHex`: kotlin.String): kotlin.String {
+    return FfiConverterString.lift(uniffiRustCallWithError(PubkyExceptionErrorHandler) { uniffiRustCallStatus ->
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_public_key_from_secret(
+            FfiConverterString.lower(`secretKeyHex`),
+            uniffiRustCallStatus,
+        )
+    })
+}
+
+/**
+ * List items in public storage
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkyPublicList`(`uri`: kotlin.String): List<PubkyListItem> {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_public_list(
+            FfiConverterString.lower(`uri`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterSequenceTypePubkyListItem.lift(it) },
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * Resolve a pubky to its homeserver
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkyResolveHomeserver`(`pubkey`: kotlin.String): kotlin.String? {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_resolve_homeserver(
+            FfiConverterString.lower(`pubkey`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterOptionalString.lift(it) },
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * Delete data from authenticated storage
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkySessionDelete`(`pubkey`: kotlin.String, `path`: kotlin.String) {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_session_delete(
+            FfiConverterString.lower(`pubkey`),
+            FfiConverterString.lower(`path`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_void(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_void(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_void(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_void(future) },
+        // lift function
+        { Unit },
+        
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * Get data from authenticated storage
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkySessionGet`(`pubkey`: kotlin.String, `path`: kotlin.String): kotlin.ByteArray {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_session_get(
+            FfiConverterString.lower(`pubkey`),
+            FfiConverterString.lower(`path`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterByteArray.lift(it) },
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * List items in authenticated storage
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkySessionList`(`pubkey`: kotlin.String, `path`: kotlin.String): List<PubkyListItem> {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_session_list(
+            FfiConverterString.lower(`pubkey`),
+            FfiConverterString.lower(`path`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterSequenceTypePubkyListItem.lift(it) },
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * Put data to authenticated storage
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkySessionPut`(`pubkey`: kotlin.String, `path`: kotlin.String, `content`: kotlin.ByteArray) {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_session_put(
+            FfiConverterString.lower(`pubkey`),
+            FfiConverterString.lower(`path`),
+            FfiConverterByteArray.lower(`content`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_void(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_void(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_void(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_void(future) },
+        // lift function
+        { Unit },
+        
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * Sign in with a secret key (hex-encoded, 32 bytes)
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkySignin`(`secretKeyHex`: kotlin.String): PubkySessionInfo {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_signin(
+            FfiConverterString.lower(`secretKeyHex`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterTypePubkySessionInfo.lift(it) },
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * Sign out and remove session
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkySignout`(`pubkey`: kotlin.String) {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_signout(
+            FfiConverterString.lower(`pubkey`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_void(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_void(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_void(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_void(future) },
+        // lift function
+        { Unit },
+        
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
+    )
+}
+
+/**
+ * Sign up with a secret key and homeserver
+ */
+@Throws(PubkyException::class, kotlin.coroutines.cancellation.CancellationException::class)
+public suspend fun `pubkySignup`(`secretKeyHex`: kotlin.String, `homeserverPubkey`: kotlin.String, `options`: PubkySignupOptions?): PubkySessionInfo {
+    return uniffiRustCallAsync(
+        UniffiLib.uniffi_bitkitcore_fn_func_pubky_signup(
+            FfiConverterString.lower(`secretKeyHex`),
+            FfiConverterString.lower(`homeserverPubkey`),
+            FfiConverterOptionalTypePubkySignupOptions.lower(`options`),
+        ),
+        { future, callback, continuation -> UniffiLib.ffi_bitkitcore_rust_future_poll_rust_buffer(future, callback, continuation) },
+        { future, continuation -> UniffiLib.ffi_bitkitcore_rust_future_complete_rust_buffer(future, continuation) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_free_rust_buffer(future) },
+        { future -> UniffiLib.ffi_bitkitcore_rust_future_cancel_rust_buffer(future) },
+        // lift function
+        { FfiConverterTypePubkySessionInfo.lift(it) },
+        // Error FFI converter
+        PubkyExceptionErrorHandler,
     )
 }
 
@@ -10889,6 +12899,19 @@ public fun `upsertTags`(`activityTags`: List<ActivityTags>) {
     uniffiRustCallWithError(ActivityExceptionErrorHandler) { uniffiRustCallStatus ->
         UniffiLib.uniffi_bitkitcore_fn_func_upsert_tags(
             FfiConverterSequenceTypeActivityTags.lower(`activityTags`),
+            uniffiRustCallStatus,
+        )
+    }
+}
+
+/**
+ * Upsert transaction details for onchain transactions
+ */
+@Throws(ActivityException::class)
+public fun `upsertTransactionDetails`(`detailsList`: List<TransactionDetails>) {
+    uniffiRustCallWithError(ActivityExceptionErrorHandler) { uniffiRustCallStatus ->
+        UniffiLib.uniffi_bitkitcore_fn_func_upsert_transaction_details(
+            FfiConverterSequenceTypeTransactionDetails.lower(`detailsList`),
             uniffiRustCallStatus,
         )
     }
