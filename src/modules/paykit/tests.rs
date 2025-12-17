@@ -60,6 +60,7 @@ mod rotation_tests {
             confirm_timestamp: Some(1234567890),
             channel_id: None,
             transfer_tx_id: None,
+            seen_at: None,
         };
 
         upsert_onchain_activities(vec![onchain_activity]).unwrap();
@@ -77,6 +78,7 @@ mod rotation_tests {
             fee: Some(1),
             message: "Test payment".to_string(),
             preimage: Some("preimage123".to_string()),
+            seen_at: None,
         };
 
         upsert_lightning_activities(vec![lightning_activity]).unwrap();
@@ -133,6 +135,7 @@ mod rotation_tests {
             confirm_timestamp: Some(1234567890),
             channel_id: None,
             transfer_tx_id: None,
+            seen_at: None,
         };
 
         upsert_onchain_activities(vec![onchain_activity]).unwrap();

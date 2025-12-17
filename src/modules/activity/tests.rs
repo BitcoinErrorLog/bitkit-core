@@ -38,6 +38,7 @@ mod tests {
             transfer_tx_id: None,
             created_at: None,
             updated_at: None,
+            seen_at: None,
         }
     }
 
@@ -54,6 +55,7 @@ mod tests {
             preimage: Some("preimage123".to_string()),
             created_at: None,
             updated_at: None,
+            seen_at: None,
         }
     }
 
