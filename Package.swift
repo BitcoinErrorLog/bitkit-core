@@ -3,9 +3,9 @@
 
 import PackageDescription
 
-let tag = "v0.1.27"
-let checksum = "91689521c390a0061a2a5006f23a257b0f0b537588bf1b29f3a8c59091d22345"
-let url = "https://github.com/synonymdev/bitkit-core/releases/download/\(tag)/BitkitCore.xcframework.zip"
+let tag = "v0.2.0-pubky"
+let checksum = "baef215e7e98af0628ddd194b3b6b8c3eec74679a20e0a50e2a5bdf6f195255a"
+let url = "https://github.com/BitcoinErrorLog/bitkit-core/releases/download/\(tag)/BitkitCore.xcframework.zip"
 
 let package = Package(
     name: "bitkitcore",
@@ -14,7 +14,6 @@ let package = Package(
         .macOS(.v12),
     ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "BitkitCore",
             targets: ["BitkitCoreFFI", "BitkitCore"]),
