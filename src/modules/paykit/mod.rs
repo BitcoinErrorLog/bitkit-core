@@ -11,3 +11,9 @@ pub use types::{PaykitCheckoutResult, PaykitSupportedMethod, PaykitSupportedMeth
 
 #[cfg(test)]
 mod tests;
+#[cfg(test)]
+mod storage_tests;
+#[cfg(test)]
+mod implementation_tests;
+#[cfg(test)]
+mod interactive_tests;

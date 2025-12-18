@@ -21,15 +21,15 @@ mod rotation_tests {
 
         // Note: This test requires valid Pubky credentials
         // In production, these would come from the user's wallet
-        let secret_key_hex = "0".repeat(64); // Placeholder
-        let homeserver_pubkey = "8".repeat(52); // Placeholder
+        let _secret_key_hex = "0".repeat(64); // Placeholder
+        let _homeserver_pubkey = "8".repeat(52); // Placeholder
 
         // 1. Initialize Paykit session
         // (This would fail without real credentials, so we'll mock the check)
         // paykit_initialize(secret_key_hex, homeserver_pubkey).await.unwrap();
 
         // Mock user's public key
-        let my_pubkey = "8".repeat(52);
+        let _my_pubkey = "8".repeat(52);
 
         // 2. Set public endpoints (simulated - would normally call paykit_set_endpoint)
         let onchain_address = "bc1qtest123";
