@@ -615,6 +615,11 @@ uint64_t uniffi_bitkitcore_fn_func_pubky_get_session(RustBuffer pubkey
 uint64_t uniffi_bitkitcore_fn_func_pubky_has_session(RustBuffer pubkey
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_IMPORT_SESSION
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_IMPORT_SESSION
+uint64_t uniffi_bitkitcore_fn_func_pubky_import_session(RustBuffer pubkey, RustBuffer session_secret
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_INITIALIZE
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_INITIALIZE
 void uniffi_bitkitcore_fn_func_pubky_initialize(RustCallStatus *_Nonnull out_status
@@ -1566,6 +1571,12 @@ uint16_t uniffi_bitkitcore_checksum_func_pubky_get_session(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_PUBKY_HAS_SESSION
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_PUBKY_HAS_SESSION
 uint16_t uniffi_bitkitcore_checksum_func_pubky_has_session(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_PUBKY_IMPORT_SESSION
+#define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_CHECKSUM_FUNC_PUBKY_IMPORT_SESSION
+uint16_t uniffi_bitkitcore_checksum_func_pubky_import_session(void
     
 );
 #endif
