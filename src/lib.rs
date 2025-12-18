@@ -11,9 +11,10 @@ use crate::activity::{
     TransactionDetails,
 };
 use crate::modules::blocktank::{
-    BlocktankDB, BlocktankError, BtOrderState2, CJitStateEnum, CreateCjitOptions,
-    CreateOrderOptions, IBt0ConfMinTxFeeWindow, IBtBolt11Invoice, IBtEstimateFeeResponse,
-    IBtEstimateFeeResponse2, IBtInfo, IBtOrder, ICJitEntry, IGift,
+    BlocktankDB, BlocktankError, BtOrderState2, CJitStateEnum, ChannelLiquidityOptions,
+    ChannelLiquidityParams, CreateCjitOptions, CreateOrderOptions, DefaultLspBalanceParams,
+    IBt0ConfMinTxFeeWindow, IBtBolt11Invoice, IBtEstimateFeeResponse, IBtEstimateFeeResponse2,
+    IBtInfo, IBtOrder, ICJitEntry, IGift,
 };
 pub use crate::onchain::WordCount;
 use crate::onchain::{
@@ -772,6 +773,18 @@ pub fn wipe_all_closed_channels() -> Result<(), ActivityError> {
             error_details: "Database not initialized. Call init_db first.".to_string(),
         })?;
     db.wipe_all_closed_channels()
+}
+
+#[uniffi::export]
+pub fn calculate_channel_liquidity_options(
+    params: ChannelLiquidityParams,
+) -> ChannelLiquidityOptions {
+    crate::modules::blocktank::calculate_channel_liquidity_options(params)
+}
+
+#[uniffi::export]
+pub fn get_default_lsp_balance(params: DefaultLspBalanceParams) -> u64 {
+    crate::modules::blocktank::get_default_lsp_balance(params)
 }
 
 #[uniffi::export]
