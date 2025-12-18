@@ -67,7 +67,7 @@ static DB: OnceCell<StdMutex<DatabaseConnections>> = OnceCell::new();
 static ASYNC_DB: OnceCell<TokioMutex<AsyncDatabaseConnections>> = OnceCell::new();
 static RUNTIME: OnceCell<Runtime> = OnceCell::new();
 
-fn ensure_runtime() -> &'static Runtime {
+pub(crate) fn ensure_runtime() -> &'static Runtime {
     RUNTIME.get_or_init(|| Runtime::new().expect("Failed to create Tokio runtime"))
 }
 

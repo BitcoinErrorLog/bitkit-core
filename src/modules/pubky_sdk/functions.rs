@@ -136,28 +136,37 @@ pub async fn pubky_signout(pubkey: String) -> Result<(), PubkyError> {
 /// - session_secret: The session secret (cookie) from Pubky Ring
 /// The token format for import_secret is `<pubkey>:<cookie>`
 #[uniffi::export]
-pub async fn pubky_import_session(pubkey: String, session_secret: String) -> Result<PubkySessionInfo, PubkyError> {
+pub fn pubky_import_session(pubkey: String, session_secret: String) -> Result<PubkySessionInfo, PubkyError> {
     let sdk = get_sdk()?;
     
     // Combine pubkey and session_secret into the token format: `<pubkey>:<cookie>`
     let session_token = format!("{}:{}", pubkey, session_secret);
     
-    // Import the session using the SDK's import_secret method
-    let session = PubkySession::import_secret(&session_token, Some(sdk.client().clone())).await
-        .map_err(|e| PubkyError::from(e))?;
+    // Use the global runtime to execute async operations
+    // This is needed because PubkySession::import_secret internally uses Tokio features
+    let runtime = crate::ensure_runtime();
     
-    let info = session.info();
-    let session_info = PubkySessionInfo {
-        pubkey: info.public_key().to_string(),
-        capabilities: info.capabilities().iter().map(|c| c.to_string()).collect(),
-        created_at: info.created_at(),
-    };
+    let client = sdk.client().clone();
+    let result = runtime.block_on(async move {
+        // Import the session using the SDK's import_secret method
+        let session = PubkySession::import_secret(&session_token, Some(client)).await
+            .map_err(|e| PubkyError::from(e))?;
+        
+        let info = session.info();
+        let session_info = PubkySessionInfo {
+            pubkey: info.public_key().to_string(),
+            capabilities: info.capabilities().iter().map(|c| c.to_string()).collect(),
+            created_at: info.created_at(),
+        };
+        
+        // Store session for later use
+        let mut sessions = get_sessions().write().await;
+        sessions.insert(session_info.pubkey.clone(), session);
+        
+        Ok::<_, PubkyError>(session_info)
+    })?;
     
-    // Store session for later use
-    let mut sessions = get_sessions().write().await;
-    sessions.insert(session_info.pubkey.clone(), session);
-    
-    Ok(session_info)
+    Ok(result)
 }
 
 /// Check if a session exists for a pubkey

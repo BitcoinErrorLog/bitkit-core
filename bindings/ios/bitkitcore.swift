@@ -18736,19 +18736,13 @@ public func pubkyHasSession(pubkey: String)async  -> Bool  {
  * - session_secret: The session secret (cookie) from Pubky Ring
  * The token format for import_secret is `<pubkey>:<cookie>`
  */
-public func pubkyImportSession(pubkey: String, sessionSecret: String)async throws  -> PubkySessionInfo  {
-    return
-        try  await uniffiRustCallAsync(
-            rustFutureFunc: {
-                uniffi_bitkitcore_fn_func_pubky_import_session(FfiConverterString.lower(pubkey),FfiConverterString.lower(sessionSecret)
-                )
-            },
-            pollFunc: ffi_bitkitcore_rust_future_poll_rust_buffer,
-            completeFunc: ffi_bitkitcore_rust_future_complete_rust_buffer,
-            freeFunc: ffi_bitkitcore_rust_future_free_rust_buffer,
-            liftFunc: FfiConverterTypePubkySessionInfo_lift,
-            errorHandler: FfiConverterTypePubkyError_lift
-        )
+public func pubkyImportSession(pubkey: String, sessionSecret: String)throws  -> PubkySessionInfo  {
+    return try  FfiConverterTypePubkySessionInfo_lift(try rustCallWithError(FfiConverterTypePubkyError_lift) {
+    uniffi_bitkitcore_fn_func_pubky_import_session(
+        FfiConverterString.lower(pubkey),
+        FfiConverterString.lower(sessionSecret),$0
+    )
+})
 }
 /**
  * Initialize the Pubky SDK
@@ -19626,7 +19620,7 @@ private let initializationResult: InitializationResult = {
     if (uniffi_bitkitcore_checksum_func_pubky_has_session() != 23967) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_bitkitcore_checksum_func_pubky_import_session() != 18767) {
+    if (uniffi_bitkitcore_checksum_func_pubky_import_session() != 44841) {
         return InitializationResult.apiChecksumMismatch
     }
     if (uniffi_bitkitcore_checksum_func_pubky_initialize() != 9364) {
