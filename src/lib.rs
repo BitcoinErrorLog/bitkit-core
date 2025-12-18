@@ -186,7 +186,7 @@ pub fn validate_bitcoin_address(address: String) -> Result<ValidationResult, Add
 
 #[uniffi::export]
 pub fn generate_mnemonic(word_count: Option<WordCount>) -> Result<String, AddressError> {
-    let external_word_count = word_count.map(|wc| wc.into());
+    let external_word_count = word_count;
     onchain::BitcoinAddressValidator::genenerate_mnemonic(external_word_count)
 }
 
@@ -313,6 +313,7 @@ pub fn init_db(base_path: String) -> Result<String, DbError> {
 }
 
 #[uniffi::export]
+#[allow(clippy::too_many_arguments)] // FFI requires flat parameter list for mobile binding compatibility
 pub fn get_activities(
     filter: Option<ActivityFilter>,
     tx_type: Option<PaymentType>,
@@ -927,9 +928,8 @@ pub async fn get_orders(
             })?;
 
         // If refresh is true and we have order_ids, refresh those specific orders
-        if refresh && order_ids.is_some() {
-            let ids = order_ids.unwrap();
-            db.refresh_orders(&ids)
+        if let (true, Some(ids)) = (refresh, &order_ids) {
+            db.refresh_orders(ids)
                 .await
                 .map(|orders| orders.into_iter().map(|order| order.into()).collect())
         } else {
@@ -1132,13 +1132,12 @@ pub async fn get_cjit_entries(
             })?;
 
         // If refresh is true and we have entry_ids, refresh those specific entries
-        if refresh && entry_ids.is_some() {
-            let entries = entry_ids.unwrap();
+        if let (true, Some(entries)) = (refresh, &entry_ids) {
             // Since we don't have a bulk refresh method for CJIT entries,
             // we'll refresh them one by one
             let mut results = Vec::new();
-            for entry_id in entries {
-                if let Ok(entry) = db.refresh_cjit_entry(&entry_id).await {
+            for entry_id in entries.iter() {
+                if let Ok(entry) = db.refresh_cjit_entry(entry_id).await {
                     results.push(entry);
                 }
             }
@@ -1186,6 +1185,7 @@ pub async fn refresh_active_cjit_entries() -> Result<Vec<ICJitEntry>, BlocktankE
 }
 
 #[uniffi::export]
+#[allow(clippy::too_many_arguments)] // FFI requires flat parameter list for mobile binding compatibility
 pub async fn register_device(
     device_token: String,
     public_key: String,
@@ -1530,6 +1530,7 @@ pub fn trezor_get_features(
 
 #[uniffi::export]
 #[allow(non_snake_case)] // Trezor Connect API uses camelCase parameter names
+#[allow(clippy::too_many_arguments)] // Trezor API requires many optional parameters
 pub fn trezor_get_address(
     path: String,
     callback_url: String,
@@ -1581,6 +1582,7 @@ pub fn trezor_get_address(
 
 #[uniffi::export]
 #[allow(non_snake_case)] // Trezor Connect API uses camelCase parameter names
+#[allow(clippy::too_many_arguments)] // Trezor API requires many optional parameters
 pub fn trezor_get_account_info(
     coin: String,
     callback_url: String,
@@ -1650,6 +1652,7 @@ pub fn trezor_handle_deep_link(
 }
 
 #[uniffi::export]
+#[allow(clippy::too_many_arguments)] // Trezor API requires many optional parameters
 pub fn trezor_verify_message(
     address: String,
     signature: String,
@@ -1689,6 +1692,7 @@ pub fn trezor_verify_message(
 }
 
 #[uniffi::export]
+#[allow(clippy::too_many_arguments)] // Trezor API requires many optional parameters
 pub fn trezor_sign_message(
     path: String,
     message: String,
@@ -1728,6 +1732,7 @@ pub fn trezor_sign_message(
 }
 
 #[uniffi::export]
+#[allow(clippy::too_many_arguments)] // Trezor API requires many optional parameters
 pub fn trezor_sign_transaction(
     coin: String,
     inputs: Vec<TxInputType>,
@@ -1791,6 +1796,7 @@ pub fn trezor_sign_transaction(
 }
 
 #[uniffi::export]
+#[allow(clippy::too_many_arguments)] // Trezor API requires many optional parameters
 pub fn trezor_compose_transaction(
     outputs: Vec<ComposeOutput>,
     coin: String,

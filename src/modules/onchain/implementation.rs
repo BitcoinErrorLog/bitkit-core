@@ -13,15 +13,9 @@ impl BitcoinAddressValidator {
     pub fn validate_address(address: &str) -> Result<ValidationResult, AddressError> {
         println!("\nValidating address: {}", address);
 
-        let unchecked_addr = match parse_address(address) {
-            Ok(addr) => addr,
-            Err(e) => return Err(e),
-        };
-        let expected_network = match determine_network(address) {
-            Ok(n) => n,
-            Err(e) => return Err(e),
-        };
-        match verify_network(unchecked_addr, expected_network.into()) {
+        let unchecked_addr = parse_address(address)?;
+        let expected_network = determine_network(address)?;
+        match verify_network(unchecked_addr, expected_network) {
             Ok(_) => {}
             Err(e) => return Err(e),
         }
@@ -60,7 +54,7 @@ impl BitcoinAddressValidator {
         let address = bitcoin_address_generator::derive_bitcoin_address(
             mnemonic_phrase,
             derivation_path_str,
-            network.into(),
+            network,
             bip39_passphrase,
         )
         .map_err(|e| {
@@ -83,7 +77,7 @@ impl BitcoinAddressValidator {
         let addresses = bitcoin_address_generator::derive_bitcoin_addresses(
             mnemonic_phrase,
             derivation_path_str,
-            network.into(),
+            network,
             bip39_passphrase,
             is_change,
             start_index,
@@ -106,7 +100,7 @@ impl BitcoinAddressValidator {
         let private_key = bitcoin_address_generator::derive_private_key(
             mnemonic_phrase,
             derivation_path_str,
-            network.into(),
+            network,
             bip39_passphrase,
         )
         .map_err(|e| {
@@ -168,9 +162,8 @@ fn parse_address(address: &str) -> Result<Address<NetworkUnchecked>, AddressErro
             println!("✗ Failed to parse address: {:?}", e);
             AddressError::InvalidAddress
         })
-        .map(|addr| {
+        .inspect(|_addr| {
             println!("✓ Successfully parsed address");
-            addr
         })
 }
 
@@ -213,9 +206,8 @@ fn verify_network(
             println!("✗ Network verification failed: {:?}", e);
             AddressError::InvalidNetwork
         })
-        .map(|addr| {
+        .inspect(|_addr| {
             println!("✓ Address verified for network");
-            addr
         })
 }
 

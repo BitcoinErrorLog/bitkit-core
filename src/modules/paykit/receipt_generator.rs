@@ -12,6 +12,12 @@ pub struct BitkitReceiptGenerator {
     // wallet: Arc<BitcoinWallet>,
 }
 
+impl Default for BitkitReceiptGenerator {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl BitkitReceiptGenerator {
     pub fn new() -> Self {
         Self {

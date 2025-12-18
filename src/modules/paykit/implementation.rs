@@ -164,15 +164,13 @@ pub async fn paykit_smart_checkout(
         .map_err(|e| PaykitError::InvalidPublicKey(e.to_string()))?;
 
     // Step 1: Check for private offer (if we have a storage implementation)
-    if let Ok(private_endpoint) = check_private_offer(&pk).await {
-        if let Some(endpoint) = private_endpoint {
-            return Ok(PaykitCheckoutResult {
-                method_id: endpoint.method_id,
-                endpoint: endpoint.endpoint,
-                is_private: true,
-                requires_interactive: true,
-            });
-        }
+    if let Ok(Some(endpoint)) = check_private_offer(&pk).await {
+        return Ok(PaykitCheckoutResult {
+            method_id: endpoint.method_id,
+            endpoint: endpoint.endpoint,
+            is_private: true,
+            requires_interactive: true,
+        });
     }
 
     // Step 2: Fall back to public directory

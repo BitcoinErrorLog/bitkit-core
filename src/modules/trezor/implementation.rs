@@ -79,7 +79,7 @@ impl TrezorConnectClient {
         url.query_pairs_mut()
             .append_pair("method", method)
             .append_pair("params", &params_json)
-            .append_pair("callback", &callback_url.to_string());
+            .append_pair("callback", callback_url.as_ref());
 
         Ok(DeepLinkResult {
             url: url.to_string(),

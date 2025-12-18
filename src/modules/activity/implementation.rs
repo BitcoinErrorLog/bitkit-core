@@ -332,15 +332,12 @@ impl ActivityDB {
             });
         }
 
-        let tx = match self
+        let tx = self
             .conn
             .transaction()
             .map_err(|e| ActivityError::DataError {
                 error_details: format!("Failed to start transaction: {}", e),
-            }) {
-            Ok(tx) => tx,
-            Err(e) => return Err(e),
-        };
+            })?;
 
         let activities_sql = "
             INSERT INTO activities (
@@ -635,6 +632,7 @@ impl ActivityDB {
         Ok(())
     }
 
+    #[allow(clippy::too_many_arguments)] // Query API requires many filter parameters
     pub fn get_activities(
         &self,
         filter: Option<ActivityFilter>,
@@ -712,7 +710,7 @@ impl ActivityDB {
             }
         }
 
-        query.push_str(")");
+        query.push(')');
 
         // Main query
         query.push_str(
@@ -1378,7 +1376,7 @@ impl ActivityDB {
         for (activity_id, tag) in rows {
             grouped
                 .entry(activity_id)
-                .or_insert_with(Vec::new)
+                .or_default()
                 .push(tag);
         }
 
@@ -1788,6 +1786,7 @@ impl ActivityDB {
     }
 
     /// Get all pre-activity metadata for backup
+    #[allow(clippy::type_complexity)] // Row tuple type mirrors DB schema for query mapping
     pub fn get_all_pre_activity_metadata(&self) -> Result<Vec<PreActivityMetadata>, ActivityError> {
         let mut stmt = self.conn.prepare(
             "SELECT payment_id, tags, payment_hash, tx_id, address, is_receive, fee_rate, is_transfer, channel_id, created_at FROM pre_activity_metadata ORDER BY payment_id"

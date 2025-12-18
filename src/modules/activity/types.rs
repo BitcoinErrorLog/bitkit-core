@@ -161,15 +161,12 @@ pub struct PreActivityMetadata {
     pub created_at: u64,
 }
 
-impl Default for SortDirection {
-    fn default() -> Self {
-        SortDirection::Desc
-    }
-}
 
 #[derive(Debug, Clone, Copy, uniffi::Enum)]
+#[derive(Default)]
 pub enum SortDirection {
     Asc,
+    #[default]
     Desc,
 }
 

@@ -403,7 +403,7 @@ impl BlocktankDB {
                 .state2
                 .as_ref()
                 .map(|s| format!("{:?}", s))
-                .unwrap_or_else(|| "".to_string()),
+                .unwrap_or_default(),
             fee_sat: order.fee_sat,
             network_fee_sat: order.network_fee_sat,
             service_fee_sat: order.service_fee_sat,
@@ -503,8 +503,7 @@ impl BlocktankDB {
         if let Some(ids) = order_ids {
             query.push_str(" AND id IN (");
             query.push_str(
-                &std::iter::repeat("?")
-                    .take(ids.len())
+                &std::iter::repeat_n("?", ids.len())
                     .collect::<Vec<_>>()
                     .join(","),
             );
@@ -840,8 +839,7 @@ impl BlocktankDB {
         if let Some(ids) = entry_ids {
             query.push_str(" AND id IN (");
             query.push_str(
-                &std::iter::repeat("?")
-                    .take(ids.len())
+                &std::iter::repeat_n("?", ids.len())
                     .collect::<Vec<_>>()
                     .join(","),
             );

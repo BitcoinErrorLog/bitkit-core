@@ -205,7 +205,7 @@ impl Scanner {
                     .map_err(|_| DecodingError::InvalidFormat)?;
 
                 let response = async_client
-                    .make_request(&*url)
+                    .make_request(&url)
                     .await
                     .map_err(|_| DecodingError::InvalidFormat)?;
 

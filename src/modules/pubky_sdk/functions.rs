@@ -129,6 +129,37 @@ pub async fn pubky_signout(pubkey: String) -> Result<(), PubkyError> {
     Ok(())
 }
 
+/// Import a session from Pubky Ring
+/// This is used when receiving a session from Pubky Ring via callback
+/// 
+/// - pubkey: The z-base32 encoded public key
+/// - session_secret: The session secret (cookie) from Pubky Ring
+/// The token format for import_secret is `<pubkey>:<cookie>`
+#[uniffi::export]
+pub async fn pubky_import_session(pubkey: String, session_secret: String) -> Result<PubkySessionInfo, PubkyError> {
+    let sdk = get_sdk()?;
+    
+    // Combine pubkey and session_secret into the token format: `<pubkey>:<cookie>`
+    let session_token = format!("{}:{}", pubkey, session_secret);
+    
+    // Import the session using the SDK's import_secret method
+    let session = PubkySession::import_secret(&session_token, Some(sdk.client().clone())).await
+        .map_err(|e| PubkyError::from(e))?;
+    
+    let info = session.info();
+    let session_info = PubkySessionInfo {
+        pubkey: info.public_key().to_string(),
+        capabilities: info.capabilities().iter().map(|c| c.to_string()).collect(),
+        created_at: info.created_at(),
+    };
+    
+    // Store session for later use
+    let mut sessions = get_sessions().write().await;
+    sessions.insert(session_info.pubkey.clone(), session);
+    
+    Ok(session_info)
+}
+
 /// Check if a session exists for a pubkey
 #[uniffi::export]
 pub async fn pubky_has_session(pubkey: String) -> bool {
@@ -223,7 +254,7 @@ pub async fn pubky_session_list(pubkey: String, path: String) -> Result<Vec<Pubk
     let items = resources.into_iter().map(|r| {
         let path_str = r.path.as_str();
         let is_directory = path_str.ends_with('/');
-        let name = path_str.trim_end_matches('/').split('/').last().unwrap_or(path_str).to_string();
+        let name = path_str.trim_end_matches('/').split('/').next_back().unwrap_or(path_str).to_string();
         
         PubkyListItem {
             name,
@@ -260,7 +291,7 @@ pub async fn pubky_public_list(uri: String) -> Result<Vec<PubkyListItem>, PubkyE
     let items = resources.into_iter().map(|r| {
         let path_str = r.path.as_str();
         let is_directory = path_str.ends_with('/');
-        let name = path_str.trim_end_matches('/').split('/').last().unwrap_or(path_str).to_string();
+        let name = path_str.trim_end_matches('/').split('/').next_back().unwrap_or(path_str).to_string();
         
         PubkyListItem {
             name,

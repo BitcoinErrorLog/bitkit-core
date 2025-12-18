@@ -280,6 +280,7 @@ impl BlocktankDB {
     }
 
     /// Registers a device with Blocktank
+    #[allow(clippy::too_many_arguments)] // Device registration requires many parameters
     pub async fn register_device(
         &self,
         device_token: &str,
