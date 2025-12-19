@@ -4,7 +4,7 @@
 import PackageDescription
 
 let tag = "v0.2.8-pubky-fix-session"
-let checksum = "a48868672b209b161ede8ecf93f4a8f20e7aa3a37b166af0d39475de91a682c1"
+let checksum = "25e9b61c29b7fca7d4a9e3d282fe155fe2478d9d6c918a5e1d59ddd497771bd3"
 let url = "https://github.com/BitcoinErrorLog/bitkit-core/releases/download/\(tag)/BitkitCore.xcframework.zip"
 
 let package = Package(
