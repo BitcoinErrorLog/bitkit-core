@@ -660,22 +660,22 @@ uint64_t uniffi_bitkitcore_fn_func_pubky_resolve_homeserver(RustBuffer pubkey
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_SESSION_DELETE
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_SESSION_DELETE
-uint64_t uniffi_bitkitcore_fn_func_pubky_session_delete(RustBuffer pubkey, RustBuffer path
+void uniffi_bitkitcore_fn_func_pubky_session_delete(RustBuffer pubkey, RustBuffer path, RustCallStatus *_Nonnull out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_SESSION_GET
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_SESSION_GET
-uint64_t uniffi_bitkitcore_fn_func_pubky_session_get(RustBuffer pubkey, RustBuffer path
+RustBuffer uniffi_bitkitcore_fn_func_pubky_session_get(RustBuffer pubkey, RustBuffer path, RustCallStatus *_Nonnull out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_SESSION_LIST
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_SESSION_LIST
-uint64_t uniffi_bitkitcore_fn_func_pubky_session_list(RustBuffer pubkey, RustBuffer path
+RustBuffer uniffi_bitkitcore_fn_func_pubky_session_list(RustBuffer pubkey, RustBuffer path, RustCallStatus *_Nonnull out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_SESSION_PUT
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_SESSION_PUT
-uint64_t uniffi_bitkitcore_fn_func_pubky_session_put(RustBuffer pubkey, RustBuffer path, RustBuffer content
+void uniffi_bitkitcore_fn_func_pubky_session_put(RustBuffer pubkey, RustBuffer path, RustBuffer content, RustCallStatus *_Nonnull out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_SIGNIN

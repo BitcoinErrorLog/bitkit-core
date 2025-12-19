@@ -202,77 +202,93 @@ pub async fn pubky_list_sessions() -> Vec<String> {
 
 /// Get data from authenticated storage
 #[uniffi::export]
-pub async fn pubky_session_get(pubkey: String, path: String) -> Result<Vec<u8>, PubkyError> {
-    let sessions = get_sessions().read().await;
+pub fn pubky_session_get(pubkey: String, path: String) -> Result<Vec<u8>, PubkyError> {
+    let runtime = crate::ensure_runtime();
     
-    let session = sessions.get(&pubkey).ok_or_else(|| PubkyError::Session {
-        message: format!("No session found for pubkey: {}", pubkey),
-    })?;
-    
-    let storage = session.storage();
-    let response = storage.get(path).await?;
-    let bytes = response.bytes().await
-        .map_err(|e| PubkyError::Network { message: e.to_string() })?;
-    
-    Ok(bytes.to_vec())
+    runtime.block_on(async move {
+        let sessions = get_sessions().read().await;
+        
+        let session = sessions.get(&pubkey).ok_or_else(|| PubkyError::Session {
+            message: format!("No session found for pubkey: {}", pubkey),
+        })?;
+        
+        let storage = session.storage();
+        let response = storage.get(path).await?;
+        let bytes = response.bytes().await
+            .map_err(|e| PubkyError::Network { message: e.to_string() })?;
+        
+        Ok(bytes.to_vec())
+    })
 }
 
 /// Put data to authenticated storage
 #[uniffi::export]
-pub async fn pubky_session_put(pubkey: String, path: String, content: Vec<u8>) -> Result<(), PubkyError> {
-    let sessions = get_sessions().read().await;
+pub fn pubky_session_put(pubkey: String, path: String, content: Vec<u8>) -> Result<(), PubkyError> {
+    let runtime = crate::ensure_runtime();
     
-    let session = sessions.get(&pubkey).ok_or_else(|| PubkyError::Session {
-        message: format!("No session found for pubkey: {}", pubkey),
-    })?;
-    
-    let storage = session.storage();
-    storage.put(path, content).await?;
-    
-    Ok(())
+    runtime.block_on(async move {
+        let sessions = get_sessions().read().await;
+        
+        let session = sessions.get(&pubkey).ok_or_else(|| PubkyError::Session {
+            message: format!("No session found for pubkey: {}", pubkey),
+        })?;
+        
+        let storage = session.storage();
+        storage.put(path, content).await?;
+        
+        Ok(())
+    })
 }
 
 /// Delete data from authenticated storage
 #[uniffi::export]
-pub async fn pubky_session_delete(pubkey: String, path: String) -> Result<(), PubkyError> {
-    let sessions = get_sessions().read().await;
+pub fn pubky_session_delete(pubkey: String, path: String) -> Result<(), PubkyError> {
+    let runtime = crate::ensure_runtime();
     
-    let session = sessions.get(&pubkey).ok_or_else(|| PubkyError::Session {
-        message: format!("No session found for pubkey: {}", pubkey),
-    })?;
-    
-    let storage = session.storage();
-    storage.delete(path).await?;
-    
-    Ok(())
+    runtime.block_on(async move {
+        let sessions = get_sessions().read().await;
+        
+        let session = sessions.get(&pubkey).ok_or_else(|| PubkyError::Session {
+            message: format!("No session found for pubkey: {}", pubkey),
+        })?;
+        
+        let storage = session.storage();
+        storage.delete(path).await?;
+        
+        Ok(())
+    })
 }
 
 /// List items in authenticated storage
 #[uniffi::export]
-pub async fn pubky_session_list(pubkey: String, path: String) -> Result<Vec<PubkyListItem>, PubkyError> {
-    let sessions = get_sessions().read().await;
+pub fn pubky_session_list(pubkey: String, path: String) -> Result<Vec<PubkyListItem>, PubkyError> {
+    let runtime = crate::ensure_runtime();
     
-    let session = sessions.get(&pubkey).ok_or_else(|| PubkyError::Session {
-        message: format!("No session found for pubkey: {}", pubkey),
-    })?;
-    
-    let storage = session.storage();
-    let builder = storage.list(path)?;
-    let resources = builder.send().await?;
-    
-    let items = resources.into_iter().map(|r| {
-        let path_str = r.path.as_str();
-        let is_directory = path_str.ends_with('/');
-        let name = path_str.trim_end_matches('/').split('/').next_back().unwrap_or(path_str).to_string();
+    runtime.block_on(async move {
+        let sessions = get_sessions().read().await;
         
-        PubkyListItem {
-            name,
-            path: path_str.to_string(),
-            is_directory,
-        }
-    }).collect();
-    
-    Ok(items)
+        let session = sessions.get(&pubkey).ok_or_else(|| PubkyError::Session {
+            message: format!("No session found for pubkey: {}", pubkey),
+        })?;
+        
+        let storage = session.storage();
+        let builder = storage.list(path)?;
+        let resources = builder.send().await?;
+        
+        let items = resources.into_iter().map(|r| {
+            let path_str = r.path.as_str();
+            let is_directory = path_str.ends_with('/');
+            let name = path_str.trim_end_matches('/').split('/').next_back().unwrap_or(path_str).to_string();
+            
+            PubkyListItem {
+                name,
+                path: path_str.to_string(),
+                is_directory,
+            }
+        }).collect();
+        
+        Ok(items)
+    })
 }
 
 /// Get data from public storage (no authentication needed)

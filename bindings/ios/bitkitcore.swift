@@ -18841,70 +18841,45 @@ public func pubkyResolveHomeserver(pubkey: String)async throws  -> String?  {
 /**
  * Delete data from authenticated storage
  */
-public func pubkySessionDelete(pubkey: String, path: String)async throws   {
-    return
-        try  await uniffiRustCallAsync(
-            rustFutureFunc: {
-                uniffi_bitkitcore_fn_func_pubky_session_delete(FfiConverterString.lower(pubkey),FfiConverterString.lower(path)
-                )
-            },
-            pollFunc: ffi_bitkitcore_rust_future_poll_void,
-            completeFunc: ffi_bitkitcore_rust_future_complete_void,
-            freeFunc: ffi_bitkitcore_rust_future_free_void,
-            liftFunc: { $0 },
-            errorHandler: FfiConverterTypePubkyError_lift
-        )
+public func pubkySessionDelete(pubkey: String, path: String)throws   {try rustCallWithError(FfiConverterTypePubkyError_lift) {
+    uniffi_bitkitcore_fn_func_pubky_session_delete(
+        FfiConverterString.lower(pubkey),
+        FfiConverterString.lower(path),$0
+    )
+}
 }
 /**
  * Get data from authenticated storage
  */
-public func pubkySessionGet(pubkey: String, path: String)async throws  -> Data  {
-    return
-        try  await uniffiRustCallAsync(
-            rustFutureFunc: {
-                uniffi_bitkitcore_fn_func_pubky_session_get(FfiConverterString.lower(pubkey),FfiConverterString.lower(path)
-                )
-            },
-            pollFunc: ffi_bitkitcore_rust_future_poll_rust_buffer,
-            completeFunc: ffi_bitkitcore_rust_future_complete_rust_buffer,
-            freeFunc: ffi_bitkitcore_rust_future_free_rust_buffer,
-            liftFunc: FfiConverterData.lift,
-            errorHandler: FfiConverterTypePubkyError_lift
-        )
+public func pubkySessionGet(pubkey: String, path: String)throws  -> Data  {
+    return try  FfiConverterData.lift(try rustCallWithError(FfiConverterTypePubkyError_lift) {
+    uniffi_bitkitcore_fn_func_pubky_session_get(
+        FfiConverterString.lower(pubkey),
+        FfiConverterString.lower(path),$0
+    )
+})
 }
 /**
  * List items in authenticated storage
  */
-public func pubkySessionList(pubkey: String, path: String)async throws  -> [PubkyListItem]  {
-    return
-        try  await uniffiRustCallAsync(
-            rustFutureFunc: {
-                uniffi_bitkitcore_fn_func_pubky_session_list(FfiConverterString.lower(pubkey),FfiConverterString.lower(path)
-                )
-            },
-            pollFunc: ffi_bitkitcore_rust_future_poll_rust_buffer,
-            completeFunc: ffi_bitkitcore_rust_future_complete_rust_buffer,
-            freeFunc: ffi_bitkitcore_rust_future_free_rust_buffer,
-            liftFunc: FfiConverterSequenceTypePubkyListItem.lift,
-            errorHandler: FfiConverterTypePubkyError_lift
-        )
+public func pubkySessionList(pubkey: String, path: String)throws  -> [PubkyListItem]  {
+    return try  FfiConverterSequenceTypePubkyListItem.lift(try rustCallWithError(FfiConverterTypePubkyError_lift) {
+    uniffi_bitkitcore_fn_func_pubky_session_list(
+        FfiConverterString.lower(pubkey),
+        FfiConverterString.lower(path),$0
+    )
+})
 }
 /**
  * Put data to authenticated storage
  */
-public func pubkySessionPut(pubkey: String, path: String, content: Data)async throws   {
-    return
-        try  await uniffiRustCallAsync(
-            rustFutureFunc: {
-                uniffi_bitkitcore_fn_func_pubky_session_put(FfiConverterString.lower(pubkey),FfiConverterString.lower(path),FfiConverterData.lower(content)
-                )
-            },
-            pollFunc: ffi_bitkitcore_rust_future_poll_void,
-            completeFunc: ffi_bitkitcore_rust_future_complete_void,
-            freeFunc: ffi_bitkitcore_rust_future_free_void,
-            liftFunc: { $0 },
-            errorHandler: FfiConverterTypePubkyError_lift
-        )
+public func pubkySessionPut(pubkey: String, path: String, content: Data)throws   {try rustCallWithError(FfiConverterTypePubkyError_lift) {
+    uniffi_bitkitcore_fn_func_pubky_session_put(
+        FfiConverterString.lower(pubkey),
+        FfiConverterString.lower(path),
+        FfiConverterData.lower(content),$0
+    )
+}
 }
 /**
  * Sign in with a secret key (hex-encoded, 32 bytes)
@@ -19643,16 +19618,16 @@ private let initializationResult: InitializationResult = {
     if (uniffi_bitkitcore_checksum_func_pubky_resolve_homeserver() != 11606) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_bitkitcore_checksum_func_pubky_session_delete() != 54181) {
+    if (uniffi_bitkitcore_checksum_func_pubky_session_delete() != 45748) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_bitkitcore_checksum_func_pubky_session_get() != 59572) {
+    if (uniffi_bitkitcore_checksum_func_pubky_session_get() != 31151) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_bitkitcore_checksum_func_pubky_session_list() != 32015) {
+    if (uniffi_bitkitcore_checksum_func_pubky_session_list() != 37182) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_bitkitcore_checksum_func_pubky_session_put() != 60792) {
+    if (uniffi_bitkitcore_checksum_func_pubky_session_put() != 40800) {
         return InitializationResult.apiChecksumMismatch
     }
     if (uniffi_bitkitcore_checksum_func_pubky_signin() != 59461) {
