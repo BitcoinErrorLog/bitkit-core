@@ -18732,9 +18732,8 @@ public func pubkyHasSession(pubkey: String)async  -> Bool  {
  * Import a session from Pubky Ring
  * This is used when receiving a session from Pubky Ring via callback
  *
- * - pubkey: The z-base32 encoded public key
- * - session_secret: The session secret (cookie) from Pubky Ring
- * The token format for import_secret is `<pubkey>:<cookie>`
+ * - pubkey: The z-base32 encoded public key (for verification)
+ * - session_secret: The full session token in format `<pubkey>:<cookie>` from Pubky Ring
  */
 public func pubkyImportSession(pubkey: String, sessionSecret: String)throws  -> PubkySessionInfo  {
     return try  FfiConverterTypePubkySessionInfo_lift(try rustCallWithError(FfiConverterTypePubkyError_lift) {
@@ -19620,7 +19619,7 @@ private let initializationResult: InitializationResult = {
     if (uniffi_bitkitcore_checksum_func_pubky_has_session() != 23967) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_bitkitcore_checksum_func_pubky_import_session() != 44841) {
+    if (uniffi_bitkitcore_checksum_func_pubky_import_session() != 56775) {
         return InitializationResult.apiChecksumMismatch
     }
     if (uniffi_bitkitcore_checksum_func_pubky_initialize() != 9364) {

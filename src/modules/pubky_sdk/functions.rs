@@ -132,15 +132,15 @@ pub async fn pubky_signout(pubkey: String) -> Result<(), PubkyError> {
 /// Import a session from Pubky Ring
 /// This is used when receiving a session from Pubky Ring via callback
 /// 
-/// - pubkey: The z-base32 encoded public key
-/// - session_secret: The session secret (cookie) from Pubky Ring
-/// The token format for import_secret is `<pubkey>:<cookie>`
+/// - pubkey: The z-base32 encoded public key (for verification)
+/// - session_secret: The full session token in format `<pubkey>:<cookie>` from Pubky Ring
 #[uniffi::export]
-pub fn pubky_import_session(pubkey: String, session_secret: String) -> Result<PubkySessionInfo, PubkyError> {
+pub fn pubky_import_session(_pubkey: String, session_secret: String) -> Result<PubkySessionInfo, PubkyError> {
     let sdk = get_sdk()?;
     
-    // Combine pubkey and session_secret into the token format: `<pubkey>:<cookie>`
-    let session_token = format!("{}:{}", pubkey, session_secret);
+    // session_secret from Pubky Ring is already in the format `<pubkey>:<cookie>`
+    // So we use it directly without modification
+    let session_token = session_secret;
     
     // Use the global runtime to execute async operations
     // This is needed because PubkySession::import_secret internally uses Tokio features

@@ -617,7 +617,7 @@ uint64_t uniffi_bitkitcore_fn_func_pubky_has_session(RustBuffer pubkey
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_IMPORT_SESSION
 #define UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_IMPORT_SESSION
-RustBuffer uniffi_bitkitcore_fn_func_pubky_import_session(RustBuffer pubkey, RustBuffer session_secret, RustCallStatus *_Nonnull out_status
+RustBuffer uniffi_bitkitcore_fn_func_pubky_import_session(RustBuffer _pubkey, RustBuffer session_secret, RustCallStatus *_Nonnull out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_BITKITCORE_FN_FUNC_PUBKY_INITIALIZE
