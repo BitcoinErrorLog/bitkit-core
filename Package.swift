@@ -3,10 +3,9 @@
 
 import PackageDescription
 
-// For local development, use path. For release, use url+checksum.
-// let tag = "v0.2.9-x86_64-simulator"
-// let checksum = "b259e44ccc9bb3ce5bbf391c47af889fc89379ecc4e3a655c606735c04b4e8f4"
-// let url = "https://github.com/BitcoinErrorLog/bitkit-core/releases/download/\(tag)/BitkitCore.xcframework.zip"
+let tag = "v0.3.1"
+let checksum = "b65ebea0472a84e06b235897e83d8261fc432c3cab4af99be61f3a6c55bccc56"
+let url = "https://github.com/BitcoinErrorLog/bitkit-core/releases/download/\(tag)/BitkitCore.xcframework.zip"
 
 let package = Package(
     name: "bitkitcore",
@@ -28,7 +27,8 @@ let package = Package(
         ),
         .binaryTarget(
             name: "BitkitCoreFFI",
-            path: "./bindings/ios/BitkitCore.xcframework"
+            url: url,
+            checksum: checksum
         )
     ]
 )

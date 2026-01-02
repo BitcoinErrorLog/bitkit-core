@@ -1,3 +1,8 @@
 target/
 .idea/
 .DS_Store
+
+# XCFramework binaries (distributed via GitHub Releases)
+bindings/ios/BitkitCore.xcframework/*.a
+bindings/ios/BitkitCore.xcframework/**/*.a
+bindings/ios/BitkitCore.xcframework.zip
