@@ -34,9 +34,9 @@ bitcoin-address-generator = "0.2.0"
 uuid = { version = "1.16.0", features = ["v4"] }
 hex = "0.4.3"
 bip39 = "2.0"
-paykit-lib = { path = "../paykit-rs-master/paykit-lib", features = ["pubky"] }
-paykit-interactive = { path = "../paykit-rs-master/paykit-interactive" }
-pubky-noise = { path = "../pubky-noise-main", features = ["pubky-sdk"] }
+paykit-lib = { path = "../paykit-rs/paykit-lib", features = ["pubky"] }
+paykit-interactive = { path = "../paykit-rs/paykit-interactive" }
+pubky-noise = { path = "../pubky-noise", features = ["pubky-sdk"] }
 pubky = { git = "https://github.com/BitcoinErrorLog/pubky-core", rev = "290d801" }
 
 [dev-dependencies]

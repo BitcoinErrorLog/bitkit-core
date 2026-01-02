@@ -24,13 +24,14 @@ cargo build --release
 # echo "Updating Cargo.toml..."
 # sed -i '' 's/crate_type = .*/crate_type = ["cdylib", "staticlib"]/' Cargo.toml
 
-# Add iOS targets
+# Add iOS targets (including x86_64 for Intel Mac simulators)
 echo "Adding iOS targets..."
-rustup target add aarch64-apple-ios-sim aarch64-apple-ios
+rustup target add aarch64-apple-ios-sim aarch64-apple-ios x86_64-apple-ios
 
-# Build for iOS simulator and device
+# Build for iOS simulator (arm64 + x86_64) and device
 echo "Building for iOS targets..."
 cargo build --release --target=aarch64-apple-ios-sim
+cargo build --release --target=x86_64-apple-ios
 cargo build --release --target=aarch64-apple-ios
 
 # Generate Swift bindings
@@ -67,19 +68,27 @@ rm -rf "bindings/ios/ios-arm64-sim"
 # Create temporary directories for each architecture
 echo "Creating architecture-specific directories..."
 mkdir -p "bindings/ios/ios-arm64/Headers"
-mkdir -p "bindings/ios/ios-arm64-sim/Headers"
+mkdir -p "bindings/ios/ios-arm64_x86_64-simulator/Headers"
 
 # Copy headers to architecture-specific directories
 echo "Copying headers to architecture directories..."
 cp bindings/ios/bitkitcoreFFI.h "bindings/ios/ios-arm64/Headers/"
 cp bindings/ios/module.modulemap "bindings/ios/ios-arm64/Headers/"
-cp bindings/ios/bitkitcoreFFI.h "bindings/ios/ios-arm64-sim/Headers/"
-cp bindings/ios/module.modulemap "bindings/ios/ios-arm64-sim/Headers/"
+cp bindings/ios/bitkitcoreFFI.h "bindings/ios/ios-arm64_x86_64-simulator/Headers/"
+cp bindings/ios/module.modulemap "bindings/ios/ios-arm64_x86_64-simulator/Headers/"
 
-# Create XCFramework
+# Create fat library for simulator (arm64 + x86_64)
+echo "Creating fat library for simulator..."
+mkdir -p "bindings/ios/ios-arm64_x86_64-simulator"
+lipo -create \
+    ./target/aarch64-apple-ios-sim/release/libbitkitcore.a \
+    ./target/x86_64-apple-ios/release/libbitkitcore.a \
+    -output "bindings/ios/ios-arm64_x86_64-simulator/libbitkitcore.a"
+
+# Create XCFramework with fat simulator library
 echo "Creating XCFramework..."
 xcodebuild -create-xcframework \
-    -library ./target/aarch64-apple-ios-sim/release/libbitkitcore.a -headers "bindings/ios/ios-arm64-sim/Headers" \
+    -library "bindings/ios/ios-arm64_x86_64-simulator/libbitkitcore.a" -headers "bindings/ios/ios-arm64_x86_64-simulator/Headers" \
     -library ./target/aarch64-apple-ios/release/libbitkitcore.a -headers "bindings/ios/ios-arm64/Headers" \
     -output "bindings/ios/BitkitCore.xcframework" \
     || { echo "Failed to create XCFramework"; exit 1; }
@@ -88,6 +97,7 @@ xcodebuild -create-xcframework \
 echo "Cleaning up temporary directories..."
 rm -rf "bindings/ios/ios-arm64"
 rm -rf "bindings/ios/ios-arm64-sim"
+rm -rf "bindings/ios/ios-arm64_x86_64-simulator"
 
 # Create zip file for distribution and checksum calculation
 echo "Creating XCFramework zip file..."

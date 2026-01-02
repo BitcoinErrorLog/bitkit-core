@@ -2547,6 +2547,7 @@ dependencies = [
  "async-trait",
  "chrono",
  "getrandom 0.3.4",
+ "hex",
  "js-sys",
  "pubky",
  "secret-service",
@@ -2554,6 +2555,7 @@ dependencies = [
  "serde",
  "serde-wasm-bindgen",
  "serde_json",
+ "sha2",
  "thiserror 2.0.17",
  "tokio",
  "wasm-bindgen",
@@ -2867,16 +2869,18 @@ dependencies = [
 
 [[package]]
 name = "pubky-noise"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
+ "base64 0.22.1",
  "blake2",
  "cfg-if",
+ "chacha20poly1305",
  "curve25519-dalek",
  "ed25519-dalek",
  "hex",
  "hkdf",
  "pubky",
- "secrecy",
+ "rand 0.8.5",
  "serde",
  "serde_bytes",
  "serde_json",
@@ -3539,15 +3543,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d4387882333d3aa8cb20530a17c69a3752e97837832f34f6dccc760e715001d9"
 dependencies = [
  "cc",
-]
-
-[[package]]
-name = "secrecy"
-version = "0.8.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9bd1c54ea06cfd2f6b63219704de0b9b4f72dcc2b8fdef820be6cd799780e91e"
-dependencies = [
- "zeroize",
 ]
 
 [[package]]
