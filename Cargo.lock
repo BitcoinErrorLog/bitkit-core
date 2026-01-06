@@ -2527,7 +2527,7 @@ dependencies = [
 
 [[package]]
 name = "paykit-interactive"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "async-trait",
  "hex",
@@ -2542,7 +2542,7 @@ dependencies = [
 
 [[package]]
 name = "paykit-lib"
-version = "1.0.0"
+version = "2.0.0"
 dependencies = [
  "async-trait",
  "chrono",
@@ -2869,7 +2869,7 @@ dependencies = [
 
 [[package]]
 name = "pubky-noise"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "base64 0.22.1",
  "blake2",
