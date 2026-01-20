@@ -2550,6 +2550,8 @@ dependencies = [
  "hex",
  "js-sys",
  "pubky",
+ "pubky-noise",
+ "rand 0.8.5",
  "secret-service",
  "security-framework 2.11.1",
  "serde",
@@ -2562,6 +2564,7 @@ dependencies = [
  "wasm-bindgen-futures",
  "web-sys",
  "windows",
+ "x25519-dalek",
 ]
 
 [[package]]
