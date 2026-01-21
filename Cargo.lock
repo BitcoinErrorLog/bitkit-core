@@ -2564,7 +2564,6 @@ dependencies = [
  "wasm-bindgen-futures",
  "web-sys",
  "windows",
- "x25519-dalek",
 ]
 
 [[package]]
