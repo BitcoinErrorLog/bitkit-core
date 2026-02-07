@@ -3,12 +3,12 @@ use crate::modules::paykit::errors::PaykitError;
 use crate::modules::paykit::types::{PaykitCheckoutResult, PaykitSupportedMethods};
 use once_cell::sync::OnceCell;
 use paykit_lib::{
-    EndpointData, MethodId, PubkyAuthenticatedTransport, PubkyUnauthenticatedTransport,
+    EndpointData, MethodId, PubkyHomeserverSessionStorage, PubkyUnauthenticatedTransport,
 };
 use pubky::{Keypair, Pubky, PublicKey as PubkyId};
 use std::str::FromStr;
 
-static PAYKIT_SESSION: OnceCell<PubkyAuthenticatedTransport> = OnceCell::new();
+static PAYKIT_SESSION: OnceCell<PubkyHomeserverSessionStorage> = OnceCell::new();
 static PAYKIT_READER: OnceCell<PubkyUnauthenticatedTransport> = OnceCell::new();
 
 /// Initialize the Paykit authenticated session.
@@ -45,7 +45,7 @@ pub async fn paykit_initialize(
         .await
         .map_err(|e| PaykitError::Transport(format!("Failed to create session: {}", e)))?;
 
-    let transport = PubkyAuthenticatedTransport::new(session);
+    let transport = PubkyHomeserverSessionStorage::new(session);
 
     // Set global session (ignore error if already set)
     let _ = PAYKIT_SESSION.set(transport);
@@ -68,7 +68,7 @@ pub async fn paykit_ensure_reader() -> Result<&'static PubkyUnauthenticatedTrans
     Ok(PAYKIT_READER.get().unwrap())
 }
 
-pub async fn paykit_get_session() -> Result<&'static PubkyAuthenticatedTransport, PaykitError> {
+pub async fn paykit_get_session() -> Result<&'static PubkyHomeserverSessionStorage, PaykitError> {
     PAYKIT_SESSION.get().ok_or(PaykitError::Generic(
         "Paykit session not initialized. Call paykit_initialize first.".into(),
     ))

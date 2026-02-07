@@ -2532,6 +2532,7 @@ dependencies = [
  "async-trait",
  "hex",
  "paykit-lib",
+ "pubky-crypto",
  "pubky-noise",
  "serde",
  "serde_json",
@@ -2550,6 +2551,7 @@ dependencies = [
  "hex",
  "js-sys",
  "pubky",
+ "pubky-crypto",
  "pubky-noise",
  "rand 0.8.5",
  "secret-service",
@@ -2870,6 +2872,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "pubky-crypto"
+version = "0.1.0"
+dependencies = [
+ "base64 0.22.1",
+ "blake3",
+ "chacha20poly1305",
+ "curve25519-dalek",
+ "ed25519-dalek",
+ "hex",
+ "hkdf",
+ "rand 0.8.5",
+ "serde",
+ "serde_bytes",
+ "serde_json",
+ "sha2",
+ "thiserror 1.0.69",
+ "x25519-dalek",
+ "zeroize",
+]
+
+[[package]]
 name = "pubky-noise"
 version = "1.2.0"
 dependencies = [
@@ -2883,6 +2906,7 @@ dependencies = [
  "hex",
  "hkdf",
  "pubky",
+ "pubky-crypto",
  "rand 0.8.5",
  "serde",
  "serde_bytes",
